@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+                   http://www.springframework.org/schema/context 
+                   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:conf.properties" />
+	</bean>
+	
+	
+	<!--
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"
+		scope="prototype">
+		<property name="jndiName" value="/jdbc/visto" />
+		<property name="resourceRef" value="true" />
+	</bean>
+	-->
+
+	<!--
+		Transaction manager for a single Hibernate SessionFactory (alternative
+		to JTA)
+	-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+		<property name="driverClassName" value="${hibernate.connection.driver_class}" /> 
+		<property name="url" value="${hibernate.connection.url}" /> 
+		<property name="username" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" /> 
+		
+	</bean>
+		
+	<!-- Session Factory do Hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:core-hibernate.cfg.xml" />
+		<property name="hibernateProperties">
+			<value>				
+				hibernate.dialect=${hibernate.connection.dialect}
+				hibernate.query.substitutions=true 'Y', false 'N'
+				hibernate.cache.use_second_level_cache=false
+				hibernate.connection.lc_ctype=ISO8859_1
+				hibernate.show.sql=true
+				hibernate.format.sql=true
+			</value>
+		</property>
+	</bean>
+		
+	<bean id="daoTxTemplate" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="create*">
+					PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED
+				</prop>
+				<prop key="salvar*">
+					PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED
+				</prop>
+				<prop key="save*">
+					PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED
+				</prop>
+				<prop key="delete*">
+					PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED
+				</prop>
+				<prop key="remove*">
+					PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED
+				</prop>
+				<prop key="find*">
+					PROPAGATION_SUPPORTS,readOnly
+				</prop>
+				<prop key="get*">
+					PROPAGATION_SUPPORTS,readOnly
+				</prop>
+				<prop key="obtem*">
+					PROPAGATION_SUPPORTS,readOnly
+				</prop>
+				<prop key="exists*">
+					PROPAGATION_SUPPORTS,readOnly
+				</prop>
+			</props>
+		</property>
+	</bean>
+		
+	<!--
+		===================================================================
+	-->
+	<!--
+		AOP: Configuration and Aspects
+	-->
+	<!--
+		===================================================================
+	-->
+	
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="MessageResources" />
+	</bean>
+	
+</beans>
