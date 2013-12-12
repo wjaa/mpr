@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.wjaa.mpr.dao.PortaRetratoDAO;
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.exception.ServiceException;
 
 /**
  * 
@@ -26,11 +27,21 @@ public class PortaRetratoServiceImpl extends GenericServiceImpl<PortaRetrato, In
 	}
 
 	@Override
-	public void savePortaRetrato(PortaRetrato pr) {
+	public void savePortaRetrato(PortaRetrato pr) throws ServiceException{
+		PortaRetrato prSaved = null;
+
+		//procurando um PR pelo ID;
+		if (pr.getId() != null){
+			prSaved = this.get(pr.getId());
+		}else{
+			PortaRetrato prDuplicado = portaRetratoDAO.getPortaRetratoByPrCode(pr.getPrCode());
+			if (prDuplicado != null){
+				throw new ServiceException("PrCode já cadastrado!");
+			}
+		}
 		
-		PortaRetrato prSaved = this.getPortaRetratoByPrCode(pr.getPrCode());
 		if (prSaved != null){
-			BeanUtils.copyProperties(pr, prSaved, new String[]{"id"});
+			BeanUtils.copyProperties(pr, prSaved);
 		}
 		this.genericDao.save(pr);
 		

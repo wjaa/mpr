@@ -2,6 +2,9 @@ package br.com.wjaa.mpr.utils;
 
 import java.io.UnsupportedEncodingException;
 
+import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +13,7 @@ public class JsonUtils {
 	private static GsonBuilder builder = new GsonBuilder();
 	private static Gson gson;
 	static{
-		gson = builder.create();
+		gson = builder.excludeFieldsWithoutExposeAnnotation().create();
 	}
 	
 	public static String toJson(Object o){
@@ -26,4 +29,5 @@ public class JsonUtils {
 		
 		return "";
 	}
+	
 }

@@ -1,5 +1,9 @@
 package br.com.wjaa.mpr.entity;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
+import br.com.wjaa.mpr.exception.ServiceException;
 import br.com.wjaa.mpr.utils.JsonUtils;
 
 /**
@@ -20,13 +27,25 @@ import br.com.wjaa.mpr.utils.JsonUtils;
 public class PortaRetrato implements Comparable<PortaRetrato> {
 	
 	
+	@Expose
 	private Integer id;
+	@Expose
 	private String prCode;
+	@Expose
 	private Double preco;
+	@Expose
+	private String precoStr;
+	@Expose
 	private String nome;
+	@Expose
 	private String tipo;
+	@Expose
 	private Integer qtde;
+	@Expose
 	private String descricao;
+	
+	
+	private NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
 	
 	
 	public enum PortaRetratoType{
@@ -59,9 +78,19 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 			this.nome = nome;
 		}
 		
-		public static PortaRetratoType getPortaRetratoType(String nome){
+		public static PortaRetratoType getPortaRetratoTypeByTipo(String tipo){
 			for (PortaRetratoType type : PortaRetratoType.values()) {
-				if (type.getNome().equalsIgnoreCase(nome)){
+				if (type.getTipo().equalsIgnoreCase(tipo)){
+					return type;
+				}
+			}
+			
+			return null;
+		}
+		
+		public static PortaRetratoType getPortaRetratoTypeByName(String name){
+			for (PortaRetratoType type : PortaRetratoType.values()) {
+				if (type.getNome().equalsIgnoreCase(name)){
 					return type;
 				}
 			}
@@ -71,18 +100,7 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 		
 	}
 	
-	public PortaRetrato(){}
 	
-	public PortaRetrato(String prCode, Double preco, String nome,
-			PortaRetratoType tipoEnum, Integer qtde, String descricao) {
-		super();
-		this.prCode = prCode;
-		this.preco = preco;
-		this.nome = nome;
-		this.setTipoEnum(tipoEnum);
-		this.qtde = qtde;
-		this.descricao = descricao;
-	}
 	@Column(name = "PR_CODE", length = 15)
 	public String getPrCode() {
 		return prCode;
@@ -95,8 +113,23 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 	public Double getPreco() {
 		return preco;
 	}
+	
+	@Transient
+	public String getPrecoStr() {
+		return precoStr;
+	}
+	public void setPrecoStr(String str) throws ServiceException {
+		try {
+			this.preco = nf.parse(str).doubleValue();
+			this.precoStr = str;
+		} catch (ParseException e) {
+			throw new ServiceException("Preco inválido!", e);
+		}
+	}
+	
 	public void setPreco(Double preco) {
 		this.preco = preco;
+		this.precoStr = nf.format(this.preco);
 	}
 	
 	@Column(name = "NOME", length = 25)
@@ -118,7 +151,7 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 	
 	@Transient
 	public PortaRetratoType getTipoEnum() {
-		return PortaRetratoType.getPortaRetratoType(this.tipo);
+		return PortaRetratoType.getPortaRetratoTypeByTipo(this.tipo);
 	}
 	
 	public void setTipoEnum(PortaRetratoType tipo) {
