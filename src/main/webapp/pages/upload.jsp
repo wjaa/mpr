@@ -54,10 +54,6 @@
 <script src="assets/js/jquery.fileupload-process.js"></script>
 <!-- The File Upload image preview & resize plugin -->
 <script src="assets/js/jquery.fileupload-image.js"></script>
-<!-- The File Upload audio preview plugin -->
-<script src="assets/js/jquery.fileupload-audio.js"></script>
-<!-- The File Upload video preview plugin -->
-<script src="assets/js/jquery.fileupload-video.js"></script>
 <!-- The File Upload validation plugin -->
 <script src="assets/js/jquery.fileupload-validate.js"></script>
 <script>
