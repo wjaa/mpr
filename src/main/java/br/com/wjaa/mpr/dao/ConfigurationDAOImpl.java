@@ -1,5 +1,7 @@
 package br.com.wjaa.mpr.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.wjaa.mpr.entity.Configuration;
@@ -13,10 +15,14 @@ public class ConfigurationDAOImpl extends GenericDaoImpl<Configuration, Integer>
 
 	@Override
 	public Configuration save(Configuration c) {
-		Configuration config = this.getAll().get(0);
-		if (config != null){
-			config.setPathImgPr(c.getPathImgPr());
-			config.setPathUpload(c.getPathUpload());
+		Configuration config = c;
+		List<Configuration> configs = this.getAll();
+		if (configs.size() > 0){
+			config = this.getAll().get(0);
+			if (config != null){
+				config.setPathImgPr(c.getPathImgPr());
+				config.setPathUpload(c.getPathUpload());
+			}
 		}
 		return super.save(config);
 	}

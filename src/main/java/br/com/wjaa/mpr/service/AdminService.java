@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.exception.ServiceException;
 
 /**
  * 
@@ -12,7 +13,7 @@ import br.com.wjaa.mpr.entity.PortaRetrato;
  */
 public interface AdminService {
 	
-	void savePortaRetrato(PortaRetrato portaRetrato);
+	void savePortaRetrato(PortaRetrato portaRetrato)  throws ServiceException ;
 	
 	void saveConfiguration(Configuration config);
 

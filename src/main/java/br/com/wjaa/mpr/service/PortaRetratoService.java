@@ -3,6 +3,7 @@ package br.com.wjaa.mpr.service;
 import java.util.List;
 
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.exception.ServiceException;
 
 
 /**
@@ -13,7 +14,7 @@ import br.com.wjaa.mpr.entity.PortaRetrato;
 
 public interface PortaRetratoService{
   
-	 void savePortaRetrato(PortaRetrato pr);
+	 void savePortaRetrato(PortaRetrato pr) throws ServiceException;
 	 
 	 PortaRetrato getPortaRetratoByPrCode(String prCode);
 
