@@ -8,36 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
  * Servlet implementation class HomeController
  */
-public class HomeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+public class HomeController {
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response); 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("listPr", request.getParameter("listPr"));
+		String listPr = request.getParameter("listPr");
+		if (StringUtils.isBlank(listPr)){
+			listPr = "NORMAL";
+		}
+		request.setAttribute("listPr", listPr);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/home.jsp");  
 		dispatcher.forward(request,response);
 	}

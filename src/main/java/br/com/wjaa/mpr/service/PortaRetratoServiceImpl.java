@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.wjaa.mpr.dao.PortaRetratoDAO;
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.exception.ServiceException;
 
 /**
@@ -55,6 +56,11 @@ public class PortaRetratoServiceImpl extends GenericServiceImpl<PortaRetrato, In
 	@Override
 	public List<PortaRetrato> getAllPortaRetrato() {
 		return portaRetratoDAO.getAll();
+	}
+
+	@Override
+	public List<PortaRetrato> listPrByType(PortaRetratoType type) {
+		return this.portaRetratoDAO.listPrActivedByType(type.getTipo());
 	}
 
 	

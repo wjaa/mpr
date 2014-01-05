@@ -2,9 +2,6 @@
     <nav class="navbar" role="navigation">
     	
   			<ul class="nav navbar-nav">
-  			  <li>
-  			  	  <img src="assets/img/logo_nome_pq.jpg" width="502px" height="52px"/>
-  			  </li>
 		      <li class="dropdown">
 	   				<a href="#" class="navbar-brand" data-toggle="dropdown"><span class="label label-primary">Monte o seu agora</span> <b class="caret"></b></a>
 		    	    <ul class="dropdown-menu">

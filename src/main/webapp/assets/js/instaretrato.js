@@ -38,7 +38,6 @@ var instagram = function() {
 			instagram.getNextPage(getImagesURL,0);
 		},
 		preview: function(urlImg) {
-			
 			$('#previewModal').modal('show') ;
 			$('#previewImg').attr("src",decodeURIComponent(urlImg));
 			
@@ -81,7 +80,7 @@ var instagram = function() {
 						var url = encodeURIComponent(data.data[i].images.low_resolution.url);
 			            count++;
 						$("#instagram").append("<div class='col-sm-3 col-md-2'><a id='linkPreview" + count + "' data-toggle='" + url + "'" +
-							" class='btn btn-primary btn-lg thumbnail' href='#'>" + 
+							" class='btn btn-primary btn-lg thumbnail carregando' href='#'>" + 
 							" <img src='" + size +"'/></a></div>");
 						var id = "#linkPreview" + count;
 						$(id).click(function(){

@@ -1,21 +1,29 @@
 package br.com.wjaa.mpr.controller;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import br.com.wjaa.mpr.entity.Carrinho;
+import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
+import br.com.wjaa.mpr.service.PortaRetratoService;
 
 /**
  * Servlet implementation class PortaRetratoController
  */
-public class PortaRetratoController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+public class PortaRetratoController {
        
+	@Autowired
+	private PortaRetratoService portaRetratoService;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,39 +36,43 @@ public class PortaRetratoController extends HttpServlet {
     /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-    @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String listPr = request.getParameter("listPr");
+    @RequestMapping(value = "/listarPr", method = RequestMethod.GET)
+	protected ModelAndView listPr(@RequestParam("listPr") String listPr) {
+		ModelAndView mav = new ModelAndView("listPr");
 		if ("NORMAL".equalsIgnoreCase(listPr)){
-			//LISTAR OS PORTA RETRATOS NORMAIS
+			mav.addObject("prs",portaRetratoService.listPrByType(PortaRetratoType.NORMAL));
 		}else if ("INSTAGRAM".equalsIgnoreCase(listPr)){
-			//LISTAR OS PORTA RETRATOS NORMAIS
+			mav.addObject("prs",portaRetratoService.listPrByType(PortaRetratoType.INSTRAGRAM));
+		}else if ("FACEBOOK".equalsIgnoreCase(listPr)){
+			mav.addObject("prs",portaRetratoService.listPrByType(PortaRetratoType.FACEBOOK));
 		}
-		request.setAttribute("listPr", listPr);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/listPr.jsp");  
-		dispatcher.forward(request,response);  
+		mav.addObject("listPr", listPr);
+		return mav;  
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+    @RequestMapping(value = "/escolherPr", method = RequestMethod.GET)
+	protected ModelAndView doPost(@RequestParam("listPr")String listPr, @RequestParam("prCode")String prCode,
+			HttpServletRequest request){
+    	ModelAndView mav = new ModelAndView();
+    	Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
 		if (carrinho == null){
 			carrinho = new Carrinho();
 			request.getSession().setAttribute("carrinho",carrinho);
 		}
-		String listPr = request.getParameter("listPr");
-		carrinho.setPrCode(request.getParameter("codePr"));
-		String pagina = "index.jsp";
+		carrinho.setPrCode(prCode);
+		String pagina = "index";
 		if ("NORMAL".equalsIgnoreCase(listPr)){
-			pagina = "pages/upload.jsp";
+			pagina = "upload";
 		}else if ("INSTAGRAM".equalsIgnoreCase(listPr)){
-			pagina = "pages/uploadInstagram.jsp";
+			pagina = "uploadInstagram";
+		} else if ("FACEBOOK".equalsIgnoreCase(listPr)){
+			pagina = "uploadFacebook";
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(pagina);  
-		dispatcher.forward(request,response);
+		mav.setViewName(pagina);
+		return mav;
 		
 	}
 

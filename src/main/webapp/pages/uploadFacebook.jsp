@@ -1,26 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib tagdir="/WEB-INF/tags" prefix="wjaa" %>
 <html>
-<head>
-<title>Instaretrato</title>
-<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-<style>
-	body{
-		margin: 30px;	
-	}
-</style>
-<script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="assets/js/faceretrato.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-</head>
-<body >
+<wjaa:header/>
+<body>
+<wjaa:menu/>
+<div class="container">
+   	 <wjaa:logo/>
 
 	<div class="alert alert-danger" style="display:none;"></div>
 
 	<img src="assets/img/btnfacebook.png" id="logarFace" class="btn"/>
-	<button id="sairFace" class="btn btn-primary" >Trocar de usu·rio?</button>
+	<button id="sairFace" class="btn btn-primary" >Trocar de usu√°rio?</button>
 
+     <button id="btnAnterior" type="button" class="btn btn-default">Anterior</button>
+     <button id="btnProximo" type="button" class="btn btn-default" >Proximo</button>
 
     <div id="facebook" class="row">
   
@@ -43,7 +39,9 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
   </div>
-	
+</div>	
 </body>
-
+<script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="assets/js/faceretrato.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 </html>

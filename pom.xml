@@ -79,11 +79,23 @@
 		                username="root" password="753951"
 		                command="service tomcat6 stop" />        
 		            <sleep seconds="10" />
+		            
+		            <echo message="Removendo a versao antiga." />
+		            <sshexec trust="true" host="www.wjaa.com.br"
+		                username="root" password="753951"
+		                command="rm -r /var/lib/tomcat6/webapps/upload.war" failonerror="false" />
+		            <sleep seconds="5" />
+		            
+		            <sshexec trust="true" host="www.wjaa.com.br"
+		                username="root" password="753951" 
+		                command="rm -r /var/lib/tomcat6/webapps/upload" failonerror="false"  />
+		            <sleep seconds="5" />
+		             
 		            <echo message="Copiando o war pra o server ..." />       
 		            <scp trust="yes"
 		                file="${project.build.directory}/${project.build.finalName}.war"
 		                password="753951"
-		                remoteTofile="root@www.wjaa.com.br:/usr/share/tomcat6/webapps/upload.war" />    
+		                remoteTofile="root@www.wjaa.com.br:/var/lib/tomcat6/webapps/upload.war" />    
 		            <echo message="Iniciando o tomcat ..." />        
 		            <sshexec trust="true" host="www.wjaa.com.br" username="root" password="753951" 
 		                 command="service tomcat6 start" />

@@ -4015,7 +4015,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   /*position: relative;*/
   z-index: 1000;
   min-height: 30px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   /*border: 1px solid transparent;*/
 }
 
@@ -4269,8 +4269,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    /*padding-top: 15px;
+    padding-bottom: 15px;*/
   }
 }
 
@@ -4800,7 +4800,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .label {
   display: inline;
   padding: .2em .6em .3em;
-  font-size: 130%;
+  font-size: 100%;
   font-weight: bold;
   line-height: 1;
   color: #ffffff;
@@ -4961,7 +4961,7 @@ a.list-group-item.active > .badge,
   padding: 4px;
   line-height: 1.428571429;
   background-color: #ffffff;
-  border: 1px solid #dddddd;
+  border: 2px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
           transition: all 0.2s ease-in-out;

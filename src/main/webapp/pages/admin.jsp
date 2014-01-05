@@ -147,6 +147,7 @@
   
   function editar(prJson){
 	  var pr = $.parseJSON(decodeURIComponent(prJson));
+	  
 	  $("#idPr").attr('value',pr.id);
 	  $("#prCode").attr('value',pr.prCode);
 	  $("#nome").attr('value',pr.nome);

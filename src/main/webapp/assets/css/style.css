@@ -9,9 +9,13 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
+html {
+  height: 100%;
+}
 
 body {
-  padding-top: 10px;
+  background-color: black;
+  height: 100%;
 }
 
 .center{
@@ -37,7 +41,38 @@ body {
 	
 	
 }
+.container{
+	background: #fff; 
+	padding: 5px; 
+	min-width:950px; 
+	max-width: 1000px; 
+	margin: 0 auto; 
+	border: 1px solid  #e6e6e6; 
+	position: relative;
+	
+}
+.divmenu{
+	padding: 10px; 
+	min-width:950px; 
+	max-width: 1000px; 
+	margin: 0 auto; 
+	position: relative;
+}
 
-.navbar-nav img{
-	cursor: crosshair;
+.carregando {
+	background-image: url("assets/img/carregando.gif");
+	background-repeat: no-repeat;
+	background-size: 150px 150px;
+	width: 150px;
+	height: 150px;
+	vertical-align: middle; 
+	text-align: center;
+}
+
+#logo{
+	margin-bottom: 10px;
+}
+
+.pr-list{
+	margin-top: 10px;
 }

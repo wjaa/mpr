@@ -6,22 +6,13 @@
 <html>
 <wjaa:header/>
 <body>
-
+<wjaa:menu/>
 <div class="container">
-   	 <wjaa:top/>
-   	 
-   	 <ol class="breadcrumb">
-		<li><span class="label label-success">1° Escolha o Porta retrato</span></li>
-		<li><span class="label label-default">2° Envie Sua foto</span></li>
-		<li><span class="label label-default">3° Veja como ficou</span></li>
-	 </ol>
-   	 
-   	 
-      <!-- Jumbotron -->
-    <div class="jumbotron">
-        <h2>1° passo.  Escolha o seu porta retrato.</h2>
-        <p class="lead">Escolha entre porta retratos comuns ou porta retratos especificos para instagram.</p>
-	</div>
+   	 <wjaa:logo/>
+     <div class="jumbotron page-header" style="margin: 0px;">
+        <h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Escolha o seu porta retrato.<br><br>
+        <small>Escolha entre porta retratos comuns ou porta retratos especificos para instagram.</small></h4>
+	 </div>
 	
 	<div class="pr-list">
 		   

@@ -19,31 +19,22 @@
 	</style>
 </head>
 <body>
-
+<wjaa:menu/>
 <div class="container">
-   	 <wjaa:top/>
-   	 <ol class="breadcrumb">
-	
-		<li ><a href="/upload"><span class="label label-success">1° Escolha o Porta retrato</span> </a></li>
-		<li ><a href="#" onclick="openPageUpload()"><span class="label label-success">2° Envie Sua foto</span></a></li>
-		<li><span class="label label-success">3° Veja como ficou</span></li>
-	 </ol>
-
-
-      	<!-- Jumbotron -->
-    	<div class="jumbotron">
-        <h1>Resultado final, o que achou?</h1>
-        <p class="lead">Seu porta retrato ficará desse jeito.</p>
-        </div>
-        <div class="center">
-			<div id="base" >
-				<img alt="preview" src="assets/img/portaretrato.gif" width="300px" height="378px"/>
-			</div>
-		    <br/>
-		    <span class="btn btn-danger">
-		        <i class="glyphicon glyphicon-plus"></i>
-		        <span>Voltar.</span>
-		    </span>
+ 	<wjaa:logo/>
+   	<div class="jumbotron page-header" style="margin: 0px;">
+       	<h4><span class="label label-primary">3° passo.</span>&nbsp;&nbsp;Seu porta retrato ficará assim.<br><br>
+       	<small>Gostou? clique no link do pagseguro para comprar o porta retrato.</small></h4>
+ 	 </div> 
+       <div class="center">
+		<div id="base" >
+			<img alt="preview" src="/static/img/${sessionScope.carrinho.prCode}.png" width="300px" height="378px"/>
+		</div>
+	    <br/>
+	    <span class="btn btn-danger">
+	        <i class="glyphicon glyphicon-plus"></i>
+        <span>Voltar.</span>
+	    </span>
 		    
 		    <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
 			<form target="pagseguro" action="https://pagseguro.uol.com.br/checkout/v2/cart.html?action=add" method="post">

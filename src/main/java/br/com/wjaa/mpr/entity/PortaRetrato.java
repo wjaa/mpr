@@ -101,7 +101,7 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 	}
 	
 	
-	@Column(name = "PR_CODE", length = 15)
+	@Column(name = "PR_CODE", length = 20)
 	public String getPrCode() {
 		return prCode;
 	}
@@ -132,7 +132,7 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 		this.precoStr = nf.format(this.preco);
 	}
 	
-	@Column(name = "NOME", length = 25)
+	@Column(name = "NOME", length = 50)
 	public String getNome() {
 		return nome;
 	}
