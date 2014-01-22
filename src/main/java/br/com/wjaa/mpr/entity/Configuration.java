@@ -1,5 +1,7 @@
 package br.com.wjaa.mpr.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,13 @@ import javax.persistence.Table;
 
 @Entity(name = "Configuration")
 @Table(name = "CONFIG")
-public class Configuration {
+public class Configuration implements Serializable{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3450244266601521758L;
 	
 	private Integer id;
 	private String pathImgPr;

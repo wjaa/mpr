@@ -3,6 +3,8 @@ package br.com.wjaa.mpr.service;
 import java.util.List;
 
 import br.com.wjaa.mpr.entity.Configuration;
+import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.ServiceException;
 
@@ -20,5 +22,11 @@ public interface AdminService {
 	List<PortaRetrato> getAllPortaRetrato();
 
 	Configuration getConfig();
+
+	void deletePortaRetratoById(Integer idPr);
+
+	PortaRetrato getPortaRetratoById(Integer idPr);
+
+	List<Pedido> listarPedidos(PedidoBuscaForm form);
 
 }

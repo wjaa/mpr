@@ -2,6 +2,8 @@ package br.com.wjaa.mpr.service;
 
 import java.util.List;
 
+import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.exception.ServiceException;
@@ -13,7 +15,7 @@ import br.com.wjaa.mpr.exception.ServiceException;
  *
  */
 
-public interface PortaRetratoService{
+public interface PortaRetratoService extends GenericService<PortaRetrato, Integer>{
   
 	 void savePortaRetrato(PortaRetrato pr) throws ServiceException;
 	 
@@ -22,5 +24,13 @@ public interface PortaRetratoService{
 	List<PortaRetrato> getAllPortaRetrato();
 
 	List<PortaRetrato> listPrByType(PortaRetratoType type);
+
+	void deletePortaRetrato(Integer idPr);
+
+	Pedido criarPedido(String path, String ext, Integer id);
+
+	Pedido alterarPedido(Pedido pedido, String path, String ext, Integer id);
+
+	List<Pedido> listPedidosByForm(PedidoBuscaForm form);
 	
 }

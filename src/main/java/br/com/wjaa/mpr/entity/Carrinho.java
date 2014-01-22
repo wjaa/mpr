@@ -8,17 +8,12 @@ package br.com.wjaa.mpr.entity;
 public class Carrinho {
 
 	
-	private String prCode;
+	private PortaRetrato portaRetrato;
 	private String imgPath;
 	private String imgUrl;
+	//TODO UM CARRINHO TEM QUE TER MAIS DE UM PEDIDO. PORQUE UM PEDIDO PODE SUBSTITUIR O OUTRO SEM QUERER NO UPLOAD.
+	private Pedido pedido;
 	
-	
-	public String getPrCode() {
-		return prCode;
-	}
-	public void setPrCode(String prCode) {
-		this.prCode = prCode;
-	}
 	public String getImgPath() {
 		return imgPath;
 	}
@@ -30,6 +25,18 @@ public class Carrinho {
 	}
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	public PortaRetrato getPortaRetrato() {
+		return portaRetrato;
+	}
+	public void setPortaRetrato(PortaRetrato portaRetrato) {
+		this.portaRetrato = portaRetrato;
+	}
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 }

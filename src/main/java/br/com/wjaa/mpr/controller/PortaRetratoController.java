@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.wjaa.mpr.entity.Carrinho;
+import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.service.PortaRetratoService;
 
@@ -62,7 +63,10 @@ public class PortaRetratoController {
 			carrinho = new Carrinho();
 			request.getSession().setAttribute("carrinho",carrinho);
 		}
-		carrinho.setPrCode(prCode);
+		
+		PortaRetrato pr = this.portaRetratoService.getPortaRetratoByPrCode(prCode);
+		
+		carrinho.setPortaRetrato(pr);
 		String pagina = "index";
 		if ("NORMAL".equalsIgnoreCase(listPr)){
 			pagina = "upload";

@@ -1,7 +1,10 @@
 package br.com.wjaa.mpr.entity;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.Column;
@@ -11,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.annotations.Expose;
 
@@ -24,7 +29,13 @@ import br.com.wjaa.mpr.utils.JsonUtils;
  */
 @Entity(name = "PortaRetrato")
 @Table(name = "PORTA_RETRATO")
-public class PortaRetrato implements Comparable<PortaRetrato> {
+public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7003571609736091498L;
 	
 	
 	@Expose
@@ -43,6 +54,10 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 	private Integer qtde;
 	@Expose
 	private String descricao;
+	
+	private MultipartFile thumb;
+	
+	private MultipartFile preview;
 	
 	
 	private NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
@@ -195,6 +210,34 @@ public class PortaRetrato implements Comparable<PortaRetrato> {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	@Transient
+	public MultipartFile getThumb() {
+		return thumb;
+	}
+	public void setThumb(MultipartFile thumb) {
+		this.thumb = thumb;
+	}
+	
+	@Transient
+	public MultipartFile getPreview() {
+		return preview;
+	}
+	public void setPreview(MultipartFile preview) {
+		this.preview = preview;
+	}
+	
+	
+	public boolean hasImageUploaded(){
+		return this.thumb != null || this.preview != null;
+	}
+	public boolean hasThumb() throws IOException {
+		return getThumb() != null && getThumb().getInputStream().available() > 0;
+	}
+	
+	public boolean hasPreview() throws IOException {
+		return getPreview() != null && getPreview().getInputStream().available() > 0;
 	}
 	
 }

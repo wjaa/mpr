@@ -11,24 +11,33 @@
    	 <wjaa:logo/>
       <!-- Jumbotron -->
       <div class="jumbotron page-header" style="margin: 0px;">
-        <h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Envie sua foto. <br><br>
-        <small>Sua foto será tratada da melhor forma para uma boa impressão.</small></h4>
-         <span class="btn btn-success fileinput-button">
-	        <i class="glyphicon glyphicon-plus"></i>
-	        <span>Adicionar Foto...</span>
-	        <!-- The file input field used as target for the file upload widget -->
-	        <input id="fileupload" type="file" name="files[]" multiple>
-	    </span>
-	    <br>
-	    <!-- The container for the uploaded files -->
-	    <div id="files" class="files"></div>
+      	
+      		<div style="float: left">
+	        	<h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Envie sua foto. <br><br>
+	        	<small>Sua foto será tratada da melhor forma para uma boa impressão.</small></h4>
+	        	
+	        	<span class="btn btn-success fileinput-button">
+		        <i class="glyphicon glyphicon-plus"></i>
+		        <span>Adicionar Foto...</span>
+		        <!-- The file input field used as target for the file upload widget -->
+		        <input id="fileupload" type="file" name="files[]" multiple>
+			    </span>
+			    <br>
+			    <!-- The container for the uploaded files -->
+			    <div id="files" class="files"></div>
+			    
+			    <div id="progress" class="progress" style="display:none">
+			       <div class="progress-bar progress-bar-success"></div>
+			    </div>
+		    	
+	        </div>
+	        
+	        <wjaa:prEscolhido/>
+	        
+	        
+	        
 	    
-	    <div id="progress" class="progress" style="display:none">
-	       <div class="progress-bar progress-bar-success"></div>
-	    </div>
-	    
-	    
-	   </div>
+	 </div>
 
 	<div class="modal fade" id="previewModal">
       <div class="modal-dialog" style='width:375px;'>

@@ -9,11 +9,6 @@
     <display-name>UploadController</display-name>
     <servlet-name>UploadController</servlet-name>
     <servlet-class>br.com.wjaa.mpr.controller.UploadController</servlet-class>
-    <init-param>
-      <description>Define storagepath for fileuploads</description>
-      <param-name>upload_path</param-name>
-      <param-value>/tmp/fileupload</param-value>
-    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>UploadController</servlet-name>
@@ -32,9 +27,7 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-	  		classpath:core-beans-service.xml,
-	  		classpath:core-beans-resource.xml,
-	  		classpath:core-action-servlet.xml
+	  		classpath:applicationContext.xml,
 	  	</param-value>
   </context-param>
   

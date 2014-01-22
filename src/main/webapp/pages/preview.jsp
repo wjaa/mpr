@@ -28,7 +28,7 @@
  	 </div> 
        <div class="center">
 		<div id="base" >
-			<img alt="preview" src="/static/img/${sessionScope.carrinho.prCode}.png" width="300px" height="378px"/>
+			<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="300px" height="378px"/>
 		</div>
 	    <br/>
 	    <span class="btn btn-danger">

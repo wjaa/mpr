@@ -22,7 +22,8 @@ public class JsonUtils {
 	
 	public static String toJsonEncode(Object o){
 		try {
-			return java.net.URLEncoder.encode(gson.toJson(o), "ISO-8859-1");
+			String json = java.net.URLEncoder.encode(gson.toJson(o), "UTF-8").replace("+", "%20");
+			return json;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

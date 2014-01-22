@@ -3,7 +3,14 @@
 	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
+	    
+	    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+			
+	    
 		 <mapping class="br.com.wjaa.mpr.entity.PortaRetrato" />
 		 <mapping class="br.com.wjaa.mpr.entity.Configuration" />
+		 <mapping class="br.com.wjaa.mpr.entity.Pedido" />
 	</session-factory>
 </hibernate-configuration>

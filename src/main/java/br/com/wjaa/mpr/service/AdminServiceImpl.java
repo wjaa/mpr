@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wjaa.mpr.dao.ConfigurationDAO;
 import br.com.wjaa.mpr.entity.Configuration;
+import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.ServiceException;
 
@@ -15,7 +19,7 @@ import br.com.wjaa.mpr.exception.ServiceException;
  * @author root
  *
  */
-@Service
+@Service("adminService")
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
@@ -30,6 +34,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void saveConfiguration(Configuration config) {
 		configurationDAO.save(config);
 	}
@@ -45,7 +50,21 @@ public class AdminServiceImpl implements AdminService{
 		return listConfig.size() > 0 ? listConfig.get(0) : null;
 	}
 
+	@Override
+	public void deletePortaRetratoById(Integer idPr) {
+		this.portaRetratoService.deletePortaRetrato(idPr);
+		
+	}
 
-	
+	@Override
+	public PortaRetrato getPortaRetratoById(Integer idPr) {
+		return this.portaRetratoService.get(idPr);
+		
+	}
+
+	@Override
+	public List<Pedido> listarPedidos(PedidoBuscaForm form) {
+		return this.portaRetratoService.listPedidosByForm(form);
+	}
 	
 }

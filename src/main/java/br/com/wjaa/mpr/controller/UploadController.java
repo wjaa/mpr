@@ -26,6 +26,13 @@ import org.apache.commons.logging.LogFactory;
 import org.imgscalr.Scalr;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.context.ContextLoader;
+
+import br.com.wjaa.mpr.entity.Carrinho;
+import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
+import br.com.wjaa.mpr.service.AdminService;
+import br.com.wjaa.mpr.service.PortaRetratoService;
 
 /**
  * Servlet implementation class UploadController
@@ -38,10 +45,14 @@ public class UploadController extends HttpServlet {
 	
 	private File fileUploadPath;
 	private static final Log LOG = LogFactory.getLog(UploadController.class);
+	private PortaRetratoService portaRetratoService;
+	
 	
     @Override
     public void init(ServletConfig config) {
-        fileUploadPath = new File(config.getInitParameter("upload_path"));
+    	AdminService adminService = (AdminService) ContextLoader.getCurrentWebApplicationContext().getBean("adminService");
+    	portaRetratoService = (PortaRetratoService) ContextLoader.getCurrentWebApplicationContext().getBean("portaRetratoService");
+        fileUploadPath = new File(adminService.getConfig().getPathUpload());
     }
         
     /**
@@ -50,8 +61,6 @@ public class UploadController extends HttpServlet {
         */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        
         if (request.getParameter("getfile") != null 
                 && !request.getParameter("getfile").isEmpty()) {
             File file = new File(fileUploadPath,
@@ -128,7 +137,7 @@ public class UploadController extends HttpServlet {
         	LOG.error("request nao é multipart");
             throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
         }
-
+        
         ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
         PrintWriter writer = response.getWriter();
         response.setContentType("application/json");
@@ -142,13 +151,23 @@ public class UploadController extends HttpServlet {
                 		if(!folder.exists()){
                 			folder.mkdirs();
                 		}
-                		
-                        File file = new File(fileUploadPath, item.getName());
+                		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
+                		Pedido pedido;
+                		if (this.novoPedidoOuPedidoFinalizado(carrinho)){
+                			pedido = portaRetratoService.criarPedido(fileUploadPath.getPath(), this.getExtensao(item.getName()),
+                					carrinho.getPortaRetrato().getId());
+                			carrinho.setPedido(pedido);
+                		}else{
+                			pedido = carrinho.getPedido();
+                			pedido = portaRetratoService.alterarPedido(pedido, fileUploadPath.getPath(), 
+                					this.getExtensao(item.getName()), carrinho.getPortaRetrato().getId());
+                		}
+                        File file = new File(pedido.getPathImage());
                         item.write(file);
                         JSONObject jsono = new JSONObject();
                         jsono.put("name", item.getName());
                         jsono.put("size", item.getSize());
-                        String param = java.net.URLEncoder.encode("upload?getfile=" + item.getName(), "ISO-8859-1");
+                        String param = java.net.URLEncoder.encode("upload?getfile=" + file.getName(), "ISO-8859-1");
                         jsono.put("url","preview?imgUrl="+param);
                         jsono.put("thumbnail_url", "upload?getthumb=" + item.getName());
                         jsono.put("delete_url", "upload?delfile=" + item.getName());
@@ -170,7 +189,17 @@ public class UploadController extends HttpServlet {
 
     }
 
-    private String getMimeType(File file) {
+    private boolean novoPedidoOuPedidoFinalizado(Carrinho carrinho) {
+		//se nao tem pedido ou é um pedido finalizado.
+    	return 	carrinho.getPedido() == null || 
+				PedidoStatus.CONCLUIDO.equals(carrinho.getPedido().getStatus());
+	}
+
+	private String getExtensao(String name) {
+		return name.substring(name.lastIndexOf(".")+1);
+	}
+
+	private String getMimeType(File file) {
         String mimetype = "";
         if (file.exists()) {
 //            URLConnection uc = new URL("file://" + file.getAbsolutePath()).openConnection();
