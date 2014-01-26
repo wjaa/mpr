@@ -32,7 +32,6 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		}
 		
 		sql.append(" order by p.id ");
-		
 		Query q = getSession()
 		.createQuery(sql.toString());
 		if (StringUtils.isNotBlank(form.getDataInicio()) && 
@@ -46,6 +45,14 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		}
 		
 		return q.list();
+	}
+
+	@Override
+	public Pedido saveOrUpdate(Pedido pedido) {
+		pedido = this.save(pedido);
+		this.getHibernateTemplate().flush();
+		this.getHibernateTemplate().evict(pedido);
+		return this.get(pedido.getId());
 	}
 
 }

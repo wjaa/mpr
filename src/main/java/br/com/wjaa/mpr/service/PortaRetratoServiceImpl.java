@@ -80,32 +80,5 @@ public class PortaRetratoServiceImpl extends GenericServiceImpl<PortaRetrato, In
 	public void deletePortaRetrato(Integer idPr) {
 		this.portaRetratoDAO.remove(idPr);
 	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
-	public Pedido criarPedido(String path, String ext, Integer idPr) {
-		Pedido pedido = new Pedido();
-		pedido.setDataPedido(new Date());
-		pedido.setPathImage(path);
-		pedido.setStatusEnum(PedidoStatus.INICIADO);
-		pedido.setIdPortaRetrato(idPr);
-		pedido = this.pedidoDAO.save(pedido);
-		return alterarPedido(pedido, path, ext, idPr);
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
-	public Pedido alterarPedido(Pedido pedido, String path, String ext, Integer idPr) {
-		Pedido alterarPedido = this.pedidoDAO.get(pedido.getId());
-		PortaRetrato pr = this.portaRetratoDAO.get(idPr);
-		alterarPedido.setPathImage(path + File.separator + alterarPedido.getId() + "_" + pr.getPrCode() + "." + ext);
-		return this.pedidoDAO.save(alterarPedido);
-	}
-
-	@Override
-	public List<Pedido> listPedidosByForm(PedidoBuscaForm form) {
-		return this.pedidoDAO.listPedidosByForm(form);
-	}
-
 	
 }

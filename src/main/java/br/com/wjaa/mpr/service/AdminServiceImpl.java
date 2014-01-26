@@ -28,6 +28,10 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	public ConfigurationDAO configurationDAO;
 	
+	@Autowired
+	public PedidoService pedidoService;
+	
+	
 	@Override
 	public void savePortaRetrato(PortaRetrato portaRetrato) throws ServiceException {
 		portaRetratoService.savePortaRetrato(portaRetrato);
@@ -64,7 +68,7 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<Pedido> listarPedidos(PedidoBuscaForm form) {
-		return this.portaRetratoService.listPedidosByForm(form);
+		return this.pedidoService.listPedidosByForm(form);
 	}
 	
 }

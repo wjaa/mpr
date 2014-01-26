@@ -32,6 +32,7 @@ import br.com.wjaa.mpr.entity.Carrinho;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.service.AdminService;
+import br.com.wjaa.mpr.service.PedidoService;
 import br.com.wjaa.mpr.service.PortaRetratoService;
 
 /**
@@ -46,12 +47,14 @@ public class UploadController extends HttpServlet {
 	private File fileUploadPath;
 	private static final Log LOG = LogFactory.getLog(UploadController.class);
 	private PortaRetratoService portaRetratoService;
+	private PedidoService pedidoService;
 	
 	
     @Override
     public void init(ServletConfig config) {
     	AdminService adminService = (AdminService) ContextLoader.getCurrentWebApplicationContext().getBean("adminService");
     	portaRetratoService = (PortaRetratoService) ContextLoader.getCurrentWebApplicationContext().getBean("portaRetratoService");
+    	pedidoService = (PedidoService) ContextLoader.getCurrentWebApplicationContext().getBean("pedidoService");
         fileUploadPath = new File(adminService.getConfig().getPathUpload());
     }
         
@@ -154,14 +157,14 @@ public class UploadController extends HttpServlet {
                 		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
                 		Pedido pedido;
                 		if (this.novoPedidoOuPedidoFinalizado(carrinho)){
-                			pedido = portaRetratoService.criarPedido(fileUploadPath.getPath(), this.getExtensao(item.getName()),
+                			pedido = pedidoService.criar(fileUploadPath.getPath(), this.getExtensao(item.getName()),
                 					carrinho.getPortaRetrato().getId());
-                			carrinho.setPedido(pedido);
                 		}else{
                 			pedido = carrinho.getPedido();
-                			pedido = portaRetratoService.alterarPedido(pedido, fileUploadPath.getPath(), 
+                			pedido = pedidoService.alterar(pedido, fileUploadPath.getPath(), 
                 					this.getExtensao(item.getName()), carrinho.getPortaRetrato().getId());
                 		}
+                		carrinho.setPedido(pedido);
                         File file = new File(pedido.getPathImage());
                         item.write(file);
                         JSONObject jsono = new JSONObject();

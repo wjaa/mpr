@@ -26,11 +26,5 @@ public interface PortaRetratoService extends GenericService<PortaRetrato, Intege
 	List<PortaRetrato> listPrByType(PortaRetratoType type);
 
 	void deletePortaRetrato(Integer idPr);
-
-	Pedido criarPedido(String path, String ext, Integer id);
-
-	Pedido alterarPedido(Pedido pedido, String path, String ext, Integer id);
-
-	List<Pedido> listPedidosByForm(PedidoBuscaForm form);
 	
 }

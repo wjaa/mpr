@@ -10,4 +10,7 @@ public interface PedidoDAO extends GenericDao<Pedido, Integer> {
 
 	
 	List<Pedido> listPedidosByForm(PedidoBuscaForm form);
+	
+	Pedido saveOrUpdate(Pedido pedido);
+
 }
