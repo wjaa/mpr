@@ -4,7 +4,7 @@
 			<div class="caption">
    				<h4>Você escolheu o porta retrato:</h4>
  				</div>
- 			<img src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_T.png" alt="Porta Retrato Escolhido" width="100" height="50">
+ 			<img id="prZoom" src='/static/img/${sessionScope.carrinho.portaRetrato.prCode}_T.png' data-zoom-image="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_TZ.png"/>	
  			<div class="caption">
    			<h6>${sessionScope.carrinho.portaRetrato.nome}</h6>
  			</div>

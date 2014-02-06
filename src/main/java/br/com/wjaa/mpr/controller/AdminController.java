@@ -4,28 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
-import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
-import br.com.wjaa.mpr.exception.PrConfigException;
 import br.com.wjaa.mpr.exception.ServiceException;
 import br.com.wjaa.mpr.service.AdminService;
 
@@ -166,7 +161,14 @@ public class AdminController {
 				 //gravando o thumb
 				 FileUtils.writeByteArrayToFile(new File(folder.getPath() + File.separator + thumbName), 
 						 portaRetrato.getThumb().getBytes());
-			 }	 
+			 }	
+			 
+			 if (portaRetrato.hasThumbZoom()){
+				 String thumbZoomName = portaRetrato.getPrCode() + "_TZ.png";
+				 //gravando o thumb zoom
+				 FileUtils.writeByteArrayToFile(new File(folder.getPath() + File.separator + thumbZoomName), 
+						 portaRetrato.getThumbZoom().getBytes());
+			 }	
 
 		 }
 	}

@@ -33,13 +33,10 @@
 	        </div>
 	        
 	        <wjaa:prEscolhido/>
-	        
-	        
-	        
-	    
 	 </div>
 
-	<div class="modal fade" id="previewModal">
+	<!-- GERAR UMA TAG DESSE CARA -->
+	<div class="modal fade" id="aguardeModal">
       <div class="modal-dialog" style='width:375px;'>
         <div class="modal-content">
           <div class="modal-header">
@@ -52,6 +49,7 @@
         </div>
       </div>
   	</div>
+  	<!-- FIMMMMM -->
 	   
 	    
 	
@@ -59,4 +57,5 @@
 </body>
 <wjaa:botton ondeEstou="upload"/> 
 <wjaa:upload_js/>
+<wjaa:prEscolhido_js/>
 </html>

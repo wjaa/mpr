@@ -10,8 +10,14 @@
 			  					<input type="hidden" name="listPr" value="${requestScope.listPr}">
 			  					<input type="hidden" name="prCode" value="${pr.prCode}">
 			    				
-				    			<img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="porta retrato" width="90px" height="130px">
-			    				
+			    				<c:choose>
+			    				   <c:when test="${pr.tipo == 'I'}">
+			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="porta retrato" width="130px" height="130px">
+			    				   </c:when>
+			    				   <c:otherwise>
+			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="porta retrato" width="90px" height="130px">
+			    				   </c:otherwise>
+			    				</c:choose>
 			    				<div class="caption">
 			      					<div style="height:50px;overflow: auto;"><h6>${pr.nome}</h6></div>
 			     				 	<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${pr.precoStr}</span></h3>

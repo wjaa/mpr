@@ -105,7 +105,7 @@ function startPage(){
                 $(data.context.children()[index])
                     .wrap(link);
                 
-                $("#previewModal").modal('show');
+                $("#aguardeModal").modal('show');
                 
                 setTimeout(function(){
                 	window.location.href = file.url;

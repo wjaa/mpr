@@ -8,7 +8,7 @@
 <body>
 
 	<div class="container">
-	   	 <wjaa:top/>
+	   	 <wjaa:logo/>
 	 <div class="carousel-size">  	 
 		 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->

@@ -11,7 +11,16 @@
    	 <wjaa:logo/>
      <div class="jumbotron page-header" style="margin: 0px;">
         <h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Escolha o seu porta retrato.<br><br>
-        <small>Escolha entre porta retratos comuns ou porta retratos especificos para instagram.</small></h4>
+        <small>
+        <c:if test="${listPr == 'NORMAL' }">
+        	Os porta retratos abaixo são para fotos no estilo paisagem ou retrato. Trabalhamos apenas  com os tamanhos 10x15, 13x18 e 15x21. Em breve termos novos modelos e outros tamanhos.
+        </c:if>
+        
+        <c:if test="${listPr == 'INSTAGRAM' }">
+        	Os porta retratos abaixo são exclusivos para fotos de instagram. Trabalhamos apenas com os tamanhos 15x15, 18x18 e 21x21. Em breve teremos novos modelos e outros tamanhos.
+        </c:if>
+        
+		</small></h4>
 	 </div>
 	
 	<div class="pr-list">
@@ -20,4 +29,9 @@
 </div>
 </body>
 <wjaa:botton ondeEstou="HOME" listPr="${listPr}"/>
+<script>
+$(".pr-list").load("listarPr?listPr=${listPr}" ,function( data ) {
+	$(".pr-list").html( data );
+});
+</script>
 </html>

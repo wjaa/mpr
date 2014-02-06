@@ -2,10 +2,7 @@ package br.com.wjaa.mpr.entity;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +14,11 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.annotations.Expose;
-
 import br.com.wjaa.mpr.exception.ServiceException;
 import br.com.wjaa.mpr.utils.JsonUtils;
+import br.com.wjaa.mpr.utils.NumberUtils;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * 
@@ -59,9 +57,7 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	
 	private MultipartFile preview;
 	
-	
-	private NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
-	
+	private MultipartFile thumbZoom;
 	
 	public enum PortaRetratoType{
 		
@@ -135,7 +131,7 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	}
 	public void setPrecoStr(String str) throws ServiceException {
 		try {
-			this.preco = nf.parse(str).doubleValue();
+			this.preco = NumberUtils.parseDecimal(str);
 			this.precoStr = str;
 		} catch (ParseException e) {
 			throw new ServiceException("Preco inválido!", e);
@@ -144,7 +140,7 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	
 	public void setPreco(Double preco) {
 		this.preco = preco;
-		this.precoStr = nf.format(this.preco);
+		this.precoStr = NumberUtils.formatDecimal(this.preco);
 	}
 	
 	@Column(name = "NOME", length = 50)
@@ -228,9 +224,18 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 		this.preview = preview;
 	}
 	
+	@Transient
+	public MultipartFile getThumbZoom() {
+		return thumbZoom;
+	}
+	public void setThumbZoom(MultipartFile thumbZoom) {
+		this.thumbZoom = thumbZoom;
+	}
+	
+	
 	
 	public boolean hasImageUploaded(){
-		return this.thumb != null || this.preview != null;
+		return this.thumb != null || this.preview != null || this.thumbZoom != null;
 	}
 	public boolean hasThumb() throws IOException {
 		return getThumb() != null && getThumb().getInputStream().available() > 0;
@@ -239,5 +244,10 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	public boolean hasPreview() throws IOException {
 		return getPreview() != null && getPreview().getInputStream().available() > 0;
 	}
+	
+	public boolean hasThumbZoom() throws IOException {
+		return getThumbZoom() != null && getThumbZoom().getInputStream().available() > 0;
+	}
+	
 	
 }
