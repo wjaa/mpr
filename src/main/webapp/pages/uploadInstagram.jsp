@@ -84,7 +84,7 @@
 
 </div>
 </body>
-<wjaa:botton ondeEstou="uploadInstagram"/>
+<wjaa:botton/>
 <wjaa:prEscolhido_js/>
 <script>
    function buscar(){

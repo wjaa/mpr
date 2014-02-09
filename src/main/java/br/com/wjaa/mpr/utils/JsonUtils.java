@@ -2,9 +2,6 @@ package br.com.wjaa.mpr.utils;
 
 import java.io.UnsupportedEncodingException;
 
-import br.com.wjaa.mpr.entity.PortaRetrato;
-import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,6 +26,11 @@ public class JsonUtils {
 		}
 		
 		return "";
+	}
+
+	public static <T> T fromJSON(String json,
+			Class<T> clazz) {
+		return gson.fromJson(json, clazz);
 	}
 	
 }

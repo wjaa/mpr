@@ -15,7 +15,7 @@
 		        	</ul>
 		      </li>
   			    			  <li>
-   					<a class="navbar-brand" href="#"><span class="label label-default">Pedido</span></a>
+   					<a class="navbar-brand" href="pedido"><span class="label label-default">Pedido</span></a>
   			  </li>
   			  <li>
    					<a class="navbar-brand" href="#"><span class="label label-default">Contato</span></a>

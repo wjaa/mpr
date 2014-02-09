@@ -21,6 +21,6 @@
 	 
        
 </div>       
-<wjaa:botton ondeEstou="pagamento"/>
+<wjaa:botton/>
 </body>
 </html>

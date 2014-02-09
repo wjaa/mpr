@@ -91,7 +91,7 @@
 
  
 </body>
-<wjaa:botton ondeEstou="PREVIEW"/>
+<wjaa:botton/>
 <script>
 $("#btnFinalizar").on('click', function () {
 	window.location.href = 'pagar';	

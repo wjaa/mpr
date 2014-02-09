@@ -24,7 +24,7 @@ public class HomeController {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String listPr = request.getParameter("listPr");
 		if (StringUtils.isBlank(listPr)){
-			listPr = "NORMAL";
+			listPr = "INSTAGRAM";
 		}
 		request.setAttribute("listPr", listPr);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/home.jsp");  

@@ -28,7 +28,7 @@
 	</div>
 </div>
 </body>
-<wjaa:botton ondeEstou="HOME" listPr="${listPr}"/>
+<wjaa:botton/>
 <script>
 $(".pr-list").load("listarPr?listPr=${listPr}" ,function( data ) {
 	$(".pr-list").html( data );

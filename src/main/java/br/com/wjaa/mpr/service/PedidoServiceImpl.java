@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-import javax.net.ssl.SSLEngineResult.Status;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wjaa.mpr.dao.PedidoDAO;
 import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
+import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
-import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 
 @Service("pedidoService")
 public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> implements PedidoService{
@@ -52,8 +51,10 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 		pedido.setPathImage(path);
 		pedido.setStatusEnum(PedidoStatus.INICIADO);
 		pedido.setIdPortaRetrato(idPr);
+		pedido.setEmailEnviadoEnum(EmailEnviadoStatus.NAO_ENVIADO);
 		pedido = this.pedidoDAO.saveOrUpdate(pedido);
 		pedido = this.alterar(pedido, path, ext, idPr);
+		
 		return pedido;
 	}
 

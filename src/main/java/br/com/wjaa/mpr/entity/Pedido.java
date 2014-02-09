@@ -37,6 +37,7 @@ public class Pedido implements Serializable{
 	private String status;
 	private PortaRetrato portaRetrato;
 	private String codigoTransacao;
+	private String emailEnviado ;
 	
 	public enum PedidoStatus{
 		
@@ -83,6 +84,40 @@ public class Pedido implements Serializable{
 			return null;
 		}
 		
+	}
+	
+	public enum EmailEnviadoStatus{
+		
+		ENVIADO("I"),
+		NAO_ENVIADO("A"),
+		ERRO("P");
+		
+		private String status;
+		
+		private EmailEnviadoStatus(String status){
+			this.status = status;
+		}
+
+
+		public static EmailEnviadoStatus getEmailPedidoStatusBySigla(String status) {
+			
+			for (EmailEnviadoStatus ps : EmailEnviadoStatus.values()) {
+				if (ps.getStatus().equalsIgnoreCase(status)){
+					return ps;
+				}
+			}
+			return null;
+		}
+
+
+		public String getStatus() {
+			return status;
+		}
+
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
 	}
 	
 	
@@ -155,5 +190,27 @@ public class Pedido implements Serializable{
 	}
 	public void setCodigoTransacao(String codigoTransacao) {
 		this.codigoTransacao = codigoTransacao;
+	}
+
+	/**
+	 * S | N | E
+	 * SIM 
+	 * NAO
+	 * ERRO
+	 * @return
+	 */
+	@Column(name = "EMAIL_ENVIADO", length = 1)
+	public String getEmailEnviado() {
+		return emailEnviado;
+	}
+	public void setEmailEnviado(String emailEnviado) {
+		this.emailEnviado = emailEnviado;
+	}
+	@Transient
+	public EmailEnviadoStatus getEmailEnviadoEnum() {
+		return EmailEnviadoStatus.getEmailPedidoStatusBySigla(this.emailEnviado);
+	}
+	public void setEmailEnviadoEnum(EmailEnviadoStatus status) {
+		this.emailEnviado = status.getStatus();
 	}
 }

@@ -55,7 +55,7 @@
 	
 </div>
 </body>
-<wjaa:botton ondeEstou="upload"/> 
+<wjaa:botton/> 
 <wjaa:upload_js/>
 <wjaa:prEscolhido_js/>
 </html>

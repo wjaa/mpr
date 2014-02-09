@@ -233,7 +233,7 @@
 		</div>
    	 	
 </div>
-<wjaa:botton ondeEstou="admin"/>
+<wjaa:botton/>
 </body>
 
 <script>

@@ -19,6 +19,8 @@ import br.com.uol.pagseguro.domain.Transaction;
 import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
+import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.service.PedidoService;
 import br.com.wjaa.mpr.utils.EmailUtils;
 import br.com.wjaa.pagseguro.ws.PagSeguroWS;
@@ -47,9 +49,16 @@ public class NotificacoesController {
 						Integer idPedido = Integer.valueOf(item.getId());
 						
 						Pedido p = pedidoService.pedidoPago(idPedido, t.getCode());
-						
+						p.setEmailEnviadoEnum(EmailEnviadoStatus.ENVIADO);
 						//enviando o email para o cliente com os dados do email
-						EmailUtils.sendEmailPagamento(p, t.getSender().getEmail());
+						try {
+							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
+						} catch (EmailServiceException e) {
+							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
+							
+							LOG.error("Erro ao enviar email", e);
+						}
+						pedidoService.save(p);
 						
 					}
 				}
@@ -82,7 +91,7 @@ public class NotificacoesController {
 						Pedido p = pedidoService.pedidoCancelado(idPedido, t.getCode());
 						
 						//enviando o email para o cliente com os dados do email
-						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail());
+						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
 						
 					}
 				}else{
