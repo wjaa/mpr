@@ -29,4 +29,5 @@ public interface AdminService {
 
 	List<Pedido> listarPedidos(PedidoBuscaForm form);
 
+	String getToken();
 }

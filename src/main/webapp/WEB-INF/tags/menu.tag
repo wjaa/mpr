@@ -18,11 +18,11 @@
    					<a class="navbar-brand" href="pedido"><span class="label label-default">Pedido</span></a>
   			  </li>
   			  <li>
-   					<a class="navbar-brand" href="#"><span class="label label-default">Contato</span></a>
+   					<a class="navbar-brand" href="contato"><span class="label label-default">Contato</span></a>
   			  </li>
   			  <li class="dropdown">
   			  	
-  			  		<a class="navbar-brand" href="#"><span class="label label-default">Sobre</span></a>
+  			  		<a class="navbar-brand" href="sobre"><span class="label label-default">Sobre</span></a>
   			  </li>
   			  
 	     </ul>

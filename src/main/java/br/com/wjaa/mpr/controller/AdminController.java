@@ -13,8 +13,10 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.wjaa.mpr.entity.Configuration;
@@ -45,23 +47,33 @@ public class AdminController {
     }
 
 	/**
+	 * @throws IOException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    @RequestMapping(value = "/admin", method = RequestMethod.GET )
-	public ModelAndView admin(HttpServletRequest request){
+    @RequestMapping(value = "/admin/{token}", method = RequestMethod.GET )
+	public ModelAndView admin(@PathVariable String token, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	String tokenDay = this.adminService.getToken();
+    	if (!tokenDay.equals(token)){
+    		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized.");
+    		return null;
+    	}
     	mav = new ModelAndView("admin");
 		mav.addObject("prs", this.adminService.getAllPortaRetrato());
 		mav.addObject("config", this.adminService.getConfig());
-		
+		request.getSession().setAttribute("token", token);
 		//TODO fazer apenas a minha maquina e da feeh se autenticar aqui.
 		return mav;
 	}
     
     /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @throws IOException 
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     @RequestMapping(value = "/admin", method = RequestMethod.POST )
-	public ModelAndView redirectAdmin(HttpServletRequest request){
+	public ModelAndView redirectAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	if ( isNotValidToken(request, response) ){
+    		return null;
+    	}
 		mav.addObject("prs", this.adminService.getAllPortaRetrato());
 		mav.addObject("config", this.adminService.getConfig());
 		
@@ -69,12 +81,28 @@ public class AdminController {
 		return mav;
 	}
 
+	private boolean isNotValidToken(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String token = (String) request.getSession().getAttribute("token");
+    	String tokenDay = this.adminService.getToken();
+    	if (!tokenDay.equals(token)){
+    		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized.");
+    		return true;
+    	}
+    	return false;
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@RequestMapping(value = "/savePr", method = RequestMethod.POST )
-	public ModelAndView savePortaRetrato(@ModelAttribute PortaRetrato portaRetrato, HttpServletRequest request) 
+	public ModelAndView savePortaRetrato(@ModelAttribute PortaRetrato portaRetrato, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		if ( isNotValidToken(request, response) ){
+    		return null;
+    	}
+		
 		 mav = new ModelAndView("admin");
 		 try{
 			 this.saveImages(portaRetrato);
@@ -86,7 +114,7 @@ public class AdminController {
 			 mav.addObject("error", "Erro ao gravar o porta retrato: '" + ex.getMessage() + "'");
 		 }
 		 
-		 return this.redirectAdmin(request);
+		 return this.redirectAdmin(request, response);
 	}
 	 
 	 
@@ -94,8 +122,13 @@ public class AdminController {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@RequestMapping(value = "/deletePr", method = RequestMethod.POST )
-	public ModelAndView deletePortaRetrato(@ModelAttribute PortaRetrato portaRetrato, HttpServletRequest request) 
+	public ModelAndView deletePortaRetrato(@ModelAttribute PortaRetrato portaRetrato, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		if ( isNotValidToken(request, response) ){
+    		return null;
+    	}
+		
 		 mav = new ModelAndView("admin");
 		 try{
 			 this.adminService.deletePortaRetratoById(portaRetrato.getId());
@@ -106,12 +139,16 @@ public class AdminController {
 			 mav.addObject("error", "Erro ao remover o porta retrato: '" + ex.getMessage() + "'");
 		 }
 		 
-		 return this.redirectAdmin(request);
+		 return this.redirectAdmin(request,response);
 	}
 	
 	@RequestMapping(value = "/saveConfig", method = RequestMethod.POST )
-	public ModelAndView saveConfig(@ModelAttribute Configuration config, HttpServletRequest request) 
+	public ModelAndView saveConfig(@ModelAttribute Configuration config, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		if ( isNotValidToken(request, response) ){
+    		return null;
+    	}
 		 mav = new ModelAndView("admin");
 		 try{
 			 adminService.saveConfiguration(config);
@@ -120,12 +157,17 @@ public class AdminController {
 			 mav.addObject("error", "Erro ao gravar a configuração: '" + ex.getMessage() + "'");
 		 }
 		 
-		 return this.redirectAdmin(request);
+		 return this.redirectAdmin(request,response);
 	}
 	
 	@RequestMapping(value = "/listarPedidos", method = RequestMethod.POST )
-	public ModelAndView listarPedidos(@ModelAttribute PedidoBuscaForm form , HttpServletRequest request) 
+	public ModelAndView listarPedidos(@ModelAttribute PedidoBuscaForm form , HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		if ( isNotValidToken(request, response) ){
+    		return null;
+    	}
+		
 		 ModelAndView mav = new ModelAndView("pedidos");
 		 try{
 			 List<Pedido> pedidos = adminService.listarPedidos(form);
@@ -172,6 +214,8 @@ public class AdminController {
 
 		 }
 	}
-	 
+
+	
+	
 	
 }

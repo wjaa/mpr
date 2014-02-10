@@ -1,5 +1,7 @@
 package br.com.wjaa.mpr.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	public PedidoService pedidoService;
+	
+	private static final SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
+	private static final SimpleDateFormat sdfddMMyyyy = new SimpleDateFormat("ddMMyyyy");
 	
 	
 	@Override
@@ -70,5 +75,23 @@ public class AdminServiceImpl implements AdminService{
 	public List<Pedido> listarPedidos(PedidoBuscaForm form) {
 		return this.pedidoService.listPedidosByForm(form);
 	}
+
+	public String getToken() {
+        String basePar = "#{dia}WPF#";
+        String baseImpar = "#{dia}PFW#";
+
+        Date hoje = new Date();
+        
+        String hojeStr = sdfdd.format(hoje);
+
+        String base = "";
+        // se for par
+        if (Integer.valueOf(hojeStr) % 2 == 0) {
+            base = basePar;
+        } else {
+            base = baseImpar;
+        }
+        return base.replace("{dia}", sdfddMMyyyy.format(hoje));
+    }
 	
 }
