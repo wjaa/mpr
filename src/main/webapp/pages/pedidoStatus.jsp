@@ -4,6 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="wjaa" %>  
 <html>
+<style>
+	.table-hover th{
+	   color: #1F458E;
+	}
+	
+</style>
 <wjaa:header/>
 <body>
 <wjaa:menu/>
@@ -15,7 +21,7 @@
    	 	<div>
    	 		<form action="pedido" method="get">
        		<h4><span class="label label-primary">Pedido</span>&nbsp;&nbsp;Digite o código do pedido no campo abaixo:</h4>
-     		<div class="input-group">
+     		<div class="input-group" style="margin-top: 30px;">
       			<input type="text" class="form-control" name="hash"  placeholder="Digite o código do pedido.">
       			<span class="input-group-btn">
         			<button class="btn btn-default" type="submit">Buscar</button>
@@ -26,6 +32,9 @@
 	 </div>
 	 <br/>
 	 <br/>
+	 <c:if test="${msg != null}">
+	 	<div class="alert alert-danger">${msg}</div>
+	 </c:if>
 	 <c:if test="${pedido != null }">
 		 <!-- Tabela de pedidos-->
 		<table class="table table-hover">
@@ -42,7 +51,7 @@
 		          <tr>
 		            <td>${pedido.id}</td>
 		            <td>${pedido.portaRetrato.nome}</td>
-		            <td>${pedido.dataPedido}</td>
+		            <td>${pedido.dataPedidoStr}</td>
 		            <td>${pedido.statusEnum}</td>
 		            <td>-</td>
 		          </tr>

@@ -79,10 +79,10 @@ public class PagSeguroWSImpl implements PagSeguroWS{
         //paymentRequest.setSender("Joao Comprador", "comprador@uol.com.br", "11", "56273440", "CPF", "888.263.551-18");
 
         // Sets notificationURL information
-        paymentRequest.setNotificationURL("http://www.meuportaretrato.com/upload/notificacao");
+        paymentRequest.setNotificationURL("http://www.meuportaretrato.com/notificacao");
 
         // Sets redirectURL
-        paymentRequest.setRedirectURL("http://www.meuportaretrato.com/upload/retornoPagamento");
+        paymentRequest.setRedirectURL("http://www.meuportaretrato.com/retornoPagamento");
 
 
         // Register this payment request in PagSeguro, to obtain the payment

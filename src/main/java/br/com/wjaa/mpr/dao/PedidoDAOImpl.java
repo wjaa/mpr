@@ -55,4 +55,13 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		return this.get(pedido.getId());
 	}
 
+	@Override
+	public Pedido findById(Integer id) {
+		Query q = getSession()
+				.createQuery("From Pedido p where p.id = :id");
+		q.setInteger("id", id);
+		return (Pedido) q.uniqueResult();
+		
+	}
+
 }

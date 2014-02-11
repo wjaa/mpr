@@ -6,7 +6,10 @@
  				</div>
  			<img id="prZoom" src='/static/img/${sessionScope.carrinho.portaRetrato.prCode}_T.png' data-zoom-image="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_TZ.png"/>	
  			<div class="caption">
-   			<h6>${sessionScope.carrinho.portaRetrato.nome}</h6>
+   			<div class="caption">
+			     <h4>${sessionScope.carrinho.portaRetrato.nome}</h4>
+			     <h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${sessionScope.carrinho.portaRetrato.precoStr}</span></h3>
+			  </div>
  			</div>
 		</div>
 	</div>

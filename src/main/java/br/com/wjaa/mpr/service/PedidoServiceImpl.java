@@ -96,4 +96,9 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 		return this.pedidoDAO.saveOrUpdate(p);
 	}
 
+	@Override
+	public Pedido findById(Integer id) {
+		return this.pedidoDAO.findById(id);
+	}
+
 }

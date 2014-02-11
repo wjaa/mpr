@@ -24,13 +24,15 @@
 			  	 <div class="col-lg-10">
 			  		<div>
        					<h3>
-       					<small>Veja alguns exemplos de usuário: <b>tirica, tomcavalcante</b><br><br>
+       					<small>Veja alguns exemplos de usuário: <b>jermzlee, muradosmann, ifitwags</b><br><br>
        					       Veja alguns exemplos de hashtag: <b>#dog, #cat, #thundercats</b> 
        					       <br>
        					       <br>
        					       Não esqueça de adicionar <b>'#'</b> para hashtag.
        					</small></h3>
 			  	 	</div>
+			  	 	<button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
+        			<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
 			  	 </div>
 		  	 </div>
        	</div>
@@ -41,8 +43,6 @@
 		
 	<div>	     
 	    <div id="instagram" class="row"></div>	
-		<button id="btnAnterior" type="button" class="btn btn-default">Anterior</button>
-        <button id="btnProximo" type="button" class="btn btn-default" >Proximo</button>
 	    <div class="modal fade" id="previewModal">
 	      <div class="modal-dialog" style='width:375px;'>
 	        <div class="modal-content">
@@ -87,6 +87,10 @@
 <wjaa:botton/>
 <wjaa:prEscolhido_js/>
 <script>
+
+	$("#btnAnterior").attr('disabled', true);	
+	$("#btnProximo").attr('disabled', true);
+
    function buscar(){
    		instagram.init($("#inBusca").val());
    }

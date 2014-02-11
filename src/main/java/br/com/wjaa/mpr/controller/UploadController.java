@@ -170,10 +170,10 @@ public class UploadController extends HttpServlet {
                         JSONObject jsono = new JSONObject();
                         jsono.put("name", item.getName());
                         jsono.put("size", item.getSize());
-                        String param = java.net.URLEncoder.encode("upload?getfile=" + file.getName(), "ISO-8859-1");
+                        String param = java.net.URLEncoder.encode(request.getContextPath() + "?getfile=" + file.getName(), "ISO-8859-1");
                         jsono.put("url","preview?imgUrl="+param);
-                        jsono.put("thumbnail_url", "upload?getthumb=" + item.getName());
-                        jsono.put("delete_url", "upload?delfile=" + item.getName());
+                        jsono.put("thumbnail_url", request.getContextPath() + "?getthumb=" + item.getName());
+                        jsono.put("delete_url", request.getContextPath() + "?delfile=" + item.getName());
                         jsono.put("delete_type", "GET");
                         json.put(jsono);
                         LOG.info("Upload concluido com sucesso.");

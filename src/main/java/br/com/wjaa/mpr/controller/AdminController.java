@@ -50,8 +50,8 @@ public class AdminController {
 	 * @throws IOException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    @RequestMapping(value = "/admin/{token}", method = RequestMethod.GET )
-	public ModelAndView admin(@PathVariable String token, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    @RequestMapping(value = "/admin", method = RequestMethod.GET )
+	public ModelAndView admin(@RequestParam String token, HttpServletRequest request, HttpServletResponse response) throws IOException{
     	String tokenDay = this.adminService.getToken();
     	if (!tokenDay.equals(token)){
     		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized.");

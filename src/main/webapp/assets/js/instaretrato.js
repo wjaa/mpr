@@ -64,7 +64,7 @@ var instagram = function() {
 				url: getImagesURL,
 				success: function(data) {
 					$("#instagram").html("");
-
+					$("#btnProximo").attr('disabled', false);
 					if (pagina == 0){
 						$("#btnAnterior").attr('disabled', true);
 					}else{
