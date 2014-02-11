@@ -12,10 +12,10 @@
 			    				
 			    				<c:choose>
 			    				   <c:when test="${pr.tipo == 'I'}">
-			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="porta retrato" width="130px" height="130px">
+			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="130px" height="130px">
 			    				   </c:when>
 			    				   <c:otherwise>
-			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="porta retrato" width="90px" height="130px">
+			    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="90px" height="130px">
 			    				   </c:otherwise>
 			    				</c:choose>
 			    				<div class="caption">
