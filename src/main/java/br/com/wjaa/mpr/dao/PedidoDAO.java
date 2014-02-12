@@ -13,4 +13,6 @@ public interface PedidoDAO extends GenericDao<Pedido, Integer> {
 	
 	Pedido saveOrUpdate(Pedido pedido);
 
+	List<Pedido> getPedidosComEmailsPendentes();
+
 }

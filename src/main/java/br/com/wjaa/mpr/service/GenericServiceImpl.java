@@ -2,8 +2,11 @@ package br.com.wjaa.mpr.service;
 
 import java.io.Serializable;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wjaa.mpr.dao.GenericDao;
 
@@ -79,6 +82,7 @@ public abstract class GenericServiceImpl<T, PK extends Serializable> implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public T save(T object) {
 		return this.genericDao.save(object);
 	}
@@ -86,6 +90,7 @@ public abstract class GenericServiceImpl<T, PK extends Serializable> implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void remove(PK id) {
 		this.genericDao.remove(id);
 	}

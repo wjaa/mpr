@@ -55,4 +55,15 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		return this.get(pedido.getId());
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Pedido> getPedidosComEmailsPendentes() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("from Pedido p where p.emailEnviado = 'P'");
+		Query q = getSession()
+				.createQuery(sql.toString());
+		
+		return q.list();
+	}
+
 }

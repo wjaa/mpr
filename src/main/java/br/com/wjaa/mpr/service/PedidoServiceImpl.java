@@ -9,12 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.uol.pagseguro.domain.Transaction;
+import br.com.uol.pagseguro.domain.TransactionStatus;
+import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.wjaa.mpr.dao.PedidoDAO;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
 import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.exception.EmailServiceException;
+import br.com.wjaa.mpr.utils.EmailUtils;
+import br.com.wjaa.pagseguro.ws.PagSeguroWS;
 
 @Service("pedidoService")
 public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> implements PedidoService{
@@ -23,6 +29,8 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 	private PedidoDAO pedidoDAO;
 	@Autowired
 	private PortaRetratoService portaRetratoService;
+	
+	@Autowired PagSeguroWS pagSeguroWS;
 	
 	@Autowired
 	public PedidoServiceImpl(PedidoDAO pedidoDAO) {
@@ -94,6 +102,31 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 		p.setCodigoTransacao(code);
 		p.setStatusEnum(PedidoStatus.CANCELADO);
 		return this.pedidoDAO.saveOrUpdate(p);
+	}
+
+	@Override
+	public void enviarEmailsPendentes() {
+		List<Pedido> pedido = this.pedidoDAO.getPedidosComEmailsPendentes();
+		for (Pedido p : pedido) {
+			
+			try {
+				Transaction t = pagSeguroWS.buscaTransactionByCode(p.getCodigoTransacao());
+				if (t != null){
+					if (TransactionStatus.CANCELLED.equals(t.getStatus())){
+						EmailUtils.sendEmailCancelamento(p, p.getEmailCliente(), t);
+					}else if (TransactionStatus.PAID.equals(t.getStatus())){
+						EmailUtils.sendEmailPagamento(p, p.getEmailCliente(), t);
+					}
+					p.setEmailEnviadoEnum(EmailEnviadoStatus.ENVIADO);
+					
+					this.saveOrUpdate(p);
+				}
+			} catch (PagSeguroServiceException e) {
+				e.printStackTrace();
+			} catch (EmailServiceException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

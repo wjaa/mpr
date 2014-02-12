@@ -38,6 +38,8 @@ public class Pedido implements Serializable{
 	private PortaRetrato portaRetrato;
 	private String codigoTransacao;
 	private String emailEnviado ;
+	private String emailCliente;
+	
 	
 	public enum PedidoStatus{
 		
@@ -212,5 +214,13 @@ public class Pedido implements Serializable{
 	}
 	public void setEmailEnviadoEnum(EmailEnviadoStatus status) {
 		this.emailEnviado = status.getStatus();
+	}
+	
+	@Column(name = "EMAIL_CLIENTE", length = 100)
+	public String getEmailCliente() {
+		return emailCliente;
+	}
+	public void setEmailCliente(String emailCliente) {
+		this.emailCliente = emailCliente;
 	}
 }

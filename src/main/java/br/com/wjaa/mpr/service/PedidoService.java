@@ -21,5 +21,7 @@ public interface PedidoService extends GenericService<Pedido, Integer> {
 	Pedido pedidoPago(Integer idPedido, String code);
 
 	Pedido pedidoCancelado(Integer idPedido, String code);
+
+	void enviarEmailsPendentes();
 	
 }

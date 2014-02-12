@@ -24,6 +24,7 @@ import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.service.PedidoService;
 import br.com.wjaa.mpr.utils.EmailUtils;
 import br.com.wjaa.pagseguro.ws.PagSeguroWS;
+import br.com.wjaa.pagseguro.ws.PagSeguroWSImpl;
 
 @Controller
 public class NotificacoesController {
@@ -42,27 +43,18 @@ public class NotificacoesController {
 		LOG.debug("Recebendo retorno de pagamento");
 		try {
 			Transaction t = pagSeguroWS.buscaTransactionByCode(idTransaction);
+			
 			if (t != null){
-				if ( !TransactionStatus.CANCELLED.equals(t.getStatus()) ){
-					for (Object o : t.getItems() ){
-						Item item = (Item)o;
-						Integer idPedido = Integer.valueOf(item.getId());
-						
-						Pedido p = pedidoService.pedidoPago(idPedido, t.getCode());
-						p.setEmailEnviadoEnum(EmailEnviadoStatus.ENVIADO);
-						//enviando o email para o cliente com os dados do email
-						try {
-							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
-						} catch (EmailServiceException e) {
-							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
-							
-							LOG.error("Erro ao enviar email", e);
-						}
-						pedidoService.save(p);
-						
-					}
-				}
 				
+				
+				if (!TransactionStatus.CANCELLED.equals(t.getStatus()) ){
+					String msg = "Sua compra foi finalizada com sucesso! <br> Em breve enviaremos um email com a confirmação do pedido.";
+					mav.addObject("msgInfo", msg);
+				}else{
+					String msg = "Sua compra foi cancelada pelo pagseguro. <br> Acesse o site do pagseguro e veja o que aconteceu com sua transação. Seu pedido será cancelado."; 
+					mav.addObject("msgError", msg);
+					
+				}
 			}else{
 				LOG.error("Transacao nao encontrada para o id: " + idTransaction );
 			}
@@ -76,7 +68,7 @@ public class NotificacoesController {
 	
 	@RequestMapping(value = "/notificacao", method = RequestMethod.POST )
 	public void notificacoes(@RequestParam String notificationCode, 
-			String notificationType, HttpServletRequest request, HttpServletResponse response){
+			@RequestParam String notificationType, HttpServletRequest request, HttpServletResponse response){
 		
 		LOG.debug("Recebendo notificacao");
 		try {
@@ -89,12 +81,31 @@ public class NotificacoesController {
 						Integer idPedido = Integer.valueOf(item.getId());
 						
 						Pedido p = pedidoService.pedidoCancelado(idPedido, t.getCode());
-						
+						p.setEmailCliente(t.getSender().getEmail());
 						//enviando o email para o cliente com os dados do email
 						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
-						
+						pedidoService.save(p);
 					}
-				}else{
+				}else if ( TransactionStatus.PAID.equals(t.getStatus()) ){
+					for (Object o : t.getItems() ){
+						Item item = (Item)o;
+						Integer idPedido = Integer.valueOf(item.getId());
+						
+						Pedido p = pedidoService.pedidoPago(idPedido, t.getCode());
+						p.setEmailEnviadoEnum(EmailEnviadoStatus.ENVIADO);
+						p.setEmailCliente(t.getSender().getEmail());
+						//enviando o email para o cliente com os dados do email
+						try {
+							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
+						} catch (EmailServiceException e) {
+							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
+							LOG.error("Erro ao enviar email", e);
+						}
+						pedidoService.save(p);
+					}
+				}
+				
+				else{
 					LOG.info("retorno do pagseguro Transaction[" + t.getCode() + "] " + t.getStatus());
 				}
 			}else{
@@ -114,4 +125,8 @@ public class NotificacoesController {
 		}
 	}
 	
+	@RequestMapping(value = "/enviarEmailPendentes", method = RequestMethod.GET )
+	public void enviarEmailPendentes(){
+		pedidoService.enviarEmailsPendentes();
+	}
 }
