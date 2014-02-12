@@ -22,6 +22,10 @@ public interface PedidoService extends GenericService<Pedido, Integer> {
 
 	Pedido pedidoCancelado(Integer idPedido, String code);
 
+
 	void enviarEmailsPendentes();
+
+	Pedido findById(Integer valueOf);
+
 	
 }

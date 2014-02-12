@@ -128,5 +128,9 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 			}
 		}
 	}
+	
+	public Pedido findById(Integer id) {
+		return this.pedidoDAO.findById(id);
+	}
 
 }

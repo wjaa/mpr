@@ -9,18 +9,23 @@
 <wjaa:menu/>
 <div class="container">
    	 <wjaa:logo/>
-		<div class="jumbotron" style="margin:80px; width:900px;">
-			<h2>Sobre</h2>
-	  			<p>DÃª-nos sugestÃµes, criticas e elÃ´gios.</p>
-		
-				
+		<div class="jumbotron">
+			<h2><span class="label label-primary">Sobre</span></h2>
 			    
-			    <small>    Não da equipe Meuportaretrato.com temos os melhores produtos para garantir a satistafação de nossos clientes. <br>
-			Trabalhamos com os melhores fornecedores, altamente especializados em porta retratos e quadros, garantindo a qualidade dos materias confeccionados. Juntamente com a equipe Meuportaretrato.com estamos estudando a possibilidade de novos modelos, tamanhos e materiais.<br> 
-			Utilizamos a melhor tecnologia de impressão para preservar o momento da foto. <br>
-			Assim que seu pedido for gerado, iniciaremos a confecção do seu porta retrato, trataremos de sua foto da melhor maneira, tratando  de maneira que mantenha a qualidade.<br> 
-			Assim que a confeccçãoo for finalizada, seus dados e fotos serão totalmente apagados dos nossos banco de dados. </small>
-	
+		    <div class="panel panel-default" style="margin-top: 30px;">
+ 				<div class="panel-body">
+		    <span style="color:#666666; font-weight: normal;">
+		    
+			    <p>&nbsp;&nbsp;&nbsp;&nbsp;Nós da equipe Meuportaretrato.com temos os melhores produtos para garantir a satisfação de nossos clientes.</p> 
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;Trabalhamos com os melhores fornecedores, altamente especializados em porta retratos e quadros, garantindo a qualidade dos materiais confeccionados.</p>
+	 				<p>&nbsp;&nbsp;&nbsp;&nbsp;Nosso pensamento é voltado para a inovação e moda, com isso, estaremos sempre apresentando novos modelos e tamanhos compatíveis a decoração de sua casa ou escritório.</p> 
+	 				<p>&nbsp;&nbsp;&nbsp;&nbsp;Utilizamos a melhor tecnologia de impressão para preservar o momento da foto.</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;Trabalhamos com uma politica de confidenciabilidade, assim que a confecção for finalizada, suas fotos serão apagadas dos nossos banco de dados.</p>
+		 	</span>       
+		    </div>
+		    </div>
+			    
+			
 		</div>
 </div>
 </body>

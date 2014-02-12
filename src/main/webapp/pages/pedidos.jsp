@@ -19,7 +19,7 @@
 	          <tr>
 	            <td>${p.id}</td>
 	            <td>${p.idPortaRetrato}</td>
-	            <td>${p.dataPedido}</td>
+	            <td>${p.dataPedidoStr}</td>
 	            <td>${p.statusEnum}</td>
 	            <td><a href="upload?getfile=${p.imageName}">${p.imageName}</a></td>
 	          </tr>

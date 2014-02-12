@@ -188,10 +188,11 @@
 				  		<select class="form-control" name="status" id="status">
 				  			<option value="">...</option>
 				  			<option value="I" >INICIADO</option>
-				  			<option value="E">EM_ANDAMENTO</option>
-				  			<option value="P">PROCESSANDO</option>
-				  			<option value="V">ENVIADO</option>
-				  			<option value="C">CONCLUIDO</option>
+				  			<option value="A">AGUARDANDO_PAGAMENTO</option>
+				  			<option value="P">PAGO</option>
+				  			<option value="E">ENVIADO</option>
+				  			<option value="L">CANCELADO</option>
+				  			<option value="N">CONCLUIDO</option>
 						</select>
 						</div>
 						

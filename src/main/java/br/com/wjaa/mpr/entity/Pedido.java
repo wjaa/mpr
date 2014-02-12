@@ -2,6 +2,7 @@ package br.com.wjaa.mpr.entity;
 
 import java.io.File;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Pedido implements Serializable{
 	private String codigoTransacao;
 	private String emailEnviado ;
 	private String emailCliente;
-	
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	public enum PedidoStatus{
 		
@@ -157,6 +158,11 @@ public class Pedido implements Serializable{
 	}
 	public void setDataPedido(Date dataPedido) {
 		this.dataPedido = dataPedido;
+	}
+	
+	@Transient
+	public String getDataPedidoStr() {
+		return dataPedido != null ? sdf.format(this.dataPedido) : null;
 	}
 	
 	@Column(name = "PATH_IMAGE", length = 100)

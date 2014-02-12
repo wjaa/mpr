@@ -39,7 +39,7 @@ public class PedidoController {
 			if (StringUtils.isNotBlank(hash)){
 				String hashDec = URLDecoder.decode(hash, "UTF-8");
 				String numPedido = new String(base64.decodeBuffer(hashDec));
-				Pedido p = this.pedidoService.get(Integer.valueOf(numPedido));
+				Pedido p = this.pedidoService.findById(Integer.valueOf(numPedido));
 				if (p == null){
 					mav.addObject("msg", "Pedido com código " + hash + ", não foi localizado.");
 				}
@@ -47,7 +47,7 @@ public class PedidoController {
 			}
 		} catch (IOException e) {
 			LOG.error("Erro ao buscar o pedido", e);
-			mav.addObject("msg", "Erro ao buscar o pedido. Tente novamente mais tarde.");
+			mav.addObject("msg", "Pedido com código " + hash + ", não foi localizado.");
 			
 		} catch (Exception ex){
 			LOG.error("Erro ao buscar o pedido", ex);

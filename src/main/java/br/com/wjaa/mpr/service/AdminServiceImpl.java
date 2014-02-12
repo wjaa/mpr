@@ -77,8 +77,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	public String getToken() {
-        String basePar = "#{dia}WPF#";
-        String baseImpar = "#{dia}PFW#";
+        String basePar = "*{dia}WPF*";
+        String baseImpar = "*{dia}FPW*";
 
         Date hoje = new Date();
         
