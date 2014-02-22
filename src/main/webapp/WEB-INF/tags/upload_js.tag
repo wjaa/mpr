@@ -19,7 +19,7 @@
 function startPage(){
     'use strict';
     // Change this to the location of your server-side upload handler:
-    var url = '${pageContext.request.contextPath}',
+    var url = 'uploadFoto',
         uploadButton = $('<button/>')
             .addClass('btn btn-primary')
             .prop('disabled', true)

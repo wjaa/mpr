@@ -24,7 +24,6 @@ import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.service.PedidoService;
 import br.com.wjaa.mpr.utils.EmailUtils;
 import br.com.wjaa.pagseguro.ws.PagSeguroWS;
-import br.com.wjaa.pagseguro.ws.PagSeguroWSImpl;
 
 @Controller
 public class NotificacoesController {
@@ -48,10 +47,10 @@ public class NotificacoesController {
 				
 				
 				if (!TransactionStatus.CANCELLED.equals(t.getStatus()) ){
-					String msg = "Sua compra foi finalizada com sucesso! <br> Em breve enviaremos um email com a confirmaÁ„o do pedido.";
+					String msg = "Sua compra foi finalizada com sucesso! <br> Em breve enviaremos um email com a confirma√ß√£o do pedido.";
 					mav.addObject("msgInfo", msg);
 				}else{
-					String msg = "Sua compra foi cancelada pelo pagseguro. <br> Acesse o site do pagseguro e veja o que aconteceu com sua transaÁ„o. Seu pedido ser· cancelado."; 
+					String msg = "Sua compra foi CANCELADA pelo pagseguro. <br> Acesse o site do pagseguro e veja o que aconteceu com sua transa√ß√£o. Seu pedido ser√° cancelado."; 
 					mav.addObject("msgError", msg);
 					
 				}
@@ -109,7 +108,7 @@ public class NotificacoesController {
 					LOG.info("retorno do pagseguro Transaction[" + t.getCode() + "] " + t.getStatus());
 				}
 			}else{
-				LOG.error("Transacao nao encodntrada para o codigo: " + notificationCode);
+				LOG.error("Transacao nao encontrada para o codigo: " + notificationCode);
 			}
 			
 		} catch (PagSeguroServiceException e) {

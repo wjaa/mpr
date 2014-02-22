@@ -91,9 +91,9 @@ public class Pedido implements Serializable{
 	
 	public enum EmailEnviadoStatus{
 		
-		ENVIADO("I"),
-		NAO_ENVIADO("A"),
-		ERRO("P");
+		ENVIADO("S"),
+		NAO_ENVIADO("N"),
+		ERRO("E");
 		
 		private String status;
 		

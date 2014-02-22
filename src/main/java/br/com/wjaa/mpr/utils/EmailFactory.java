@@ -58,7 +58,12 @@ public class EmailFactory {
 		EmailParamVO emailParam = new EmailParamVO();
 		String emailCancelamento = TEMPLATE_EMAIL_CANCELAMENTO.toString();
 		Item item = (Item)t.getItems().get(0);
-		BigDecimal totalGeral = item.getAmount().add(item.getShippingCost());
+		BigDecimal shipping = t.getShipping().getCost();
+		BigDecimal totalGeral = item.getAmount();
+		
+		if (shipping != null){
+			totalGeral = totalGeral.add(shipping);
+		}
 		
 		emailCancelamento = StringUtils.replaceEach(emailCancelamento, 
 				new String[]{
@@ -76,7 +81,7 @@ public class EmailFactory {
 				"1", 
 				NumberUtils.formatDecimal(item.getAmount()), 
 				NumberUtils.formatDecimal(item.getAmount()),
-				NumberUtils.formatDecimal(item.getShippingCost()),
+				NumberUtils.formatDecimal(shipping),
 				NumberUtils.formatDecimal(totalGeral) 
 				});
 				
@@ -95,7 +100,13 @@ public class EmailFactory {
 		EmailParamVO emailParam = new EmailParamVO();
 		String emailCancelamento = TEMPLATE_EMAIL_PAGAMENTO.toString();
 		Item item = (Item)t.getItems().get(0);
-		BigDecimal totalGeral = item.getAmount().add(item.getShippingCost());
+		BigDecimal shipping = t.getShipping().getCost();
+		BigDecimal totalGeral = item.getAmount();
+		
+		if (shipping != null){
+			totalGeral = totalGeral.add(shipping);
+		}
+		
 		try {
 			emailCancelamento = StringUtils.replaceEach(emailCancelamento, 
 					new String[]{
@@ -115,7 +126,7 @@ public class EmailFactory {
 					"1", 
 					NumberUtils.formatDecimal(item.getAmount()), 
 					NumberUtils.formatDecimal(item.getAmount()),
-					NumberUtils.formatDecimal(item.getShippingCost()),
+					NumberUtils.formatDecimal(shipping),
 					NumberUtils.formatDecimal(totalGeral), 
 					"#" + p.getId().toString(), 
 					URLEncoder.encode(base64.encode(p.getId().toString().getBytes()),"UTF-8")

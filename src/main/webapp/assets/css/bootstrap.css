@@ -547,7 +547,7 @@ h4 small,
 
 .page-header {
   padding-bottom: 9px;
-  margin: 40px 0 20px;
+ /* margin: 40px 0 20px;*/
   border-bottom: 1px solid #eeeeee;
 }
 
@@ -4919,7 +4919,7 @@ a.list-group-item.active > .badge,
 
 .jumbotron {
   padding: 20px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;

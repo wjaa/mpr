@@ -1,7 +1,7 @@
 var accessToken = '41396575.1fb234f.a049882ede31420684b8f156e6f96431';
 var userId = 41396575;
 var clientId = '38c352213ce0437fb5141578ea84bbda';
-var limit = 12; //Limite máximo de fotos
+var limit = 18; //Limite máximo de fotos
 var setSize = "small";
 var urlsPaginacao = new Array("","","","","","","","");
 
@@ -35,13 +35,13 @@ var instagram = function() {
 		},
 		loadImagesByHash: function(hash){
 			var getImagesURL =  "https://api.instagram.com/v1/tags/" + hash + "/media/recent?access_token=" + 
-			accessToken +'&next_max_id='  + limit;
+			accessToken +'&count='  + limit;
 			urlsPaginacao[0] = getImagesURL;
 			instagram.getNextPage(getImagesURL,0);
 		},
 		loadImages: function(userID) {
 			var getImagesURL = 'https://api.instagram.com/v1/users/'+ userID +'/media/recent/?access_token='+ 
-			accessToken +'&next_max_id='  + limit;
+			accessToken +'&count='  + limit;
 			urlsPaginacao[0] = getImagesURL;
 			instagram.getNextPage(getImagesURL,0);
 		},

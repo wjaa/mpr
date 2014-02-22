@@ -31,5 +31,6 @@
 	</div>  
 </div>  
 </body>
+<wjaa:rodape/>
 <wjaa:botton/>
 </html>	

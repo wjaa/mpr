@@ -4,16 +4,7 @@
   <welcome-file-list>
     <welcome-file>/</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>UploadController</display-name>
-    <servlet-name>UploadController</servlet-name>
-    <servlet-class>br.com.wjaa.mpr.controller.UploadController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UploadController</servlet-name>
-    <url-pattern>/upload</url-pattern>
-  </servlet-mapping>
+ 
   <servlet>
     <description></description>
     <display-name>PreviewController</display-name>

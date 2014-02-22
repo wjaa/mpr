@@ -8,9 +8,13 @@
  		<thead>
          <tr>
            <th># Pedido</th>
-           <th>Porta Retrato</th>
+           <th>PrCode</th>
            <th>Data Pedido</th>
+           <th>Preço</th>
            <th>Status</th>
+           <th>Transação</th>
+           <th>Email</th>
+           <th>Status Email</th>
            <th>Download</th>
          </tr>
        </thead>
@@ -18,10 +22,15 @@
 		  <c:forEach var="p" items="${requestScope.pedidos}">	
 	          <tr>
 	            <td>${p.id}</td>
-	            <td>${p.idPortaRetrato}</td>
+	            <td>${p.portaRetrato.prCode}</td>
 	            <td>${p.dataPedidoStr}</td>
+	            <td>${p.portaRetrato.precoStr}</td>
 	            <td>${p.statusEnum}</td>
-	            <td><a href="upload?getfile=${p.imageName}">${p.imageName}</a></td>
+	            <td>${p.codigoTransacao}</td>
+	            <td>${p.emailCliente}</td>
+	            <td>${p.emailEnviado}</td>
+	            <td><a href="uploadFoto?getfile=${p.imageName}">${p.imageName}</a></td>
+	            
 	          </tr>
 	           
           </c:forEach>

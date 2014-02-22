@@ -85,7 +85,7 @@ public class UploadUrlController {
 			//Nao se esqueca de sempre fechar as streams apos seu uso!  
 			in.close();  
 			fos.close();  
-            carrinho.setImgUrl(request.getContextPath() + "?getfile=" + file.getName());
+            carrinho.setImgUrl("uploadFoto?getfile=" + file.getName());
 		} catch (IOException e) {
 			mav = new ModelAndView("erro");
 			//TODO CRIAR TELA DE ERRO GENERICA.

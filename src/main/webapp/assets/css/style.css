@@ -84,3 +84,34 @@ body {
 	vertical-align: middle; 
 	text-align: center;
 }
+
+.linksocial{
+	float: right;
+	margin: 10px;
+	color: #999999;
+	font-size: 14px;
+	font-weight:normal;
+	
+}
+
+.textoRodape{
+	color: #999999;
+	font-size: 14px;
+	font-weight:normal;
+}
+
+.social{
+	float: right;
+	width: 400px;
+}
+
+
+.copyright{
+	background: #999;
+	color: white; 
+	border: 1px solid  #e6e6e6; 
+	position: relative;
+	font-size: 10px;
+	text-align: center;
+	
+}

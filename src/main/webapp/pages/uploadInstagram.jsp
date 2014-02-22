@@ -17,8 +17,12 @@
        		<small>Pesquise fotos por usuário ou #hashtag.</small></h4>
 		 	<div class="row">
 			 	<div class="col-lg-10">
-				 	<div class="">
+				 	<div class="input-group">
 			     		<input type="text"  class="form-control" id="inBusca" placeholder="Usu&aacute;rio ou #hashtag">
+			     		<span class="input-group-btn">
+					        <button id="btnBuscar" type="button" class="btn btn-default">Buscar</button>
+					    </span>
+			     		
 			  	 	</div>
 			  	 </div>	
 			  	 <div class="col-lg-10">
@@ -31,10 +35,10 @@
        					       Não esqueça de adicionar <b>'#'</b> para hashtag.
        					</small></h3>
 			  	 	</div>
-			  	 	<button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
-        			<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
+			  	 	
 			  	 </div>
 		  	 </div>
+		  	 
        	</div>
  	  
  	 	<wjaa:prEscolhido/>
@@ -42,7 +46,14 @@
 	</div>
 		
 	<div>	     
-	    <div id="instagram" class="row"></div>	
+	    <div id="instagram" class="row" style="margin: 10px;">
+	    
+	    </div>	
+	    <div style="text-align: center;">
+	    <button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
+        	<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
+	    </div>
+	    
 	    <div class="modal fade" id="previewModal">
 	      <div class="modal-dialog" style='width:375px;'>
 	        <div class="modal-content">
@@ -83,6 +94,7 @@
 	
 
 </div>
+<wjaa:rodape/>
 </body>
 <wjaa:botton/>
 <wjaa:prEscolhido_js/>
@@ -100,6 +112,9 @@
 	        buscar();
 	    }
 	});
+   $("#btnBuscar").click(function(e){
+	   buscar();
+   });
    
 </script>
 </html>

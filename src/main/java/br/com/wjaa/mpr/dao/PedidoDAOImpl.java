@@ -60,7 +60,7 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 	@Override
 	public List<Pedido> getPedidosComEmailsPendentes() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("from Pedido p where p.emailEnviado = 'P'");
+		sql.append("from Pedido p where p.emailEnviado = 'E'");
 		Query q = getSession()
 				.createQuery(sql.toString());
 		

@@ -10,6 +10,7 @@ import org.apache.commons.mail.HtmlEmail;
 
 import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.Sender;
+import br.com.uol.pagseguro.domain.Shipping;
 import br.com.uol.pagseguro.domain.Transaction;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PortaRetrato;
@@ -70,6 +71,7 @@ public class EmailUtils {
 		mail.setHtmlMsg(p.getBody());
 		mail.setSubject(p.getTitle());
 		mail.setSSL(new Boolean (sc.getSsl()));
+		mail.setCharset("UTF-8");
 		mail.send();
 	}
 	
@@ -84,10 +86,12 @@ public class EmailUtils {
 		t.setItems(new ArrayList<Item>());
 		t.getItems().add(new Item("10","LALALALA",1,new BigDecimal(15.5),10l,new BigDecimal(14.50)));
 		t.setSender(new Sender());
-		t.getSender().setName("Fernanda Martins");
+		t.setShipping(new Shipping());
+		t.getShipping().setCost(new BigDecimal(12.5));
+		t.getSender().setName("Wagner Jeronimo");
 		try {
-			EmailUtils.sendEmailCancelamento(p, "feeh.pinazo@gmail.com", t);
-			EmailUtils.sendEmailPagamento(p, "feeh.pinazo@gmail.com", t);
+			EmailUtils.sendEmailCancelamento(p,"wag182@gmail.com", t);
+			EmailUtils.sendEmailPagamento(p, "wag182@gmail.com", t);
 		} catch (EmailServiceException e) {
 			
 		}

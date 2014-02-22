@@ -54,6 +54,7 @@
 	    
 	
 </div>
+<wjaa:rodape/>
 </body>
 <wjaa:botton/> 
 <wjaa:upload_js/>

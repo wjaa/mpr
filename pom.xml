@@ -27,7 +27,16 @@
 	<build>
 	   <defaultGoal>install</defaultGoal>
 	    
+	   
+	   
 		<plugins>
+		      <plugin>
+		        <artifactId>maven-war-plugin</artifactId>
+		        <version>2.4</version>
+		        <configuration>
+		          <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+		        </configuration>
+		      </plugin>
 		    <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -52,11 +61,13 @@
 				<inherited>true</inherited>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
+				
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<source>${project.build.jdk.version}</source>
 					<target>${project.build.jdk.version}</target>
 					<optimize>true</optimize>
+					
 				</configuration>
 			</plugin>
 			<plugin>
@@ -83,25 +94,32 @@
 		            <echo message="Removendo a versao antiga." />
 		            <sshexec trust="true" host="www.wjaa.com.br"
 		                username="root" password="753951"
-		                command="rm -r /var/lib/tomcat6/webapps/upload.war" failonerror="false" />
+		                command="rm -r /usr/local/deploy/mpr.war" failonerror="false" />
 		            <sleep seconds="5" />
 		            
 		            <sshexec trust="true" host="www.wjaa.com.br"
 		                username="root" password="753951" 
-		                command="rm -r /var/lib/tomcat6/webapps/upload" failonerror="false"  />
+		                command="rm -r /usr/local/deploy/mpr" failonerror="false"  />
 		            <sleep seconds="5" />
 		             
 		            <echo message="Copiando o war pra o server ..." />       
 		            <scp trust="yes"
 		                file="${project.build.directory}/${project.build.finalName}.war"
 		                password="753951"
-		                remoteTofile="root@www.wjaa.com.br:/var/lib/tomcat6/webapps/upload.war" />    
+		                remoteTofile="root@www.wjaa.com.br:/usr/local/deploy/mpr.war" />
+		            
+		            <echo message="descompactando war...." />
+		            <sshexec trust="true" host="www.wjaa.com.br"
+		                username="root" password="753951" 
+		                command="unzip /usr/local/deploy/mpr.war -d /usr/local/deploy/mpr" failonerror="true"  />
+		            <sleep seconds="5" />
+		            
 		            <echo message="Iniciando o tomcat ..." />        
 		            <sshexec trust="true" host="www.wjaa.com.br" username="root" password="753951" 
 		                 command="service tomcat6 start" />
 		            <echo message="Deployando aplicacao ..." /> 
 		            <waitfor maxwait="1" maxwaitunit="minute" checkevery="10" checkeveryunit="second">
-		                <http url="http://www.wjaa.com.br/upload" />
+		                <http url="http://www.wjaa.com.br/" />
 		            </waitfor>        
 		        </target>
 		    </configuration>

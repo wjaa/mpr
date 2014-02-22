@@ -28,6 +28,7 @@ title="MeuPortaRetrato.com - Monte um lindo porta retrato para suas fotos do ins
 		   
 	</div>
 </div>
+<wjaa:rodape/>
 </body>
 <wjaa:botton/>
 <script>

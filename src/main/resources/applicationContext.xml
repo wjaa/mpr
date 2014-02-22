@@ -48,6 +48,20 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
 	</bean>
+	
+	
+	
+	 <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        
+        <!-- See note below on how this interacts with Spring Boot -->
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionAttribute" value="ex"/>
+
+        <!-- Name of logger to use to log exceptions. Unset by default, so logging disabled -->
+        <property name="warnLogCategory" value="br.com"/>
+    </bean>
+	
 	<!-- 	
 	<bean id="daoTxTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">

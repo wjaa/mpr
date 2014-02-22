@@ -20,6 +20,9 @@
        background-position:110px 40px;
 			background-size: 225px 310px;
 			width: 300px;
+			/*transform:rotate(7deg);*/
+			/*-ms-transform:rotate(7deg); /* IE 9 */
+			/*-webkit-transform:rotate(7deg); /* Opera, Chrome, and Safari */
        </c:otherwise>
     </c:choose>
     	vertical-align: middle; 
@@ -89,7 +92,7 @@
 		    		</div>
 </div>
 
- 
+ <wjaa:rodape/>
 </body>
 <wjaa:botton/>
 <script>

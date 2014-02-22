@@ -13,7 +13,7 @@
       <div class="jumbotron page-header" style="margin: 0px;">
    
    			<c:if test="${msgInfo != null }">
-	    		<div class="alert alert-info" style="margin-top: 30px;">${msgInfo}</div>
+	    		<div class="alert" style="margin-top: 30px;">${msgInfo}</div>
 	    	</c:if>
 	    	
 	    	<c:if test="${msgError != null }">
@@ -25,5 +25,6 @@
        
 </div>       
 <wjaa:botton/>
+<wjaa:rodape/>
 </body>
 </html>

@@ -59,6 +59,7 @@
 		    </table>
     </c:if>
 </div>
+<wjaa:rodape/>
 <wjaa:botton/>
 </body>
 <script>
