@@ -51,6 +51,17 @@ body {
 	position: relative;
 	
 }
+
+.containerAdmin{
+	background: #fff; 
+	padding: 5px; 
+	min-width:1250px; 
+	max-width: 1250px; 
+	margin: 0 auto; 
+	border: 1px solid  #e6e6e6; 
+	position: relative;
+	
+}
 .divmenu{
 	padding: 10px; 
 	min-width:950px; 

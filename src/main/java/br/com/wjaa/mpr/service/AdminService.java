@@ -30,4 +30,6 @@ public interface AdminService {
 	List<Pedido> listarPedidos(PedidoBuscaForm form);
 
 	String getToken();
+
+	void alterarStatusPedido(Integer idPedido, String status);
 }

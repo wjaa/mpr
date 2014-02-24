@@ -13,7 +13,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -179,6 +178,20 @@ public class AdminController {
 		 return mav;
 	}
 	
+	@RequestMapping(value = "/alterarStatusPedido", method = RequestMethod.POST )
+	public ModelAndView listarPedidos(@RequestParam Integer idPedido , @RequestParam String status,
+			HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		this.adminService.alterarStatusPedido(idPedido,status);
+		
+		PedidoBuscaForm form = (PedidoBuscaForm) request.getSession().getAttribute("formBusca");
+		if(form == null){
+			form = new PedidoBuscaForm();
+		}
+		
+		return this.listarPedidos(form, request, response);
+	}
 
 	private void saveImages(PortaRetrato portaRetrato) throws ServiceException,
 			IOException {

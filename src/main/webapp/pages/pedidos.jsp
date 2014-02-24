@@ -20,15 +20,24 @@
        </thead>
 	<tbody>
 		  <c:forEach var="p" items="${requestScope.pedidos}">	
-	          <tr>
+	          <tr onclick="alterarStatusPedido(${p.id},'${p.status}');">
 	            <td>${p.id}</td>
 	            <td>${p.portaRetrato.prCode}</td>
 	            <td>${p.dataPedidoStr}</td>
 	            <td>${p.portaRetrato.precoStr}</td>
-	            <td>${p.statusEnum}</td>
+	            <td>${p.statusEnum.nome}</td>
 	            <td>${p.codigoTransacao}</td>
 	            <td>${p.emailCliente}</td>
-	            <td>${p.emailEnviado}</td>
+	            <c:if test="${p.emailEnviado == 'N'}">
+	            	<td>Não enviado</td>
+	            </c:if>
+	            <c:if test="${p.emailEnviado == 'E'}">
+	            	<td>Erro no envio</td>
+	            </c:if>
+	            <c:if test="${p.emailEnviado == 'S'}">
+	            	<td>Enviado</td>
+	            </c:if>
+	            
 	            <td><a href="uploadFoto?getfile=${p.imageName}">${p.imageName}</a></td>
 	            
 	          </tr>

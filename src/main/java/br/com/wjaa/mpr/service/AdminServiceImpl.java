@@ -14,6 +14,7 @@ import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
+import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.exception.ServiceException;
 
 /**
@@ -93,5 +94,10 @@ public class AdminServiceImpl implements AdminService{
         }
         return base.replace("{dia}", sdfddMMyyyy.format(hoje));
     }
+
+	@Override
+	public void alterarStatusPedido(Integer idPedido, String status) {
+		this.pedidoService.alterarStatus(idPedido, PedidoStatus.getPedidoStatusBySigla(status));
+	}
 	
 }

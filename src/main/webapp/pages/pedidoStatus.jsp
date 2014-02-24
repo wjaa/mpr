@@ -10,7 +10,8 @@
 	}
 	
 </style>
-<wjaa:header/>
+<wjaa:header description="Confira aqui o status do seu porta retrato."
+title="MeuPortaRetrato.com - Status do seu pedido."/>
 <body>
 <wjaa:menu/>
 
@@ -52,7 +53,7 @@
 		            <td>${pedido.id}</td>
 		            <td>${pedido.portaRetrato.nome}</td>
 		            <td>${pedido.dataPedidoStr}</td>
-		            <td>${pedido.statusEnum}</td>
+		            <td>${pedido.statusEnum.nome}</td>
 		            <td>-</td>
 		          </tr>
 		     </tbody>

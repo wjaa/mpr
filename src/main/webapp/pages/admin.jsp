@@ -13,7 +13,7 @@
 </style>
 <body>
 
-<div class="container">
+<div class="containerAdmin">
    	 
 	  <h2><span class="label label-danger">${requestScope.error}</span></h2>
 	  		
@@ -171,6 +171,18 @@
 		    
 		    <div class="tab-pane active" id="tabPedidos">
 		    	<form id="formPedidos" class="form-horizontal" role="form" action="listarPedidos" method="POST">
+		    	
+		    		<div class="form-group">
+					    <label for="idPedido" class="col-sm-2 control-label">Número Pedido:</label>
+					    <div class="col-sm-3">
+					      <input type="text" class="form-control" id="idPedido" name="idPedido" placeholder="Número Pedido"/>
+					    </div>
+					    <label for="email" class="col-sm-2 control-label">Email:</label>
+					    <div class="col-sm-3">
+					      <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+					    </div>
+				  	</div>
+		    	
 	  				<div class="form-group">
 				    <label for="inputDataInicio" class="col-sm-2 control-label">Data Inicio:</label>
 				    <div class="col-sm-3">
@@ -183,13 +195,14 @@
 				    
 				  </div>
 				  <div class="form-group">
-						<label for="inputTipo" class="col-sm-2 control-label">Tipo:</label>
+						<label for="inputTipo" class="col-sm-2 control-label">Status do Pedido:</label>
 				    	<div class="col-sm-3">
 				  		<select class="form-control" name="status" id="status">
 				  			<option value="">...</option>
 				  			<option value="I" >INICIADO</option>
 				  			<option value="A">AGUARDANDO_PAGAMENTO</option>
 				  			<option value="P">PAGO</option>
+				  			<option value="C">CONFECCIONANDO</option>
 				  			<option value="E">ENVIADO</option>
 				  			<option value="L">CANCELADO</option>
 				  			<option value="N">CONCLUIDO</option>
@@ -232,6 +245,38 @@
 		      </div><!-- /.modal-dialog -->
 		     </div> 
 		</div>
+		
+		
+		<div>
+			 <div class="modal fade" id="modalAlterarStatus">
+		      <div class="modal-dialog" style='width:375px;'>
+		        <div class="modal-content">
+		          <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		            <h4 id="tituloAlterarStatus"class="modal-title">Alterar o status do pedido</h4>
+		          </div>
+		          <div class="modal-body">
+		          		<input type="hidden" id="alterarPedido"/>
+	   			  		<select class="form-control" name="status" id="selectAlterarStatus">
+				  			<option value="">...</option>
+				  			<option value="I" >INICIADO</option>
+				  			<option value="A">AGUARDANDO_PAGAMENTO</option>
+				  			<option value="P">PAGO</option>
+				  			<option value="C">CONFECCIONANDO</option>
+				  			<option value="E">ENVIADO</option>
+				  			<option value="L">CANCELADO</option>
+				  			<option value="N">CONCLUIDO</option>
+						</select>
+	
+		          </div>
+		          <div class="modal-footer">
+		            <button id="btnAlterarStatus" type="button" class="btn btn-success">Alterar Status</button>
+		            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		          </div>
+		        </div><!-- /.modal-content -->
+		      </div><!-- /.modal-dialog -->
+		     </div> 
+		</div>
    	 	
 </div>
 <wjaa:botton/>
@@ -245,8 +290,8 @@
     
     	$("#btnDel").click(function(){
     		$("#modalConfirm").modal("show");
-    		 //deletePr
-	    });
+   	    });
+    	
     	$("#btnNovo").click(function(){
   		  window.location.href = "admin";
   	  	});
@@ -256,6 +301,20 @@
  			document.forms[0].submit();
     		
     	});
+    	
+    	$("#btnAlterarStatus").click(function(){
+    		$.ajax({
+    			  type: "POST",
+    			  url: "alterarStatusPedido",
+    			  data:{'idPedido': $('#alterarPedido').val(),'status':$("#selectAlterarStatus").val()} ,
+    			  success: function(data){
+    				  $("#tabListaPedidos").html(data);
+    				  $("#modalAlterarStatus").modal("hide");
+    			  }
+    			  
+    			});
+    	});
+
     	
     	$("#btnBuscarPedidos").click(function(){
     		var dados = $("#formPedidos").serialize();
@@ -267,13 +326,19 @@
     				  $("#tabListaPedidos").html(data);
     			  }
     			  
-    			});
+    		});
+    		
     	});
 
   })
   
  
-  
+  function alterarStatusPedido(idPedido,status){
+	  $("#modalAlterarStatus").modal("show");
+	  $("#alterarPedido").attr("value",idPedido);
+	  $("#tituloAlterarStatus").html("Alterar o Status do Pedido #" + idPedido);
+	  $("#selectAlterarStatus").val(status);
+  }
   
   function editar(prJson){
 	  var pr = $.parseJSON(decodeURIComponent(prJson));

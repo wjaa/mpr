@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib tagdir="/WEB-INF/tags" prefix="wjaa" %>
 <html>
-<wjaa:header/>
+<wjaa:header description="Entre em nosso site e monte seu porta retrato para instagram."
+title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 <body>
 <wjaa:menu/>
 <div class="container">

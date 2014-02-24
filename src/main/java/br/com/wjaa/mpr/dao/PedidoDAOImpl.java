@@ -1,5 +1,7 @@
 package br.com.wjaa.mpr.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +14,8 @@ import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 @Repository
 public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements PedidoDAO {
 
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+	
 	public PedidoDAOImpl() {
 		super(Pedido.class);
 	}
@@ -31,18 +35,40 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 			sql.append(" and p.status = :status");
 		}
 		
+		if (StringUtils.isNotBlank(form.getEmail())){
+			sql.append(" and p.email = :email");
+		}
+		
+		if (form.getIdPedido() != null){
+			sql.append(" and p.id = :idPedido");
+		}
+		
 		sql.append(" order by p.id ");
 		Query q = getSession()
 		.createQuery(sql.toString());
 		if (StringUtils.isNotBlank(form.getDataInicio()) && 
 				StringUtils.isNotBlank(form.getDataFim())){
-			//q.setDate("dataInicio", form.getDataInicio());
-			//q.setDate("dataFim", form.getDataFim());
+
+			try {
+				q.setDate("dataInicio", sdf.parse(form.getDataInicio()));
+				q.setDate("dataFim", sdf.parse(form.getDataFim()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if (StringUtils.isNotBlank(form.getStatus())){
 			q.setParameter("status", form.getStatus());
 		}
+		
+		if (form.getIdPedido() != null){
+			q.setParameter("idPedido", form.getIdPedido());
+		}
+		
+		if (StringUtils.isNotBlank(form.getEmail())){
+			q.setParameter("email", form.getEmail());
+		}
+		
 		
 		return q.list();
 	}
