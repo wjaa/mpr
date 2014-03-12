@@ -22,7 +22,7 @@
 			      					<div style="height:70px;overflow: auto;"><h6>${pr.nome}</h6></div>
 			     				 	<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${pr.precoStr}</span></h3>
 			     				 	<br>
-			      				 	<p><input type="submit" class="btn btn-primary" value="Comprar"/></p>
+			      				 	<p><input type="submit" class="btn btn-primary" value="Escolher"/></p>
 			    				</div>
 			  			</div>
 			  		</div>

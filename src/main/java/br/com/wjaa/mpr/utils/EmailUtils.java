@@ -60,7 +60,7 @@ public class EmailUtils {
 	}
 	
 	
-	private static void send(EmailParamVO p) throws EmailException{
+	public static void send(EmailParamVO p) throws EmailException{
 		HtmlEmail mail = new HtmlEmail();
 		mail.addTo(p.getEmail());
 		mail.setHostName(sc.getSmtp());

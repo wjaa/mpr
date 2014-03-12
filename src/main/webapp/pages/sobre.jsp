@@ -11,17 +11,17 @@ title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 <div class="container">
    	 <wjaa:logo/>
 		<div class="jumbotron">
-			<h2><span class="label label-primary">Sobre</span></h2>
+			<h3><span class="label label-primary">Sobre</span></h3>
 			    
 		    <div class="panel panel-default" style="margin-top: 30px;">
  				<div class="panel-body">
 		    <span style="color:#666666; font-weight: normal; font-size: 14px;">
 		    
-			    <p>&nbsp;&nbsp;&nbsp;&nbsp;Nós da equipe Meuportaretrato.com temos os melhores produtos para garantir a satisfação de nossos clientes. Somos uma loja online, que transforma suas fotos do Instagram ou de seu computador em lindos porta retratos ou quadros.</p> 
+			    <p>&nbsp;&nbsp;&nbsp;&nbsp;Nós da equipe <b>Meuportaretrato.com</b> temos os melhores produtos para garantir a satisfação de nossos clientes. Somos uma loja online, que transforma suas fotos do Instagram ou de seu computador em lindos porta retratos ou quadros.</p> 
  <p>&nbsp;&nbsp;&nbsp;&nbsp;Trabalhamos com os melhores fornecedores, altamente especializados em porta retratos e quadros, garantindo a qualidade dos materiais confeccionados.</p>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;Nosso pensamento é voltado para a inovação e moda, com isso, estaremos sempre apresentando novos modelos e tamanhos compatíveis a decoração de sua casa ou escritório. </p>
 
-<h3>Funcionamos em 4 passos: </h3>
+<h3>Instruções para compra: </h3>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>1º) </b>Escolha o Porta retrato na área de busca. </p>
 
@@ -31,8 +31,8 @@ title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>4º)</b> Finalize o pedido e efetue o pagamento com toda a segurança do pagseguro.</p>
 
-<h3>Informação imporante:</h3>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Todas as fotos enviadas serão avaliadas pela nossa equipe, caso não estejam com a qualidade adequada para a confecção do porta retrato, entraremos em contato e devolveremos o dinheiro. </p>
+<h3>Informação importante:</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Todas as fotos enviadas serão avaliadas pela nossa equipe, caso não estejam com a qualidade adequada para a confecção do porta retrato, entraremos em contato para a troca da imagem ou devolveremos o dinheiro. </p>
 
 		 	</span>       
 		    </div>

@@ -18,7 +18,7 @@
 		
 	
 	function openHome(pr){
-		window.location.href = '${pageContext.request.contextPath}/?listPr=' + pr;
+		window.location.href = '${pageContext.request.contextPath}/home?listPr=' + pr;
 	}
 	
    <!-- Google Analitics -->

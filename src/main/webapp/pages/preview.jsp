@@ -74,7 +74,7 @@
 				   				
 				   				  <li class="list-group-item">
 				   				  <span class="badge">3</span>
-				   				Não criamos vínculos com nossos cliente, seus dados são armazenados apenas no pagseguro onde temos total segurança e confiabilidade em seus serviços.
+				   				Não armazenamos nenhuma informação de nossos clientes, seus dados são armazenados apenas no pagseguro onde temos total segurança e confiabilidade em seus serviços.
 				   				
 				   				</li>
 				   				  <li class="list-group-item">

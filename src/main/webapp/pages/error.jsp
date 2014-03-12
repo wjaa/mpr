@@ -10,12 +10,16 @@
 <div class="container">
     <wjaa:logo/>
 	<div class="jumbotron">
-		<h1>Ops!!</h1>
-  			<small>Um erro aconteceu!</small>
+		<h1>Ops!!!</h1>
   			
-		<div class="panel panel-primary" style="margin-top: 10px;">
-	      	Tente novamente mais tarde!
-	    </div>
+  		<div class="panel panel-danger">
+	  		<div class="panel-heading">
+	        	<h3 class="panel-title">Um erro aconteceu!</h3>
+	      	</div>	
+			<div class="panel-body"">
+		      	&nbsp;&nbsp;Tente novamente mais tarde!
+		    </div>
+      </div>
 	</div>  
 </div>  
 </body>

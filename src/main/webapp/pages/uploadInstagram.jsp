@@ -14,7 +14,7 @@
    	 	
    	 	<div style="float: left; width: 450px" >
        		<h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Selecione uma foto<br><br>
-       		<small>Pesquise fotos por usuário ou #hashtag.</small></h4>
+       		<small>Pesquise fotos no instagram por usuário ou #hashtag.</small></h4>
 		 	<div class="row">
 			 	<div class="col-lg-10">
 				 	<div class="input-group">
@@ -80,12 +80,12 @@
 	<div class="modal fade" id="aguardeModal">
       <div class="modal-dialog" style='width:375px;'>
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header" >
             <h4 class="modal-title">Aguarde...<br><small>Gerando visualização</small></h4>
             
           </div>
-          <div class="modal-body">
-            <img src="http://www.odontoblogia.com.br/wp-content/uploads/2011/12/meme.jpg" width="178px" height="172px"/>
+          <div class="modal-body" style="text-align: center;">
+            <img src="assets/img/aguarde.gif" width="178px" height="172px"/>
           </div>
         </div>
       </div>

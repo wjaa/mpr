@@ -44,7 +44,7 @@ body {
 .container{
 	background: #fff; 
 	padding: 5px; 
-	min-width:950px; 
+	min-width:990px; 
 	max-width: 1000px; 
 	margin: 0 auto; 
 	border: 1px solid  #e6e6e6; 
@@ -63,9 +63,10 @@ body {
 	
 }
 .divmenu{
-	padding: 10px; 
-	min-width:950px; 
-	max-width: 1000px; 
+	background-color: black;
+	/*padding: 10px;*/ 
+	min-width:1000px; 
+	max-width: 1000px;  
 	margin: 0 auto; 
 	position: relative;
 }
@@ -125,4 +126,9 @@ body {
 	font-size: 10px;
 	text-align: center;
 	
+}
+.homeImg{
+	width: 300px; height: 225px; 
+	border: 5px gray solid; 
+	border-radius: 10px;
 }

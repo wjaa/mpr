@@ -44,7 +44,7 @@
             
           </div>
           <div class="modal-body">
-            <img src="http://www.odontoblogia.com.br/wp-content/uploads/2011/12/meme.jpg" width="178px" height="172px"/>
+            <img src="assets/img/aguarde.gif" width="178px" height="172px"/>
           </div>
         </div>
       </div>

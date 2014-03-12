@@ -23,6 +23,26 @@
 		<project.dependecy.hibernate-core.version>3.6.10.Final</project.dependecy.hibernate-core.version>
 	</properties>
 	
+	<profiles>
+        <profile>
+            <id>homolog</id>
+            <properties>
+                <server.endereco>www.wjaa.com.br</server.endereco>
+                <server.keyfile>/home/wagner/.ssh/wjaa.pem</server.keyfile>
+                <server.pass></server.pass>
+                <server.user>ubuntu</server.user>
+            </properties>
+        </profile>
+        <profile>
+            <id>producao</id>
+            <properties>
+                <server.endereco>www.meuportaretrato.com</server.endereco>
+                <server.keyfile>/home/wagner/.ssh/wjaa.pem</server.keyfile>
+                <server.pass>753951</server.pass>
+                <server.user>root</server.user>
+            </properties>
+        </profile>
+    </profiles>
 	
 	<build>
 	   <defaultGoal>install</defaultGoal>
@@ -86,40 +106,49 @@
 		    <configuration>
 		        <target>  
 		            <echo message="Parando o servidor ..." />
-		            <sshexec trust="true" host="www.wjaa.com.br"
-		                username="root" password="753951"
-		                command="service tomcat6 stop" />        
+		            <sshexec trust="true" host="${server.endereco}"
+		                username="${server.user}" password="${server.pass}"
+		                command="sudo service tomcat6 stop" 
+		                keyfile="${server.keyfile}" 
+		                failonerror="true"/>        
 		            <sleep seconds="10" />
 		            
 		            <echo message="Removendo a versao antiga." />
-		            <sshexec trust="true" host="www.wjaa.com.br"
-		                username="root" password="753951"
-		                command="rm -r /usr/local/deploy/mpr.war" failonerror="false" />
+		            <sshexec trust="true" host="${server.endereco}"
+		                username="${server.user}" password="${server.pass}"
+		                command="rm -r /usr/local/deploy/mpr.war" failonerror="false" 
+		                keyfile="${server.keyfile}" />
 		            <sleep seconds="5" />
 		            
-		            <sshexec trust="true" host="www.wjaa.com.br"
-		                username="root" password="753951" 
-		                command="rm -r /usr/local/deploy/mpr" failonerror="false"  />
+		            <sshexec trust="true" host="${server.endereco}"
+		                username="${server.user}" password="${server.pass}" 
+		                command="rm -r /usr/local/deploy/mpr" failonerror="false"  
+		                keyfile="${server.keyfile}" />
 		            <sleep seconds="5" />
 		             
 		            <echo message="Copiando o war pra o server ..." />       
-		            <scp trust="yes"
+		            <scp trust="true"
 		                file="${project.build.directory}/${project.build.finalName}.war"
-		                password="753951"
-		                remoteTofile="root@www.wjaa.com.br:/usr/local/deploy/mpr.war" />
+		                password="${server.pass}"
+		                remoteTofile="${server.user}@${server.endereco}:/usr/local/deploy/mpr.war" 
+		                keyfile="${server.keyfile}" failonerror="true"/>
 		            
 		            <echo message="descompactando war...." />
-		            <sshexec trust="true" host="www.wjaa.com.br"
-		                username="root" password="753951" 
-		                command="unzip /usr/local/deploy/mpr.war -d /usr/local/deploy/mpr" failonerror="true"  />
+		            <sshexec trust="true" host="${server.endereco}" 
+		                username="${server.user}" password="${server.pass}" 
+		                command="unzip /usr/local/deploy/mpr.war -d /usr/local/deploy/mpr" failonerror="true" 
+		                keyfile="${server.keyfile}" />
 		            <sleep seconds="5" />
 		            
 		            <echo message="Iniciando o tomcat ..." />        
-		            <sshexec trust="true" host="www.wjaa.com.br" username="root" password="753951" 
-		                 command="service tomcat6 start" />
+		            <sshexec trust="true" host="${server.endereco}" 
+		                username="${server.user}" password="${server.pass}" 
+		                 command="sudo service tomcat6 start" 
+		                 keyfile="${server.keyfile}"/>
+		            
 		            <echo message="Deployando aplicacao ..." /> 
 		            <waitfor maxwait="1" maxwaitunit="minute" checkevery="10" checkeveryunit="second">
-		                <http url="http://www.wjaa.com.br/" />
+		                <http url="http://${server.endereco}/" />
 		            </waitfor>        
 		        </target>
 		    </configuration>
