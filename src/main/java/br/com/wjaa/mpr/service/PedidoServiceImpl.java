@@ -51,28 +51,33 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 
 	
 	
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
-	public Pedido criar(String path, String ext, Integer idPr) {
+	public Pedido iniciarPedido(String path, String fileName) {
 		Pedido pedido = new Pedido();
 		pedido.setDataPedido(new Date());
-		pedido.setPathImage(path);
-		pedido.setStatusEnum(PedidoStatus.INICIADO);
-		pedido.setIdPortaRetrato(idPr);
-		pedido.setEmailEnviadoEnum(EmailEnviadoStatus.NAO_ENVIADO);
-		pedido = this.pedidoDAO.saveOrUpdate(pedido);
-		pedido = this.alterar(pedido, path, ext, idPr);
 		
+		String extensao = fileName.substring(fileName.lastIndexOf("."));
+		pedido.setPathImage(path + File.separator + new Date().getTime() + "." + extensao);
+		pedido.setStatusEnum(PedidoStatus.INICIADO);
+		pedido.setEmailEnviadoEnum(EmailEnviadoStatus.NAO_ENVIADO);
 		return pedido;
 	}
-
+	
+	
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Pedido alterar(Pedido p, String path, String ext, Integer idPr) {
+	public Pedido alterar(Pedido p, Integer idPr) {
+		if (p.getId() == null){
+			p.setIdPortaRetrato(idPr);
+			p = this.save(p);
+		}
+		String path = p.getPathImage();
+		String ext = path.substring(path.lastIndexOf("."));
+		path = path.substring(0,path.lastIndexOf("/"));
 		Pedido pedido = this.get(p.getId());
 		pedido.setIdPortaRetrato(idPr);
 		PortaRetrato pr = this.portaRetratoService.get(idPr);
-		pedido.setPathImage(path + File.separator + pedido.getId() + "_" + pr.getPrCode() + "." + ext);
+		pedido.setPathImage(path + File.separator + pedido.getId() + "_" + pr.getPrCode() + ext);
 		pedido = this.pedidoDAO.saveOrUpdate(pedido);
 		return pedido;
 	}

@@ -17,6 +17,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.Transaction;
+import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.vo.EmailParamVO;
 
@@ -143,5 +144,46 @@ public class EmailFactory {
 		LOG.info("Parametro de email de pagamento montando com sucesso");
 		return emailParam;
 	}
+
+	public static EmailParamVO getEmailNotificacao(Pedido p, String email,
+			Transaction t) {
+		EmailParamVO emailParam = new EmailParamVO();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Feeh, <br><br>");
+		sb.append("O pedido <b>#" + p.getId() + "</b>, acabou de mudar o status no pagseguro. <br>");
+		sb.append("A transação <b>" + t.getCode() + "</b>, está com status <b>" + getNameTransactionStatus(t.getStatus()) + "</b><br><br>");
+		sb.append("bjos wjaa.");
+		emailParam.setBody(sb.toString());
+		emailParam.setEmail(email);
+		emailParam.setTitle("Pedido com status alterado!");
+		emailParam.setName(NOME_EMAIL);
+		emailParam.setFrom(DE_EMAIL);
+		LOG.info("Parametro de email de notificacao montando com sucesso");
+		return emailParam;
+	}
 	
+	private static String  getNameTransactionStatus(TransactionStatus s){
+		if (TransactionStatus.AVAILABLE.equals(s.getValue())){
+			return "Em avaliação";
+		} else if (TransactionStatus.CANCELLED.equals(s)){
+			return "Cancelada";
+		} else if (TransactionStatus.IN_ANALYSIS.equals(s)){
+			return "Em analise";
+		}else if (TransactionStatus.IN_DISPUTE.equals(s)){
+			return "Em disputa";
+		}else if (TransactionStatus.INITIATED.equals(s)){
+			return "Iniciada";
+		}else if (TransactionStatus.PAID.equals(s)){
+			return "Paga";
+		}else if (TransactionStatus.REFUNDED.equals(s)){
+			return "Recusada";
+		}else if (TransactionStatus.WAITING_PAYMENT.equals(s)){
+			return "Aguardando Pagamento";
+		}
+		
+		return "Status não identificado";
+		
+		
+		
+	}
 }

@@ -12,6 +12,7 @@ import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.Sender;
 import br.com.uol.pagseguro.domain.Shipping;
 import br.com.uol.pagseguro.domain.Transaction;
+import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.EmailServiceException;
@@ -76,7 +77,7 @@ public class EmailUtils {
 	}
 	
 	public static void main(String[] args) {
-		Pedido p = new Pedido();
+		/*Pedido p = new Pedido();
 		p.setId(25);
 		PortaRetrato por = new PortaRetrato();
 		por.setNome("Porta retrato liso azul marinho");
@@ -94,7 +95,35 @@ public class EmailUtils {
 			EmailUtils.sendEmailPagamento(p, "wag182@gmail.com", t);
 		} catch (EmailServiceException e) {
 			
+		}*/
+		
+		Pedido p = new Pedido();
+		p.setId(25);
+		PortaRetrato por = new PortaRetrato();
+		por.setNome("Porta retrato liso azul marinho");
+		por.setPreco(25.50);
+		p.setPortaRetrato(por);
+		Transaction t=  new Transaction();
+		t.setCode("fdasfasdfasdfasdfasdfasd");
+		t.setStatus(TransactionStatus.IN_DISPUTE);
+		try {
+			EmailUtils.sendEmailNotificacao(p,"wag182@gmail.com", t);
+			
+		} catch (EmailServiceException e) {
+			
 		}
+	}
+
+	public static void sendEmailNotificacao(Pedido p, String email,
+			Transaction t) throws EmailServiceException {
+		try{
+			EmailParamVO param = EmailFactory.getEmailNotificacao(p,email, t);
+			send(param);
+		}catch(Exception ex){
+			LOG.error("Erro ao enviar email para=" + email, ex);
+			throw new EmailServiceException(p, ex);
+		}
+		
 	}
 	
 }

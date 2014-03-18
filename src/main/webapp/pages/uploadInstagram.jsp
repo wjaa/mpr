@@ -13,7 +13,7 @@
    	<div class="jumbotron page-header" style="margin: 0px;">
    	 	
    	 	<div style="float: left; width: 450px" >
-       		<h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Selecione uma foto<br><br>
+       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto<br><br>
        		<small>Pesquise fotos no instagram por usuário ou #hashtag.</small></h4>
 		 	<div class="row">
 			 	<div class="col-lg-10">
@@ -25,23 +25,29 @@
 			     		
 			  	 	</div>
 			  	 </div>	
-			  	 <div class="col-lg-10">
-			  		<div>
-       					<h3>
-       					<small>Veja alguns exemplos de usuário: <b>jermzlee, muradosmann, ifitwags</b><br><br>
-       					       Veja alguns exemplos de hashtag: <b>#dog, #cat, #thundercats</b> 
-       					       <br>
-       					       <br>
-       					       Não esqueça de adicionar <b>'#'</b> para hashtag.
-       					</small></h3>
-			  	 	</div>
-			  	 	
-			  	 </div>
 		  	 </div>
 		  	 
        	</div>
  	  
- 	 	<wjaa:prEscolhido/>
+ 	 	<div class="row txtInfo">
+ 	 	
+ 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
+					<ul class="list-group">
+						<li class="list-group-item active">
+					   		Informações:
+						</li>
+						<li class="list-group-item">
+		   					
+		   					 Procure fotos do seu usuário ou fotos de seus amigos.  
+		   				</li>
+		   				<li class="list-group-item">
+		   					
+		   					 Procure fotos por hashtag ex: <b>#dog, #cat, #thundercats</b>  
+		   				</li>
+		   			</ul>
+			</div>	
+			
+		</div>
 		  	 
 	</div>
 		
@@ -74,6 +80,7 @@
 	</div>
 	<form action="uploadUrl" method="POST">
 	   <input type="hidden" id="urlParam" name="url" value=""/>
+	   <input type="hidden" id="listPr" name="listPr" value="INSTAGRAM"/>
 	</form>
 	
 	<!-- GERAR UMA TAG DESSE CARA -->
@@ -97,6 +104,7 @@
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
+<script src="assets/js/instaretrato.js"></script>
 <wjaa:prEscolhido_js/>
 <script>
 

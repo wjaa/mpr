@@ -12,16 +12,15 @@ public interface PedidoService extends GenericService<Pedido, Integer> {
 	
 	Pedido saveOrUpdate(Pedido pedido);
 
-	Pedido alterar(Pedido pedido, String path, String ext, Integer idPr);
-	
-	Pedido criar(String path, String ext, Integer idPr);
+	Pedido alterar(Pedido p, Integer idPr);
+
+	Pedido iniciarPedido(String path, String fileName); 
 	
 	Pedido alterarStatus(Integer id, PedidoStatus status);
 
 	Pedido pedidoPago(Integer idPedido, String code);
 
 	Pedido pedidoCancelado(Integer idPedido, String code);
-
 
 	void enviarEmailsPendentes();
 

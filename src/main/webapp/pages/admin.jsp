@@ -158,6 +158,13 @@
 					<div class="col-sm-3">
 				    	<input type="text" name="pathUpload" class="form-control" id="pathUpload" placeholder="pathUpload" value="${requestScope.config.pathUpload}">
 					</div>
+					
+				</div>
+				<div class="form-group">
+					<label for="inputNumParcela" class="col-sm-2 control-label">Número de parcelas:</label>
+					<div class="col-sm-3">
+				    	<input type="text" name="numParcela" class="form-control" id="numParcela" placeholder="Numero de Parcelas" value="${requestScope.config.numParcela}">
+					</div>
 				</div>	  
 				<div class="form-group">
 				   <div class="col-sm-offset-2 col-sm-2">

@@ -48,19 +48,28 @@ public class UploadUrlController {
 	}
 
 	@RequestMapping(value = "/uploadUrl", method = RequestMethod.POST )
-	public ModelAndView upload(@RequestParam String url, HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("preview");
+	public ModelAndView upload(@RequestParam String url, @RequestParam String listPr, HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("redirect:/portaretrato?listPr" + listPr);
 		try {
 			URL wget = new URL(url);
 			InputStream in = wget.openStream();
-			
+			String fileName = wget.getFile();
 			File folder = new File(fileUploadPath.getPath());
 			
     		if(!folder.exists()){
     			folder.mkdirs();
     		}
     		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
-    		Pedido pedido;
+    		
+    		if (carrinho == null){
+    			carrinho = new Carrinho();
+    			request.getSession().setAttribute("carrinho", carrinho);
+    		}
+    		Pedido pedido = pedidoService.iniciarPedido(fileUploadPath.getPath(), fileName);
+    		carrinho.setPedido(pedido);
+    		
+    		
+    		/*
     		if (this.novoPedidoOuPedidoFinalizado(carrinho)){
     			pedido = pedidoService.criar(fileUploadPath.getPath(), "jpg",
     					carrinho.getPortaRetrato().getId());
@@ -68,8 +77,7 @@ public class UploadUrlController {
     			pedido = carrinho.getPedido();
     			pedido = pedidoService.alterar(pedido, fileUploadPath.getPath(), 
     					"jpg", carrinho.getPortaRetrato().getId());
-    		}
-    		carrinho.setPedido(pedido);
+    		}*/
             File file = new File(pedido.getPathImage());
 			//... e de escrita.  
 			FileOutputStream fos = new FileOutputStream(file);  

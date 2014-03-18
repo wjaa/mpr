@@ -1,7 +1,6 @@
 package br.com.wjaa.mpr.service;
 
-import java.io.File;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wjaa.mpr.dao.PedidoDAO;
 import br.com.wjaa.mpr.dao.PortaRetratoDAO;
-import br.com.wjaa.mpr.entity.Pedido;
-import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
-import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.exception.ServiceException;
 
@@ -72,7 +68,12 @@ public class PortaRetratoServiceImpl extends GenericServiceImpl<PortaRetrato, In
 
 	@Override
 	public List<PortaRetrato> listPrByType(PortaRetratoType type) {
-		return this.portaRetratoDAO.listPrActivedByType(type.getTipo());
+		List<PortaRetratoType> types = PortaRetratoType.getPortaRetratoTypes(type.isQuadrado());
+		List<String> typesStr = new ArrayList<String>();
+		for (PortaRetratoType portaRetratoType : types) {
+			typesStr.add(portaRetratoType.getTipo());
+		}
+		return this.portaRetratoDAO.listPrActivedByTypes(typesStr);
 	}
 
 	@Override

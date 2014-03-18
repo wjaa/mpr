@@ -81,8 +81,10 @@ public class NotificacoesController {
 						
 						Pedido p = pedidoService.pedidoCancelado(idPedido, t.getCode());
 						p.setEmailCliente(t.getSender().getEmail());
+						p.setCodigoTransacao(t.getCode());
 						//enviando o email para o cliente com os dados do email
 						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
+						EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
 						pedidoService.save(p);
 					}
 				}else if ( TransactionStatus.PAID.equals(t.getStatus()) ){
@@ -96,17 +98,34 @@ public class NotificacoesController {
 						//enviando o email para o cliente com os dados do email
 						try {
 							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
+							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);
 						}
 						pedidoService.save(p);
 					}
+				}else{
+					LOG.info("retorno do pagseguro Transaction[" + t.getCode() + "] " + t.getStatus());
+					for (Object o : t.getItems() ){
+						Item item = (Item)o;
+						Integer idPedido = Integer.valueOf(item.getId());
+						
+						Pedido p = pedidoService.pedidoPago(idPedido, t.getCode());
+						p.setCodigoTransacao(t.getCode());
+						p.setEmailCliente(t.getSender().getEmail());
+						//enviando o email para o cliente com os dados do email
+						try {
+							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+						} catch (EmailServiceException e) {
+							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
+							LOG.error("Erro ao enviar email", e);
+						}
+						pedidoService.save(p);
+					}
+					
 				}
 				
-				else{
-					LOG.info("retorno do pagseguro Transaction[" + t.getCode() + "] " + t.getStatus());
-				}
 			}else{
 				LOG.error("Transacao nao encontrada para o codigo: " + notificationCode);
 			}

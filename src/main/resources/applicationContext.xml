@@ -55,7 +55,7 @@
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         
         <!-- See note below on how this interacts with Spring Boot -->
-        <property name="defaultErrorView" value="error"/>
+        <property name="defaultErrorView" value="erro"/>
         <property name="exceptionAttribute" value="ex"/>
 
         <!-- Name of logger to use to log exceptions. Unset by default, so logging disabled -->

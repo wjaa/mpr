@@ -39,6 +39,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void savePortaRetrato(PortaRetrato portaRetrato) throws ServiceException {
 		portaRetratoService.savePortaRetrato(portaRetrato);
 	}

@@ -22,6 +22,7 @@ public class ConfigurationDAOImpl extends GenericDaoImpl<Configuration, Integer>
 			if (config != null){
 				config.setPathImgPr(c.getPathImgPr());
 				config.setPathUpload(c.getPathUpload());
+				config.setNumParcela(c.getNumParcela());
 			}
 		}
 		return super.save(config);

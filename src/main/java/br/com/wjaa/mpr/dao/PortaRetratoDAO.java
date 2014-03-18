@@ -9,5 +9,7 @@ public interface PortaRetratoDAO extends GenericDao<PortaRetrato, Integer> {
 	PortaRetrato getPortaRetratoByPrCode(String prCode);
 
 	List<PortaRetrato> listPrActivedByType(String tipo);
+
+	List<PortaRetrato> listPrActivedByTypes(List<String> portaRetratoTypes);
 	
 }

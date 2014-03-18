@@ -4968,6 +4968,12 @@ a.list-group-item.active > .badge,
           transition: all 0.2s ease-in-out;
 }
 
+.thumbnailError {
+  
+  border: 2px solid #d9534f !important;
+  
+}
+
 .thumbnail > img {
   display: block;
   /*height: auto;*/

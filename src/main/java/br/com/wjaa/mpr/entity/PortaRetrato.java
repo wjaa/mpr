@@ -3,6 +3,8 @@ package br.com.wjaa.mpr.entity;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,16 +63,20 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	
 	public enum PortaRetratoType{
 		
-		INSTRAGRAM("I", "INSTAGRAM"),
-		NORMAL("N", "NORMAL"),
-		FACEBOOK("F","FACEBOOK");
+		INSTRAGRAM("I", "INSTAGRAM", true),
+		NORMAL("N", "NORMAL", false),
+		FACEBOOK("F","FACEBOOK", false),
+		FLICKR("L","FLICKR", false),
+		GOOGLE("G","GOOGLE", false);
 		
 		private String tipo;
 		private String nome;
+		private boolean quadrado;
 		
-		private PortaRetratoType(String tipo, String nome){
+		private PortaRetratoType(String tipo, String nome, boolean quadrado){
 			this.tipo = tipo;
 			this.nome = nome;
+			this.quadrado = quadrado;
 		}
 
 		public String getTipo() {
@@ -107,6 +113,24 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 			}
 			
 			return null;
+		}
+		
+		public static List<PortaRetratoType> getPortaRetratoTypes(boolean quadrado){
+			List<PortaRetratoType> types = new ArrayList<PortaRetrato.PortaRetratoType>();
+			for (PortaRetratoType type : PortaRetratoType.values()) {
+				if (type.isQuadrado() ==  quadrado){
+					types.add(type);
+				}
+			}
+			return types;
+		}
+
+		public boolean isQuadrado() {
+			return quadrado;
+		}
+
+		public void setQuadrado(boolean quadrado) {
+			this.quadrado = quadrado;
 		}
 		
 	}

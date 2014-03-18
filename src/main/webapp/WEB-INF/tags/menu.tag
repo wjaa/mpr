@@ -24,10 +24,16 @@
 		      </li> -->
 		      
 		      <li class="btn-pr btn-pr-insta">
-		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/instagram-icon.png" alt="porta retrato" width="35px" height="35px" style="float: left; margin-right: 10px; " /><div style="width:125px; font-size:11px;">Porta retratos para Instagram</div></a>
+		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/instagram-icon.png" alt="Fotos Instagram"  height="35px" style="float: left; margin-right: 10px; " /><!--  <div style="width:125px; font-size:11px;">Fotos do Instagram</div>--></a>
 		      </li>
 		      <li class="btn-pr btn-pr-cam">
-		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/camera-icon.png" alt="porta retrato" width="40px" height="35px" style="float: left; margin-right: 10px;"/><div style="width:125px; font-size:11px;">Porta retratos comuns</div></a>
+		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/camera-icon.png" alt="Fotos camera"  height="35px" style="float: left; margin-right: 10px;"/><!--<div style="width:140px; font-size:11px;">Fotos de sua camera</div>--></a>
+		      </li>
+		      <li class="btn-pr btn-pr-face">
+		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/facebook-icon.png" alt="Fotos Facebook" height="35px" style="float: left; margin-right: 10px;"/><!--<div style="width:140px; font-size:11px;">Fotos do Facebook</div>--></a>
+		      </li>
+		      <li class="btn-pr btn-pr-flic">
+		      		<a href="#" style="color:#1f448d; font-weight: bold;"><img src="assets/img/flickr-icon.png" alt="Fotos Flickr" height="35px" style="float: left; margin-right: 10px;"/><!--<div style="width:140px; font-size:11px;">Fotos do Flickr</div>--></a>
 		      </li>
   			  <li>
    					<a href="pedido"><span class="btn btn-primary" style="font-size:17px;">Pedido</span></a>

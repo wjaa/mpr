@@ -13,7 +13,7 @@
       <div class="jumbotron page-header" style="margin: 0px;">
       	
       		<div style="float: left">
-	        	<h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Envie sua foto. <br><br>
+	        	<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Envie sua foto. <br><br>
 	        	<small>Sua foto será tratada da melhor forma para uma boa impressão.</small></h4>
 	        	
 	        	<span class="btn btn-success fileinput-button">
@@ -32,7 +32,24 @@
 		    	
 	        </div>
 	        
-	        <wjaa:prEscolhido/>
+	        <div class="row txtInfo">
+ 	 	
+		 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
+							<ul class="list-group">
+								<li class="list-group-item active">
+							   		Informações:
+								</li>
+								<li class="list-group-item">
+				   					
+				   					 Envie fotos retangulares, que melhor se encaixe em um porta retrato.  
+				   				</li>
+				   				
+				   			</ul>
+					</div>	
+			
+			</div>
+	        
+	        
 	 </div>
 
 	<!-- GERAR UMA TAG DESSE CARA -->

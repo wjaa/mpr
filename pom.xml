@@ -31,6 +31,7 @@
                 <server.keyfile>/home/wagner/.ssh/wjaa.pem</server.keyfile>
                 <server.pass></server.pass>
                 <server.user>ubuntu</server.user>
+                <server.sudo>sudo</server.sudo>
             </properties>
         </profile>
         <profile>
@@ -40,6 +41,7 @@
                 <server.keyfile>/home/wagner/.ssh/wjaa.pem</server.keyfile>
                 <server.pass>753951</server.pass>
                 <server.user>root</server.user>
+                <server.sudo></server.sudo>
             </properties>
         </profile>
     </profiles>
@@ -108,7 +110,7 @@
 		            <echo message="Parando o servidor ..." />
 		            <sshexec trust="true" host="${server.endereco}"
 		                username="${server.user}" password="${server.pass}"
-		                command="sudo service tomcat6 stop" 
+		                command="${server.sudo} service tomcat6 stop" 
 		                keyfile="${server.keyfile}" 
 		                failonerror="true"/>        
 		            <sleep seconds="10" />
@@ -143,7 +145,7 @@
 		            <echo message="Iniciando o tomcat ..." />        
 		            <sshexec trust="true" host="${server.endereco}" 
 		                username="${server.user}" password="${server.pass}" 
-		                 command="sudo service tomcat6 start" 
+		                 command="${server.sudo} service tomcat6 start" 
 		                 keyfile="${server.keyfile}"/>
 		            
 		            <echo message="Deployando aplicacao ..." /> 

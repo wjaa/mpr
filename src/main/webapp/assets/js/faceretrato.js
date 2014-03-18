@@ -1,5 +1,6 @@
 var appSecret = '30c79d8a6cff5337959aced9bbd9b44d';
 var appId = 192790747577104;
+var limit = 12;
 
   window.fbAsyncInit = function() {
       FB.init({
@@ -23,7 +24,7 @@ var appId = 192790747577104;
           var o = FB.getAuthResponse();
           message(o.accessToken);
           
-          faceretrato.listarFotos('/me/photos?'+o.accessToken);
+          faceretrato.listarFotos('/me/photos?'+o.accessToken + "&limit=" + limit,0);
 
         } else if (response.status === 'not_authorized') {
           message('Erro na autenticacao');
@@ -64,8 +65,8 @@ var faceretrato = function() {
           //ver o status do login
           faceretrato.accessToken();
           FB.login(function(response) {
-            message(response);
-          }, 
+        	  message(response);
+          	}, 
               {scope: 'user_photos'}
           );
       },
@@ -73,60 +74,74 @@ var faceretrato = function() {
           //ver o status do login
           FB.logout(function(response){});
       },
-      listarFotos:function(url){
+      listarFotos:function(url, page){
           
           FB.api(url, function(response) {
+        	  
+        	  btnAnterior
         	  $("#facebook").html("");
               var count = 0;
               for (var i = 0; i < response.data.length; i ++ ){
-                  var urlEnc = encodeURIComponent(response.data[i].images[0].source);
+                  var urlEnc = encodeURIComponent(response.data[i].images[2].source);
                   var url = response.data[i].picture;
+                  var urlHi = response.data[i].source;
                   
                   var altura = response.data[i].height;
                   var largura = response.data[i].width;
                   
                   var ehQuadrada =  ((altura / largura) == 1);   
                   
-                  var html = "";
                   //paging.next
                   //paging.previous
                   count++;
-                  html = html + "<div class='col-sm-3 col-md-2'>";
-                  if (!ehQuadrada){
-                	  html = html + "<a id='linkPreview" + count + "' data-toggle='" + urlEnc + "'" +
-                		  " class='btn btn-primary btn-lg thumbnail' href='#'>"; 
-                  }else{
-                	  html = html + "<span class='btn btn-primary btn-lg thumbnail'>"; 
-                  }
-                  html = html + "<img src='" + url +"' style='height:130px;'/>";
-                  if (!ehQuadrada){
-                	  html = html + "</a>";
-                  }else{
-                	  html = html + "</span>";
-                  }
-                  html = html + "</div>";
-          		  $("#facebook").append(html); 
-                  var id = "#linkPreview" + count;
-                  $(id).click(function(){
-                      faceretrato.preview($(this).attr('data-toggle'));
-                  });  
+                  appendHtmlLinkPopup(ehQuadrada, count, urlEnc, url, urlHi)
+          		    
                   
+                  //se for a primeira pagina entao pode ir pra frente e nao pra traz
+                  if (page == 0){
+                	  $("#btnProximo").attr('disabled', false); 
+                	  $("#btnAnterior").attr('disabled', true);
+                		  
+                  }else{
+                	  //se uma pagina diferente de zero entao pode ir pra traz
+                	  $("#btnAnterior").attr('disabled', false);
+                  }
+                  
+                  //se o resultado dessa pagina for menor que 12 é porque nao tem proxima pagina.
+                  //TODO isso aqui pode dar problema se a ultima pagina tiver 12. Então é melhor chamar o nextpage pra ver 
+                  //quantos elementos tem na proxima pagina
+                  if (response.data.length < 12){
+                	  $("#btnProximo").attr('disabled', true);
+                  }else{
+                	  $("#btnProximo").attr('disabled', false);
+                  }
                   
                   $("#btnAnterior").unbind("click");
 				  $("#btnAnterior").click(function(){
-					  faceretrato.listarFotos(response.paging.previous);
+					  faceretrato.listarFotos(response.paging.previous, page - 1);
 				  });	
 				  
 				  $("#btnProximo").unbind("click");
 				  $("#btnProximo").click(function(){
-					  faceretrato.listarFotos(response.paging.next);
+					  faceretrato.listarFotos(response.paging.next, page + 1);
 				  });
+				  
+				  
               }
           });
       },
-      preview:function(urlImg){
+      preview:function(urlImg, urlHi){
           $('#previewModal').modal('show') ;
           $('#previewImg').attr("src",decodeURIComponent(urlImg));
+          var urlDownload = decodeURIComponent(urlHi);
+			$("#urlParam").val(urlDownload);
+			$('#btnSelecionar').click(function(){
+				$("#aguardeModal").modal('show');
+				document.forms[0].submit();
+			});
+      },
+      notPreview:function(urlImg){
+          $('#notPreviewModal').modal('show') ;
       },
       accessToken:function(){
         $.ajax({
@@ -146,13 +161,48 @@ var faceretrato = function() {
 
 }();
 
+function appendHtmlLinkPopup(ehQuadrada, count, urlEnc, url, urlHi){
+	var html = "";
+	var idLink = "linkPreview" + count;
+	var clazz = "btn-primary thumbnail";
+	
+	if (ehQuadrada){
+		idLink = "linkNotPreview" + count;
+		clazz = "btn-danger thumbnail thumbnailError";
+	}
+	
+	html = html + "<div class='col-sm-3 col-md-2'>";
+  	html = html + "<a id='" + idLink + "' data-toggle='" + urlEnc + "'" +
+  		  " class='" + clazz + "' href='#'>";
+  	html = html + "<img src='" + url +"' style='height:130px;'/>";
+  	html = html + "</a>";
+  	html = html + "</div>";
+    
+    $("#facebook").append(html); 
+    
+    if (!ehQuadrada){
+    	var id = "#linkPreview" + count;
+    	$(id).click(function(){
+    		faceretrato.preview($(this).attr('data-toggle'), urlHi);
+    	});
+    }else{
+    	var id = "#linkNotPreview" + count;
+    	$(id).click(function(){
+    		faceretrato.notPreview();
+    	});
+    }
+    
+    
+}
+
+
 function message(msg){
-	$('.alert').show();
+	/*$('.alert').show();
 	$('.alert').append("<br>" + msg);
 	setTimeout(function(){
 	     	$('.alert').hide();
 	     }, 5000
-  );
+  );*/
 }
 
 

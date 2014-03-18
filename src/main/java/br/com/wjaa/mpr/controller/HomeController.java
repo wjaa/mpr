@@ -20,17 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
        
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	protected void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String listPr = request.getParameter("listPr");
-		if (StringUtils.isBlank(listPr)){
-			listPr = "INSTAGRAM";
-		}
-		request.setAttribute("listPr", listPr);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/home.jsp");  
-		dispatcher.forward(request,response);
-	}
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	protected void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");  

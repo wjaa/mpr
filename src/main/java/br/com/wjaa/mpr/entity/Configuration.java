@@ -22,6 +22,7 @@ public class Configuration implements Serializable{
 	private Integer id;
 	private String pathImgPr;
 	private String pathUpload;
+	private Integer numParcela;
 	
 	
 	@Column(name = "PATH_IMG_PR", length = 100)
@@ -48,6 +49,14 @@ public class Configuration implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	@Column(name = "NUM_PARCELA")
+	public Integer getNumParcela() {
+		return numParcela;
+	}
+	public void setNumParcela(Integer numParcela) {
+		this.numParcela = numParcela;
 	}
 	
 }

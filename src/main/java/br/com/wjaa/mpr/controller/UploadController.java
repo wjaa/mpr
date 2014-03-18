@@ -157,15 +157,15 @@ public class UploadController extends HttpServlet {
                 		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
                 		Pedido pedido;
                 		if (this.novoPedidoOuPedidoFinalizado(carrinho)){
-                			pedido = pedidoService.criar(fileUploadPath.getPath(), this.getExtensao(item.getName()),
-                					carrinho.getPortaRetrato().getId());
+                			/*pedido = pedidoService.criar(fileUploadPath.getPath(), this.getExtensao(item.getName()),
+                					carrinho.getPortaRetrato().getId());*/
                 		}else{
-                			pedido = carrinho.getPedido();
+                		/*	pedido = carrinho.getPedido();
                 			pedido = pedidoService.alterar(pedido, fileUploadPath.getPath(), 
-                					this.getExtensao(item.getName()), carrinho.getPortaRetrato().getId());
+                					this.getExtensao(item.getName()), carrinho.getPortaRetrato().getId());*/
                 		}
-                		carrinho.setPedido(pedido);
-                        File file = new File(pedido.getPathImage());
+                		//carrinho.setPedido(pedido);
+                        File file = new File(fileUploadPath.getPath());
                         item.write(file);
                         JSONObject jsono = new JSONObject();
                         jsono.put("name", item.getName());
