@@ -17,6 +17,9 @@
 	        	<h3 class="panel-title">Um erro aconteceu!</h3>
 	      	</div>	
 			<div class="panel-body"">
+				<c:if test="${erro != null}">
+				   &nbsp;&nbsp;${erro}<br>
+				</c:if>
 		      	&nbsp;&nbsp;Tente novamente mais tarde!
 		    </div>
       </div>

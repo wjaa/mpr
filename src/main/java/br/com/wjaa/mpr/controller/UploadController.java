@@ -28,12 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.context.ContextLoader;
 
-import br.com.wjaa.mpr.entity.Carrinho;
+import br.com.wjaa.mpr.controller.helper.CarrinhoHelper;
 import br.com.wjaa.mpr.entity.Pedido;
-import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.service.AdminService;
 import br.com.wjaa.mpr.service.PedidoService;
-import br.com.wjaa.mpr.service.PortaRetratoService;
 
 /**
  * Servlet implementation class UploadController
@@ -46,14 +44,12 @@ public class UploadController extends HttpServlet {
 	
 	private File fileUploadPath;
 	private static final Log LOG = LogFactory.getLog(UploadController.class);
-	private PortaRetratoService portaRetratoService;
 	private PedidoService pedidoService;
 	
 	
     @Override
     public void init(ServletConfig config) {
     	AdminService adminService = (AdminService) ContextLoader.getCurrentWebApplicationContext().getBean("adminService");
-    	portaRetratoService = (PortaRetratoService) ContextLoader.getCurrentWebApplicationContext().getBean("portaRetratoService");
     	pedidoService = (PedidoService) ContextLoader.getCurrentWebApplicationContext().getBean("pedidoService");
         fileUploadPath = new File(adminService.getConfig().getPathUpload());
     }
@@ -149,29 +145,14 @@ public class UploadController extends HttpServlet {
             List<FileItem> items = uploadHandler.parseRequest(request);
             for (FileItem item : items) {
                 if (!item.isFormField()) {
-                		File folder = new File(fileUploadPath.getPath());
-                			
-                		if(!folder.exists()){
-                			folder.mkdirs();
-                		}
-                		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
-                		Pedido pedido;
-                		if (this.novoPedidoOuPedidoFinalizado(carrinho)){
-                			/*pedido = pedidoService.criar(fileUploadPath.getPath(), this.getExtensao(item.getName()),
-                					carrinho.getPortaRetrato().getId());*/
-                		}else{
-                		/*	pedido = carrinho.getPedido();
-                			pedido = pedidoService.alterar(pedido, fileUploadPath.getPath(), 
-                					this.getExtensao(item.getName()), carrinho.getPortaRetrato().getId());*/
-                		}
-                		//carrinho.setPedido(pedido);
-                        File file = new File(fileUploadPath.getPath());
+                		Pedido pedido = CarrinhoHelper.createUpdatePedido(fileUploadPath, item.getName(), request, pedidoService);
+                		File file = new File(pedido.getPathImage());
                         item.write(file);
                         JSONObject jsono = new JSONObject();
-                        jsono.put("name", item.getName());
+                        jsono.put("name", file.getName());
                         jsono.put("size", item.getSize());
-                        String param = java.net.URLEncoder.encode("uploadFoto?getfile=" + file.getName(), "ISO-8859-1");
-                        jsono.put("url","preview?imgUrl="+param);
+                        //String param = java.net.URLEncoder.encode("uploadFoto?getfile=" + file.getName(), "ISO-8859-1");
+                        jsono.put("url","listarPr?listPr=NORMAL");
                         jsono.put("thumbnail_url", "uploadFoto?getthumb=" + item.getName());
                         jsono.put("delete_url", "uploadFoto?delfile=" + item.getName());
                         jsono.put("delete_type", "GET");
@@ -192,15 +173,6 @@ public class UploadController extends HttpServlet {
 
     }
 
-    private boolean novoPedidoOuPedidoFinalizado(Carrinho carrinho) {
-		//se nao tem pedido ou é um pedido finalizado.
-    	return 	carrinho.getPedido() == null || 
-				PedidoStatus.CONCLUIDO.equals(carrinho.getPedido().getStatus());
-	}
-
-	private String getExtensao(String name) {
-		return name.substring(name.lastIndexOf(".")+1);
-	}
 
 	private String getMimeType(File file) {
         String mimetype = "";

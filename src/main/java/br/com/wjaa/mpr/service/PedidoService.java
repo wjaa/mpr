@@ -16,6 +16,8 @@ public interface PedidoService extends GenericService<Pedido, Integer> {
 
 	Pedido iniciarPedido(String path, String fileName); 
 	
+	Pedido alterarImagemPedido(Pedido pedido, String path, String fileName);
+	
 	Pedido alterarStatus(Integer id, PedidoStatus status);
 
 	Pedido pedidoPago(Integer idPedido, String code);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.wjaa.mpr.controller.helper.CarrinhoHelper;
 import br.com.wjaa.mpr.entity.Carrinho;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PortaRetrato;
@@ -47,23 +48,14 @@ public class PortaRetratoController {
     }
     
     
-    @RequestMapping(value = "/portaretrato", method = RequestMethod.GET)
-	protected void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String listPr = request.getParameter("listPr");
-		if (StringUtils.isBlank(listPr)){
-			listPr = "INSTAGRAM";
-		}
-		request.setAttribute("listPr", listPr);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/portaretrato.jsp");  
-		dispatcher.forward(request,response);
-	}
-    
     /**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+     * Listou os porta retratos
+     * @param listPr
+     * @return
+     */
     @RequestMapping(value = "/listarPr", method = RequestMethod.GET)
 	protected ModelAndView listPr(@RequestParam("listPr") String listPr) {
-    	ModelAndView mav = new ModelAndView("listPr");
+    	ModelAndView mav = new ModelAndView("portaretrato");
     	Integer numParcela = adminService.getConfig().getNumParcela();
     	boolean mostraParcela = true;
         if (numParcela == null || numParcela == 0){
@@ -79,30 +71,38 @@ public class PortaRetratoController {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Escolheu um porta retrato.
+	 * @param listPr
+	 * @param prCode
+	 * @param request
+	 * @return
 	 */
     @RequestMapping(value = "/escolherPr", method = RequestMethod.GET)
 	protected ModelAndView doPost(@RequestParam("listPr")String listPr, @RequestParam("prCode")String prCode,
 			HttpServletRequest request){
     	ModelAndView mav = new ModelAndView("preview");
     	Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+    	
+    	//retornando para a pagina de busca se a sessao expirar.
+    	if (carrinho == null){
+    		return new ModelAndView("redirect:/listarPr?listPr" + listPr);
+    	}
+    	
 		PortaRetrato pr = this.portaRetratoService.getPortaRetratoByPrCode(prCode);
-		carrinho.setPortaRetrato(pr);
-		Pedido pedido = carrinho.getPedido();
-		File f = new File(pedido.getPathImage());
-		pedido = pedidoService.alterar(pedido, pr.getId());
-		File fDest = new File(pedido.getPathImage());
-		f.renameTo(fDest);
-		carrinho.setPedido(pedido);
-		carrinho.setImgUrl("uploadFoto?getfile=" + fDest.getName());
+		
+		CarrinhoHelper.alterarPortaRetrato(carrinho, pr, this.pedidoService);
+		
 		return mav;
 		
 	}
     
     
     /**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+     * Abre a pagina com a integracao escolhida pelo usuario
+     * @param listPr
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/escolherImagem", method = RequestMethod.GET)
 	protected ModelAndView escolherImagem(@RequestParam("listPr")String listPr, HttpServletRequest request){
     	ModelAndView mav = new ModelAndView();

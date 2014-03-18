@@ -105,11 +105,11 @@ function startPage(){
                 $(data.context.children()[index])
                     .wrap(link);
                 
-                $("#aguardeModal").modal('show');
+                aguardeShow("Listando porta retratos para sua foto...");
                 
                 setTimeout(function(){
                 	window.location.href = file.url;
-                },5000);
+                },2000);
             } else if (file.error) {
                 var error = $('<span class="text-danger"/>').text(file.error);
                 $(data.context.children()[index])
@@ -128,8 +128,4 @@ function startPage(){
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
 startPage();
-
-function redirectPreview(url){
-	
-}
 </script>

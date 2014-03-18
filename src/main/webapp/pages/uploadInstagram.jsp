@@ -34,7 +34,7 @@
  	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
 					<ul class="list-group">
 						<li class="list-group-item active">
-					   		Informações:
+					   		Dicas:
 						</li>
 						<li class="list-group-item">
 		   					
@@ -83,21 +83,8 @@
 	   <input type="hidden" id="listPr" name="listPr" value="INSTAGRAM"/>
 	</form>
 	
-	<!-- GERAR UMA TAG DESSE CARA -->
-	<div class="modal fade" id="aguardeModal">
-      <div class="modal-dialog" style='width:375px;'>
-        <div class="modal-content">
-          <div class="modal-header" >
-            <h4 class="modal-title">Aguarde...<br><small>Gerando visualização</small></h4>
-            
-          </div>
-          <div class="modal-body" style="text-align: center;">
-            <img src="assets/img/aguarde.gif" width="178px" height="172px"/>
-          </div>
-        </div>
-      </div>
-  	</div>
-  	<!-- FIMMMMM -->
+	
+	<wjaa:aguarde/>
 	
 
 </div>

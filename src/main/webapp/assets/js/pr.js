@@ -1,8 +1,8 @@
-function openPageUpload(){
-	$.post( "portaretrato",
-			function( data ) {
-		  		$("html").html( data );
-			},
-			"html"
-	);
+function aguardeShow(texto){
+	$("#aguardeTxtSmall").html(texto);
+	$("#aguardeModal").modal('show');
+}
+
+function aguardeHide(){
+	$("#aguardeModal").modal('hide');
 }

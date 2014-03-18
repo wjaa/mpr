@@ -137,6 +137,12 @@ var flickrretrato = function() {
       
       $('#previewModal').modal('show') ;
       $('#previewImg').attr("src",decodeURIComponent(urlImg));
+      var urlDownload = decodeURIComponent(urlHi);
+		$("#urlParam").val(urlDownload);
+		$('#btnSelecionar').click(function(){
+			aguardeShow("Listando porta retratos para sua foto...");
+			document.forms[0].submit();
+		});
       
     },
 

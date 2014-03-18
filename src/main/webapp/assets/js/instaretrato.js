@@ -51,7 +51,7 @@ var instagram = function() {
 			var urlDownload = decodeURIComponent(urlHi);
 			$("#urlParam").val(urlDownload);
 			$('#btnSelecionar').click(function(){
-				$("#aguardeModal").modal('show');
+				aguardeShow("Listando porta retratos para sua foto...");
 				document.forms[0].submit();
 			});
 			

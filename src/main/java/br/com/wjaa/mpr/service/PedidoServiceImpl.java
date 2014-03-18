@@ -54,14 +54,18 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 	public Pedido iniciarPedido(String path, String fileName) {
 		Pedido pedido = new Pedido();
 		pedido.setDataPedido(new Date());
-		
 		String extensao = fileName.substring(fileName.lastIndexOf("."));
-		pedido.setPathImage(path + File.separator + new Date().getTime() + "." + extensao);
+		pedido.setPathImage(path + File.separator + new Date().getTime() + extensao);
 		pedido.setStatusEnum(PedidoStatus.INICIADO);
 		pedido.setEmailEnviadoEnum(EmailEnviadoStatus.NAO_ENVIADO);
 		return pedido;
 	}
 	
+	public Pedido alterarImagemPedido(Pedido pedido, String path, String fileName){
+		String extensao = fileName.substring(fileName.lastIndexOf("."));
+		pedido.setPathImage(path + File.separator + new Date().getTime() + extensao);
+		return pedido;
+	}
 	
 	
 	@Override

@@ -56,6 +56,10 @@
 	    <div id="flickr" class="row" style="margin: 10px;">
 	  
 		</div>
+		<form action="uploadUrl" method="POST">
+	   		<input type="hidden" id="urlParam" name="url" value=""/>
+		</form>
+		
 		<div style="text-align: center;">
 	    <button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
         	<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
