@@ -64,6 +64,7 @@
 		
 			<form action="uploadUrl" method="POST">
 	   			<input type="hidden" id="urlParam" name="url" value=""/>
+	   			<input type="hidden" id="listPr" name="listPr" value="FACEBOOK"/>
 			</form>
 		
 		   <div class="modal fade" id="previewModal">

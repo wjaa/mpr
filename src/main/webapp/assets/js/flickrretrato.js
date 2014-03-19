@@ -1,6 +1,6 @@
 var key = '74154473b7640f9bfaf09a33f3a3da69';
 var secret = '98d90ec0fac60b84';
-var perPage = 12;
+var perPage = 18;
 var format = 'json';
 var countImages = 0;
 
@@ -8,17 +8,26 @@ var flickrretrato = function() {
   return {
     init: function() {
       
+      $("#inBusca").keypress(function(e) {
+    	  if(e.which == 13) {
+    		  flickrretrato.initFind();
+    	   }
+      });	
+    	
       $("#btnBuscar").click(function(){
-          var arg = $("#inBusca").val();
-          var idUser = "";
-          //se nao tiver hashtag é um usuário
-          if (arg.indexOf("#") == -1){
-              idUser = flickrretrato.getUser(arg);
-          }
-
-          flickrretrato.find(arg.replace("#",""),idUser,1);
+          flickrretrato.initFind();
       });
       
+    },
+    initFind: function(){
+    	var arg = $("#inBusca").val();
+        var idUser = "";
+        //se nao tiver hashtag é um usuário
+        if (arg.indexOf("#") == -1){
+            idUser = flickrretrato.getUser(arg);
+        }
+
+        flickrretrato.find(arg.replace("#",""),idUser,1);
     },
     getUser: function(username){
       var idUser = "";
@@ -109,10 +118,10 @@ var flickrretrato = function() {
              if (data.sizes.size[i].label == 'Small'){
                 urlThumb = data.sizes.size[i].source;
              }
-             if (data.sizes.size[i].label == 'Medium 640'){
+             if (data.sizes.size[i].label == 'Medium 640' || data.sizes.size[i].label == 'Medium 800' || data.sizes.size[i].label == 'Medium'){
                 urlPreview = data.sizes.size[i].source;
              }
-             if (data.sizes.size[i].label == 'Original'){
+             if (data.sizes.size[i].label == 'Original' || data.sizes.size[i].label == 'Large'){
                 urlHi = data.sizes.size[i].source;
              }
           } 

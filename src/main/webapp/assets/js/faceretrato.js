@@ -1,6 +1,6 @@
 var appSecret = '30c79d8a6cff5337959aced9bbd9b44d';
 var appId = 192790747577104;
-var limit = 12;
+var limit = 18;
 
   window.fbAsyncInit = function() {
       FB.init({
@@ -52,6 +52,7 @@ var limit = 12;
 var faceretrato = function() {
   return {
       init:function(){
+    	  $('#sairFace').hide();
           $('#logarFace').click(function(){
               faceretrato.login();
           });

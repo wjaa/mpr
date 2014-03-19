@@ -13,9 +13,9 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
    	 <wjaa:logo/>
      <div class="jumbotron page-header" style="margin: 0px;">
      	<div style="float: left; width: 450px" >
-	        <h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Escolha o seu porta retrato.<br><br>
+	        <h4><span class="label label-primary">2° passo.</span>&nbsp;&nbsp;Escolha o seu porta retrato.<br><br>
 	        <small>
-	        <c:if test="${listPr == 'NORMAL' }">
+	        <c:if test="${listPr == 'NORMAL' || listPr == 'FACEBOOK' || listPr == 'FLICKR' || listPr == 'GOOGLE'}">
 	        	Os porta retratos abaixo são para fotos no estilo paisagem ou retrato. Trabalhamos apenas  com os tamanhos 10x15, 13x18 e 15x21. Em breve termos novos modelos e outros tamanhos.
 	        </c:if>
 	        
@@ -68,9 +68,4 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
-<script>
-$(".pr-list").load("listarPr?listPr=${listPr}" ,function( data ) {
-	$(".pr-list").html( data );
-});
-</script>
 </html>

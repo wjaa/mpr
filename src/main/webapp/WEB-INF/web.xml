@@ -14,17 +14,7 @@
     <servlet-name>UploadController</servlet-name>
     <url-pattern>/uploadFoto</url-pattern>
   </servlet-mapping>
- 
-  <servlet>
-    <description></description>
-    <display-name>PreviewController</display-name>
-    <servlet-name>PreviewController</servlet-name>
-    <servlet-class>br.com.wjaa.mpr.controller.PreviewController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PreviewController</servlet-name>
-    <url-pattern>/preview</url-pattern>
-  </servlet-mapping>
+  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>

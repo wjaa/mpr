@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib tagdir="/WEB-INF/tags" prefix="wjaa" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <html>
 <wjaa:header/>
 <head>
@@ -12,12 +13,12 @@
 		background-repeat: no-repeat;
     <c:choose>
        <c:when test="${sessionScope.carrinho.portaRetrato.tipo == 'I'}">
-            background-position:115px 40px;
+            background-position:115px 85px;
        		background-size: 220px 220px;
 			width: 300px;
        </c:when>
        <c:otherwise>
-       background-position:110px 40px;
+       background-position:110px 79px;
 			background-size: 225px 310px;
 			width: 300px;
 			/*transform:rotate(7deg);*/
@@ -41,6 +42,10 @@
  	 </div> 
        
 					<div id="base" style="float: left; width: 450px; margin-top: 10px">
+						<div  style="margin-bottom: 10px;">
+			      			<button id="btnTrocarPr" type="submit" class="btn btn-warning"><h4>Trocar porta retrato</h4></button>&nbsp;&nbsp;&nbsp;
+			      			<button id="btnTrocarFoto" type="submit" class="btn btn-warning"><h4>Trocar foto</h4></button>
+			    		</div>
 						<c:choose>
 					       <c:when test="${sessionScope.carrinho.portaRetrato.tipo == 'I'}">
 					       		<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="300px" height="300px"/>
@@ -51,8 +56,15 @@
 					    </c:choose>
 					    <div class="caption">
 			      			<h4>${sessionScope.carrinho.portaRetrato.nome}</h4>
-			     			<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${sessionScope.carrinho.portaRetrato.precoStr}</span></h3>
+			     			<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${sessionScope.carrinho.portaRetrato.precoStr} <span style="font-size: small;">à vista</span></span></h3>
+	     				 	<c:if test="${mostraParcela}">
+	     				 		<h6 style="margin-top: 18px"><span class="info"><span style="font-size: small;">Ou em ${numParcela}x R$</span>
+	     				 			<span style="font-size: 20px"><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.portaRetrato.preco / numParcela}</f:formatNumber></span> <br>sem juros.
+	     				 		</span></h6>
+	     				 	</c:if>
 			    		</div>
+			    		
+			    		
 						
 					</div>
 			
@@ -99,6 +111,14 @@
 $("#btnFinalizar").on('click', function () {
 	window.location.href = 'pagar';	
 });	
+
+$("#btnTrocarPr").click(function(){
+	window.location.href = 'listarPr?listPr=FACEBOOK';
+});
+
+$("#btnTrocarFoto").click(function(){
+	window.location.href = 'escolherImagem?listPr=FACEBOOK';
+});
 
 </script>
 </html>

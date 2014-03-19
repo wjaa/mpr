@@ -8,6 +8,8 @@ import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,8 @@ import br.com.wjaa.mpr.service.PedidoService;
 @Controller
 public class UploadUrlController {
 
+	private static final Log log = LogFactory.getLog(UploadController.class);
+	
 	@Autowired
 	private PedidoService pedidoService;
 	private File fileUploadPath;
@@ -39,7 +43,7 @@ public class UploadUrlController {
 
 	@RequestMapping(value = "/uploadUrl", method = RequestMethod.POST )
 	public ModelAndView upload(@RequestParam String url, @RequestParam String listPr, HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("redirect:/listarPr?listPr" + listPr);
+		ModelAndView mav = new ModelAndView("redirect:/listarPr?listPr=" + listPr);
 		try {
 			URL wget = new URL(url);
 			InputStream in = wget.openStream();
@@ -62,9 +66,10 @@ public class UploadUrlController {
 			in.close();  
 			fos.close();  
 		} catch (IOException e) {
+			log.error("Erro ao fazer o download da imagem = " + url);
 			mav = new ModelAndView("erro");
 			//TODO CRIAR TELA DE ERRO GENERICA.
-			mav.addObject("erro", "Erro ao buscar a imagem do instagram");
+			mav.addObject("erro", "Erro ao fazer o download da imagem.");
 		}
 		return mav;
 		

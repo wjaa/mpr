@@ -58,6 +58,7 @@
 		</div>
 		<form action="uploadUrl" method="POST">
 	   		<input type="hidden" id="urlParam" name="url" value=""/>
+	   		<input type="hidden" id="listPr" name="listPr" value="FLICKR"/>
 		</form>
 		
 		<div style="text-align: center;">
@@ -76,11 +77,13 @@
 	          </div>
 	          <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-	            <button type="button" class="btn btn-primary">Selecionar</button>
+	            <button id="btnSelecionar" type="button" class="btn btn-primary">Selecionar</button>
 	          </div>
 	        </div><!-- /.modal-content -->
 	      </div><!-- /.modal-dialog -->
 	  </div>
+	  
+	  <wjaa:aguarde/>
 
 	</div>
 	

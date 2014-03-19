@@ -92,6 +92,16 @@ public class PortaRetratoController {
 		
 		CarrinhoHelper.alterarPortaRetrato(carrinho, pr, this.pedidoService);
 		
+		Integer numParcela = adminService.getConfig().getNumParcela();
+    	boolean mostraParcela = true;
+        if (numParcela == null || numParcela == 0){
+        	mostraParcela = false;
+        }else{
+        	mav.addObject("numParcela", adminService.getConfig().getNumParcela());
+        }
+        
+        mav.addObject("mostraParcela", mostraParcela);
+		
 		return mav;
 		
 	}
