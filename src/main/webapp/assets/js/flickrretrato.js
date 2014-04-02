@@ -7,7 +7,8 @@ var countImages = 0;
 var flickrretrato = function() {
   return {
     init: function() {
-      
+    	$("#btnAnterior").attr('disabled', true);
+    	$("#btnProximo").attr('disabled', true);
       $("#inBusca").keypress(function(e) {
     	  if(e.which == 13) {
     		  flickrretrato.initFind();
@@ -21,13 +22,13 @@ var flickrretrato = function() {
     },
     initFind: function(){
     	var arg = $("#inBusca").val();
-        var idUser = "";
         //se nao tiver hashtag é um usuário
         if (arg.indexOf("#") == -1){
-            idUser = flickrretrato.getUser(arg);
+            flickrretrato.getUser(arg);
+        }else{
+        	flickrretrato.find(arg.replace("#",""),"",1);
         }
 
-        flickrretrato.find(arg.replace("#",""),idUser,1);
     },
     getUser: function(username){
       var idUser = "";
@@ -39,7 +40,14 @@ var flickrretrato = function() {
         cache: false,
         url: findUrl,
         success: function(data) {
-            idUser = data.user.id;
+        	if (data.message){
+                $("#flickr").html(data.message);
+                return;
+             }
+        	
+            var idUser = data.user.id;
+            
+            flickrretrato.find("",idUser,1);
         },
         error: function(data) {
            $("#flickr").html("Usuário não encontrado!");
@@ -121,11 +129,14 @@ var flickrretrato = function() {
              if (data.sizes.size[i].label == 'Medium 640' || data.sizes.size[i].label == 'Medium 800' || data.sizes.size[i].label == 'Medium'){
                 urlPreview = data.sizes.size[i].source;
              }
-             if (data.sizes.size[i].label == 'Original' || data.sizes.size[i].label == 'Large'){
+             if ( (data.sizes.size[i].label == 'Original' && data.sizes.size[i].height < 2000 )  || data.sizes.size[i].label == 'Large'){
                 urlHi = data.sizes.size[i].source;
              }
           } 
           
+          if (urlHi == ""){
+        	  urlHi = urlPreview;
+          }
           var url = encodeURIComponent(urlPreview);
           $("#flickr").append("<div class='col-sm-3 col-md-2'><a id='linkPreview" + countImages + "' data-toggle='" + url + "'" +
            " class='btn btn-primary btn-lg thumbnail' href='#'>" + 

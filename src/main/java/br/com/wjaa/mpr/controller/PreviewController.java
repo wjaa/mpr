@@ -50,9 +50,6 @@ public class PreviewController extends HttpServlet {
         }
         
         request.setAttribute("mostraParcela", mostraParcela);
-    	
-		Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
-		carrinho.setImgUrl(request.getParameter("imgUrl"));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/preview.jsp");  
 		dispatcher.forward(request,response);  
 	}

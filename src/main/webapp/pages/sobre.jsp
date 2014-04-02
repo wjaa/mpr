@@ -23,9 +23,9 @@ title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 
 <h3>Instruções para compra: </h3>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>1º) </b>Escolha o Porta retrato na área de busca. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>1º) </b>Procure fotos do seu usuário ou de seus amigos e escolha a melhor imagem para um lindo porta retrato, ou faça um upload de uma foto do seu computador. </p>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>2º) </b>Procure fotos do seu usuário ou de seus amigos e escolha a melhor imagem para um lindo porta retrato, ou faça um upload de uma foto do seu computador. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>2º) </b>Escolha o Porta retrato que melhor se encaixe com a sua foto. </p>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>3º)</b> Veja como ficou. Daremos ao nossos clientes a oportunidade de visualizar a foto escolhida dentro do porta retrato selecionado. (A visualização que aparecerá em nosso site, é apenas ilustrativa. Garantimos a qualidade de nossos produtos.)</p>
 
@@ -33,6 +33,10 @@ title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 
 <h3>Informação importante:</h3>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;Todas as fotos enviadas serão avaliadas pela nossa equipe, caso não estejam com a qualidade adequada para a confecção do porta retrato, entraremos em contato para a troca da imagem ou devolveremos o dinheiro. </p>
+
+<h3>Deixe sua opinião:</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Precisamos da sua opinião para melhorarmos cada vez mais. Acesse nossa fanpage e deixe seu comentário. 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://facebook.com/meuportaretrato" target="_blank"><img src="assets/img/facebook-icon.gif" width="25px" height="25px"/>&nbsp;Facebook: facebook.com/meuportaretrato</a><br></p>
 
 		 	</span>       
 		    </div>

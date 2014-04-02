@@ -35,7 +35,11 @@ public class CarrinhoHelper {
 			
 			//se o pedido for iniciado altera apenas a imagem
 			if (pedido.getStatusEnum().equals(PedidoStatus.INICIADO)){
-				pedido = pedidoService.alterarImagemPedido(pedido, fileUploadPath.getPath(), fileName);
+				if (carrinho.getPortaRetrato() != null){
+					pedido = pedidoService.alterar(pedido, carrinho.getPortaRetrato().getId());
+				}else{
+					pedido = pedidoService.alterarImagemPedido(pedido, fileUploadPath.getPath(), fileName);
+				}
 			}else{
 				//criando um novo pedido, se o status for diferente de iniciado quer dizer que o ultimo pedido foi concluido.
 				pedido = pedidoService.iniciarPedido(fileUploadPath.getPath(), fileName);
@@ -43,7 +47,6 @@ public class CarrinhoHelper {
 		}
 		carrinho.setPedido(pedido);
 		carrinho.setImgUrl("uploadFoto?getfile=" + pedido.getImageName());
-        
         return pedido;
 	}
 	

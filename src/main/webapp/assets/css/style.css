@@ -149,3 +149,7 @@ body {
 .txtInfo li{
 	font-size: 12px;
 }
+.txt-item{
+	line-height : 1.5 !important;	
+}
+

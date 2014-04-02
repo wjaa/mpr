@@ -16,7 +16,15 @@
 Os valores anunciados não incluem frete. 
 		</span>
 		<div  style="margin-top: 15px; border-top: 1px #9e9a9a solid;">
-			<div class="row" style="margin-top: 40px; ">
+			<div class="row" style="margin-top: 15px; margin-bottom: 15px; ">
+	
+	    		  <div class="col-xs-6 col-md-6">
+	        		<div class="thumbnail">
+	          	  		<div id="fb-root"></div>
+				  		<div class="fb-like" data-href="https://www.facebook.com/meuportaretrato" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+	        		</div>
+	      		 </div>
+  			    
 				
 	  			<div class="col-xs-6 col-md-3 social">
 	  				
@@ -44,3 +52,12 @@ Os valores anunciados não incluem frete.
     </div>
     
 </div>
+<script>
+(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=192790747577104";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>

@@ -13,7 +13,7 @@
    	<div class="jumbotron page-header" style="margin: 0px;">
    	 	
    	 	<div style="float: left; width: 450px" >
-       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto<br><br>
+       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto no <span class="label" style="background-color: #826D5D">Instagram.</span><br><br>
        		<small>Pesquise fotos no instagram por usuário ou #hashtag.</small></h4>
 		 	<div class="row">
 			 	<div class="col-lg-10">
@@ -31,19 +31,21 @@
  	  
  	 	<div class="row txtInfo">
  	 	
- 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
+ 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px;">
 					<ul class="list-group">
 						<li class="list-group-item active">
-					   		Dicas:
+					   		Dicas para Instagram:
 						</li>
-						<li class="list-group-item">
-		   					
-		   					 Procure fotos do seu usuário ou fotos de seus amigos.  
+						<li class="list-group-item txt-item">
+		   					 Procure fotos de seus usuarios ou de seus amigos. Ex: <b>jermzlee, muradosmann, ifitwags.</b>  
 		   				</li>
-		   				<li class="list-group-item">
-		   					
-		   					 Procure fotos por hashtag ex: <b>#dog, #cat, #thundercats</b>  
+		   				<li class="list-group-item txt-item">
+		   					 Procure escolher as fotos com mais brilho e intensidade, pois se adaptam melhor ao papel na hora da impressão.
 		   				</li>
+		   				<li class="list-group-item txt-item">
+		   					 Temos a opção de procurar por hastag. Ex: <b>#dog, #cat, #thundercats.</b>
+		   				</li>
+		   				 
 		   			</ul>
 			</div>	
 			
@@ -81,6 +83,7 @@
 	<form action="uploadUrl" method="POST">
 	   <input type="hidden" id="urlParam" name="url" value=""/>
 	   <input type="hidden" id="listPr" name="listPr" value="INSTAGRAM"/>
+	   <input type="hidden" id="isAlterarFoto" name="isAlterarFoto" value="${isAlterarFoto}"/>
 	</form>
 	
 	

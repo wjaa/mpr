@@ -21,7 +21,7 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
       			<img data-src="holder.js/900x200" alt=""  style="width: 900px; height: 272px;" src="assets/img/home_topo.jpg" usemap="#on-off">
       			<map name="on-off">
       				<area shape="rect" coords="0,0,450,272" href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" alt="Porta retratos para fotos de instagram">
-      				<area shape="rect" coords="450,0,900,272" href="${pageContext.request.contextPath}/escolherImagem?listPr=NORMAL" alt="Porta retratos para fotos comuns">
+      				<!--  <area shape="rect" coords="450,0,900,272" href="${pageContext.request.contextPath}/escolherImagem?listPr=NORMAL" alt="Porta retratos para fotos comuns">-->
       			</map>
 			</span>
         </div>
@@ -45,7 +45,7 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 	</div>	
  
  	<div>
-    <div class="row">
+    <div class="row" style="margin-top: 10px;" >
       <div class="col-sm-4 col-md-4">
         <div class="thumbnail">
           <a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM">
@@ -55,7 +55,7 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
             <h3>Decore seu escritório</h3>
             <p>Dê um toque especial para o seu ambiente de trabalho. Decore com um lindo porta retrato com suas fotos do instagram.
 			</p>
-            <p><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button">Monte agora</a></p>
+            <p><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button" style="margin-top: 46px;">Monte agora</a></p>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
           <div class="caption">
             <h3>Presenteie um familiar ou amigo.</h3>
             <p>Presenteie seus parentes e amigos com lindos portas retratos, faça um upload ou escolha as fotos do instagram da pessoa que deseja presentear. </p>
-            <p><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button">Monte agora</a></p>
+            <p><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button" >Monte agora</a></p>
           </div>
         </div>
       </div>
@@ -79,19 +79,18 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
           <div class="caption">
             <h3>Decore sua casa.</h3>
             <p>Decore sua casa com o amor, carinho e alegria de um momento. Eternize seus momentos em lindos portas retratos e quadros e enfeite cada canto de sua casa.</p>
-            <p><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button">Monte agora</a></p>
+            <p ><a href="${pageContext.request.contextPath}/escolherImagem?listPr=INSTAGRAM" class="btn btn-primary" role="button" style="margin-top: 25px;">Monte agora</a></p>
           </div>
         </div>
       </div>
     </div>
-  </div>	
-	
+  </div>
 </div>   	 
 
 </body>
 <wjaa:rodape/>
 <wjaa:botton/>
 <script type="text/javascript">
-    $('.carousel').carousel()
+    $('.carousel').carousel();
 </script>
 </html>

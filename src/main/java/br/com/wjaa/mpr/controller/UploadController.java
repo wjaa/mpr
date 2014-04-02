@@ -136,7 +136,7 @@ public class UploadController extends HttpServlet {
         	LOG.error("request nao é multipart");
             throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
         }
-        
+        Boolean isAlterarFoto = new Boolean(request.getParameter("isAlterarFoto"));
         ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
         PrintWriter writer = response.getWriter();
         response.setContentType("application/json");
@@ -152,7 +152,11 @@ public class UploadController extends HttpServlet {
                         jsono.put("name", file.getName());
                         jsono.put("size", item.getSize());
                         //String param = java.net.URLEncoder.encode("uploadFoto?getfile=" + file.getName(), "ISO-8859-1");
-                        jsono.put("url","listarPr?listPr=NORMAL");
+                        if (!isAlterarFoto){
+                        	jsono.put("url","listarPr?listPr=NORMAL");
+                        }else{
+                        	jsono.put("url","preview");
+                        }
                         jsono.put("thumbnail_url", "uploadFoto?getthumb=" + item.getName());
                         jsono.put("delete_url", "uploadFoto?delfile=" + item.getName());
                         jsono.put("delete_type", "GET");

@@ -51,7 +51,7 @@ public class PedidoController {
 			
 		} catch (Exception ex){
 			LOG.error("Erro ao buscar o pedido", ex);
-			mav.addObject("msg", "Erro ao buscar o pedido. Tente novamente mais tarde.");
+			mav.addObject("msg", "Pedido com código " + hash + ", não foi localizado.");
 		}
 		return mav;
 	}

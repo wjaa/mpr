@@ -14,7 +14,7 @@
 	  	<div class="jumbotron page-header" style="margin: 0px;">
    	 	
 	   	 	<div style="float: left; width: 450px" >
-	       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto<br><br>
+	       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto no <span class="label" style="background-color: #0000A0">Facebook.</span><br><br>
 	       		<small>Faça login na sua conta do facebook clicando no botão abaixo, ou caso já esteja logado e queria trocar de usuário, clique no botão 'Sair da conta'. </small></h4>
 			 	<div class="row">
 				 	<div class="col-lg-10">
@@ -31,16 +31,20 @@
  	 	
 		 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
 							<ul class="list-group">
-								<li class="list-group-item active">
-							   		Informações:
+				   				<li class="list-group-item active txt-item">
+							   		Dicas para Facebook:
 								</li>
-								<li class="list-group-item">
-				   					
-				   					 As imagens com bordas vermelhas são imagens quadradas que muito provalmente são fotos do instagram.  
+								<li class="list-group-item txt-item">
+				   					Escolha a foto que mais lhe agrada para enquadrar e fazer um lindo porta retrato.   
 				   				</li>
-				   				<li class="list-group-item">
-				   					
-				   					 Estaremos bloqueando essas imagens porque não ficaram boas em porta retrato retangular. Caso queira escolher fotos do instagram <a href="home?listPr=INSTAGRAM">clique aqui</a>  
+				   				<li class="list-group-item txt-item">
+				   					As opções de fotos do aplicativo facebook são retangulares.   
+				   				</li>
+				   				<li class="list-group-item txt-item">
+				   					Para que não haja nenhuma complicação na hora de produzirmos o porta retrato, estaremos bloqueando algumas imagens. As imagens com bordas vermelhas são imagens quadradas e não ficarão bem em porta retratos retangulares.   
+				   				</li>
+				   				<li class="list-group-item txt-item">
+				   					Caso queira escolher fotos do instagram <a href="escolherImagem?listPr=INSTAGRAM">clique aqui</a>    
 				   				</li>
 				   			</ul>
 					</div>	
@@ -65,6 +69,7 @@
 			<form action="uploadUrl" method="POST">
 	   			<input type="hidden" id="urlParam" name="url" value=""/>
 	   			<input type="hidden" id="listPr" name="listPr" value="FACEBOOK"/>
+	   			<input type="hidden" id="isAlterarFoto" name="isAlterarFoto" value="${isAlterarFoto}"/>
 			</form>
 		
 		   <div class="modal fade" id="previewModal">

@@ -30,7 +30,7 @@ import br.com.wjaa.mpr.service.PedidoService;
 @Controller
 public class UploadUrlController {
 
-	private static final Log log = LogFactory.getLog(UploadController.class);
+	private static final Log log = LogFactory.getLog(UploadUrlController.class);
 	
 	@Autowired
 	private PedidoService pedidoService;
@@ -42,8 +42,14 @@ public class UploadUrlController {
 	}
 
 	@RequestMapping(value = "/uploadUrl", method = RequestMethod.POST )
-	public ModelAndView upload(@RequestParam String url, @RequestParam String listPr, HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("redirect:/listarPr?listPr=" + listPr);
+	public ModelAndView upload(@RequestParam String url, @RequestParam String listPr, HttpServletRequest request, 
+			@RequestParam(required= false, defaultValue = "false") Boolean isAlterarFoto){
+		ModelAndView mav;
+		if (!isAlterarFoto){
+			mav = new ModelAndView("redirect:/listarPr?listPr=" + listPr);
+		}else{
+			mav = new ModelAndView("redirect:/preview");
+		}
 		try {
 			URL wget = new URL(url);
 			InputStream in = wget.openStream();
@@ -66,7 +72,7 @@ public class UploadUrlController {
 			in.close();  
 			fos.close();  
 		} catch (IOException e) {
-			log.error("Erro ao fazer o download da imagem = " + url);
+			log.error("Erro ao fazer o download da imagem = " + url, e);
 			mav = new ModelAndView("erro");
 			//TODO CRIAR TELA DE ERRO GENERICA.
 			mav.addObject("erro", "Erro ao fazer o download da imagem.");

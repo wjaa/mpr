@@ -1,15 +1,8 @@
 package br.com.wjaa.mpr.controller;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.wjaa.mpr.controller.helper.CarrinhoHelper;
 import br.com.wjaa.mpr.entity.Carrinho;
-import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.service.AdminService;
@@ -114,9 +106,10 @@ public class PortaRetratoController {
      * @return
      */
     @RequestMapping(value = "/escolherImagem", method = RequestMethod.GET)
-	protected ModelAndView escolherImagem(@RequestParam("listPr")String listPr, HttpServletRequest request){
+	protected ModelAndView escolherImagem(@RequestParam("listPr")String listPr, HttpServletRequest request, 
+			@RequestParam(required= false, defaultValue = "false") Boolean isAlterarFoto){
     	ModelAndView mav = new ModelAndView();
-    	
+    	mav.addObject("isAlterarFoto", isAlterarFoto);
 		String pagina = "index";
 		if ("NORMAL".equalsIgnoreCase(listPr)){
 			pagina = "upload";

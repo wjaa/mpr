@@ -35,16 +35,16 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 				<c:forEach var="pr" items="${requestScope.prs}">
 					<form action="escolherPr" method="get">
 						<div class="col-sm-6 col-md-3">
-				  			<div class="thumbnail" style="margin: 10px;">
+				  			<div class="thumbnail">
 				  					<input type="hidden" name="listPr" value="${requestScope.listPr}">
 				  					<input type="hidden" name="prCode" value="${pr.prCode}">
 				    				
 				    				<c:choose>
 				    				   <c:when test="${pr.tipo == 'I'}">
-				    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="130px" height="130px">
+				    				     	<img onclick="showZoom('${pr.prCode}','${pr.nome}');" src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="130px" height="130px" style="cursor: pointer;">
 				    				   </c:when>
 				    				   <c:otherwise>
-				    				      <img src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="90px" height="130px">
+				    				     	<img onclick="showZoom('${pr.prCode}','${pr.nome}');" src="/static/img/${pr.prCode}_T.png" onError="this.onerror=null;this.src='assets/img/nao_disponivel.jpg';" alt="${pr.nome}" width="90px" height="130px" style="cursor: pointer;">
 				    				   </c:otherwise>
 				    				</c:choose>
 				    				<div class="caption">
@@ -64,8 +64,35 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 		  		</c:forEach>
 		</div>
 	</div>
+	
+	
+	<div class="modal fade" id="previewModal">
+	      <div class="modal-dialog" style='width:475px;'>
+	        <div class="modal-content">
+	          <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 id="modalTitulo" class="modal-title"></h4>
+	          </div>
+	          <div class="modal-body">
+	            <img id="previewImg" width="400px"/>
+	          </div>
+	          <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+	          </div>
+	        </div><!-- /.modal-content -->
+	      </div><!-- /.modal-dialog -->
+	     </div>
+	
 </div>
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
 </html>
+<script>
+
+function showZoom(prCode, desc){
+	$("#previewImg").attr("src","/static/img/" + prCode + "_TZ.png");
+	$("#modalTitulo").html(desc);
+	$("#previewModal").modal("show");
+}
+</script>

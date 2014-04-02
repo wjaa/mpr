@@ -85,6 +85,7 @@ public class NotificacoesController {
 						//enviando o email para o cliente com os dados do email
 						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
 						EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+						EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
 						pedidoService.save(p);
 					}
 				}else if ( TransactionStatus.PAID.equals(t.getStatus()) ){
@@ -99,6 +100,7 @@ public class NotificacoesController {
 						try {
 							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
 							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);
@@ -117,6 +119,7 @@ public class NotificacoesController {
 						//enviando o email para o cliente com os dados do email
 						try {
 							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);

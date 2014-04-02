@@ -13,7 +13,7 @@
    	<div class="jumbotron page-header" style="margin: 0px;">
    	 	
    	 	<div style="float: left; width: 450px" >
-       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto<br><br>
+       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto no <span class="label" style="background-color: #FCFCFC; color:#609BE7">Flick<font color="#FF0787">r.</font></span><br><br>
        		<small>Pesquise fotos no flickr por usuário ou #hashtag.</small></h4>
 		 	<div class="row">
 			 	<div class="col-lg-10">
@@ -34,16 +34,17 @@
  	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
 					<ul class="list-group">
 						<li class="list-group-item active">
-					   		Informações:
+					   		Dicas para Flickr:
 						</li>
-						<li class="list-group-item">
-		   					
-		   					 Procure fotos do seu usuário ou fotos de seus amigos.  
+						<li class="list-group-item txt-item">
+		   					 Procure as fotos sempre com a hastag e nome do usuário desejado.   
 		   				</li>
-		   				<li class="list-group-item">
-		   					
-		   					 Procure fotos por hashtag ex: <b>#dog, #cat, #thundercats</b>  
+		   				<li class="list-group-item txt-item">
+		   					As fotos mais coloridas são as fotos que mais se adaptam ao papel na hora da impressão, tornando seu porta retrato muito mais bonito.   
 		   				</li>
+		   				<li class="list-group-item txt-item">
+				   			Caso queira escolher fotos do instagram <a href="escolherImagem?listPr=INSTAGRAM">clique aqui</a>    
+				   		</li>
 		   			</ul>
 			</div>	
 			
@@ -59,6 +60,7 @@
 		<form action="uploadUrl" method="POST">
 	   		<input type="hidden" id="urlParam" name="url" value=""/>
 	   		<input type="hidden" id="listPr" name="listPr" value="FLICKR"/>
+	   		<input type="hidden" id="isAlterarFoto" name="isAlterarFoto" value="${isAlterarFoto}"/>
 		</form>
 		
 		<div style="text-align: center;">

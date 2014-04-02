@@ -13,7 +13,7 @@
       <div class="jumbotron page-header" style="margin: 0px;">
       	
       		<div style="float: left">
-	        	<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Envie sua foto. <br><br>
+	        	<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Envie sua foto do seu <span class="label" style="background-color: #5999E7; colo">Computador.</span> <br><br>
 	        	<small>Sua foto será tratada da melhor forma para uma boa impressão.</small></h4>
 	        	
 	        	<span class="btn btn-success fileinput-button">
@@ -37,10 +37,16 @@
 		 	 		<div class="col-sm-6 col-md-6" style="margin-top: 5px">
 							<ul class="list-group">
 								<li class="list-group-item active">
-							   		Dicas:
+							   		Dicas para upload:
 								</li>
-								<li class="list-group-item">
-				   					 Envie fotos retangulares, que melhor se encaixe em um porta retrato.  
+								<li class="list-group-item txt-item">
+				   					 Envie as fotos armazenadas em seu computador. Faça um upload e veja como ficará em nossos porta retratos.  
+				   				</li>
+				   				<li class="list-group-item txt-item">
+				   					 Escolha fotos com uma qualidade boa, de preferência para imagens com resolução acima de 5mp.   
+				   				</li>
+				   				<li class="list-group-item txt-item">
+				   					Caso queira escolher fotos do instagram <a href="escolherImagem?listPr=INSTAGRAM">clique aqui</a>    
 				   				</li>
 				   				
 				   			</ul>

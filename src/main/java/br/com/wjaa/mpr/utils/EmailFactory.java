@@ -163,7 +163,7 @@ public class EmailFactory {
 	}
 	
 	private static String  getNameTransactionStatus(TransactionStatus s){
-		if (TransactionStatus.AVAILABLE.equals(s.getValue())){
+		if (TransactionStatus.AVAILABLE.equals(s)){
 			return "Em avaliação";
 		} else if (TransactionStatus.CANCELLED.equals(s)){
 			return "Cancelada";
@@ -181,7 +181,7 @@ public class EmailFactory {
 			return "Aguardando Pagamento";
 		}
 		
-		return "Status não identificado";
+		return "Status não identificado  = " + s != null  ? s.toString() : "null";
 		
 		
 		
