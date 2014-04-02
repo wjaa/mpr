@@ -62,6 +62,7 @@
 	     				 			<span style="font-size: 20px"><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.portaRetrato.preco / numParcela}</f:formatNumber></span> <br>sem juros.
 	     				 		</span></h6>
 	     				 	</c:if>
+	     				 	<h4><span style="font-weight:bold; color: #f49e09">+ frete</span></h4>
 			    		</div>
 			    		
 			    		
@@ -89,11 +90,17 @@
 				   				Não armazenamos nenhuma informação de nossos clientes, seus dados são armazenados apenas no pagseguro onde temos total segurança e confiabilidade em seus serviços.
 				   				
 				   				</li>
-				   				  <li class="list-group-item">
+				   				<li class="list-group-item">
 				   				  <span class="badge">4</span>
 				   				Após a confirmação do pagamento, você receberá um email com o código do pedido, onde  poderá visualizar o status de seu pedido em nosso site.
 
 				   				</li>
+				   				<li class="list-group-item">
+				   				  <span class="badge">5</span>
+				   				O pagseguro calculará o preço do frete com base no seu endereço de entrega.
+
+				   				</li>
+				   				
 				   			</ul>	
 		    		
 					</div>

@@ -20,17 +20,42 @@
 		        	</h4>
 				</div>
 		    </div>
-		    
-			 <div style="margin-top: 30px; margin-bottom: 90px;">
-	         	<!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
-				<form  action="${requestScope.redirect}" method="post" target="_blank">
-				<input class="btn btn-default btn-lg" type="image" src="assets/img/pagseguro.png" width="250px;" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" value="Clique aqui para pagar com:"></input>
-				</form>
-				<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
-		   
-       		</div>    
-		    	
 	  </div>	
+	  <div class="panel panel-primary" style="margin-top: 10px;">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading">Detalhes do pedido</div>
+		  <!-- Table -->
+		  <table class="table">
+		  	<thead>
+			 <tr>
+		  	  <th>Número do Pedido</th>
+		  	  <th>Descrição</th>
+		  	  <th>Valor</th>
+		  	</tr>
+		  	</thead>
+		  	<tbody>
+		  		<tr>
+		  			<td>#${sessionScope.carrinho.pedido.id}</td>
+		  			<td>${sessionScope.carrinho.portaRetrato.nome} + Impressão de foto</td>
+		  			<td>R$ ${sessionScope.carrinho.portaRetrato.precoStr}</td>
+		  		</tr>
+		  		<tr>
+		  			<td colspan="2" align="right"><h4><span >Total: </span></h4></td>
+		  			<td><h4><span class="label label-success">R$ ${sessionScope.carrinho.portaRetrato.precoStr} + Frete</span></h4></td>
+		  		</tr>
+		  	</tbody>
+		  	
+		  </table>
+		</div>
+    
+	 <div style="margin-top: 30px; margin-bottom: 90px; text-align: center;">
+        	<!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+		<form  action="${requestScope.redirect}" method="post" target="_blank">
+			<input class="btn btn-default btn-lg" type="image" src="assets/img/pagseguro.png" width="250px;" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" value="Clique aqui para pagar com:" style="border: 3px solid transparent; border-color: #333333"></input>
+		</form>
+		<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+   
+     		</div>    
 	 		
        
 </div>

@@ -48,13 +48,15 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 				    				   </c:otherwise>
 				    				</c:choose>
 				    				<div class="caption">
-				      					<div style="height:70px;overflow: auto;"><h6>${pr.nome}</h6></div>
+				      					<div style="overflow: auto;"><h6>${pr.nome}</h6></div>
 				     				 	<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${pr.precoStr} <span style="font-size: small;">à vista</span></span></h3>
 				     				 	<c:if test="${mostraParcela}">
 				     				 		<h6 style="margin-top: 18px"><span class="info"><span style="font-size: small;">Ou em ${numParcela}x R$</span>
 				     				 			<span style="font-size: 20px"><f:formatNumber pattern="#,##0.00">${pr.preco / numParcela}</f:formatNumber></span> <br>sem juros.
 				     				 		</span></h6>
 				     				 	</c:if>
+				     				 	<h4><span style="font-weight:bold; color: #f49e09">+ frete</span></h4>
+				     				 	
 				     				 	<br>
 				      				 	<p><input type="submit" class="btn btn-primary" value="Escolher"/></p>
 				    				</div>
