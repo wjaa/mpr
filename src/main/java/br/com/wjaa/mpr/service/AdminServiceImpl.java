@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wjaa.mpr.dao.ConfigurationDAO;
+import br.com.wjaa.mpr.entity.Cliente;
 import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
@@ -26,13 +27,16 @@ import br.com.wjaa.mpr.exception.ServiceException;
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
-	public PortaRetratoService portaRetratoService;
+	private PortaRetratoService portaRetratoService;
 	
 	@Autowired
-	public ConfigurationDAO configurationDAO;
+	private ConfigurationDAO configurationDAO;
 	
 	@Autowired
-	public PedidoService pedidoService;
+	private PedidoService pedidoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	private static final SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
 	private static final SimpleDateFormat sdfddMMyyyy = new SimpleDateFormat("ddMMyyyy");
@@ -99,6 +103,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void alterarStatusPedido(Integer idPedido, String status) {
 		this.pedidoService.alterarStatus(idPedido, PedidoStatus.getPedidoStatusBySigla(status));
+	}
+
+	@Override
+	public List<Cliente> getAllClientes() {
+		return this.clienteService.getAll();
 	}
 	
 }

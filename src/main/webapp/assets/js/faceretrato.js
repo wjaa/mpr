@@ -1,6 +1,8 @@
 var appSecret = '30c79d8a6cff5337959aced9bbd9b44d';
 var appId = 192790747577104;
 var limit = 18;
+var userID = 0;
+var accessToken = 0;
 
   window.fbAsyncInit = function() {
       FB.init({
@@ -22,9 +24,11 @@ var limit = 18;
           $('#sairFace').show();
           
           var o = FB.getAuthResponse();
-          message(o.accessToken);
+          userID = o.userID;
+          accessToken = o.accessToken;
+          faceretrato.listarAlbuns();
           
-          faceretrato.listarFotos('/me/photos?'+o.accessToken + "&limit=" + limit,0);
+          //faceretrato.listarFotos('/me/photos?'+o.accessToken + "&limit=" + limit,0);
 
         } else if (response.status === 'not_authorized') {
           message('Erro na autenticacao');
@@ -79,7 +83,6 @@ var faceretrato = function() {
           
           FB.api(url, function(response) {
         	  
-        	  btnAnterior
         	  $("#facebook").html("");
               var count = 0;
               for (var i = 0; i < response.data.length; i ++ ){
@@ -96,25 +99,23 @@ var faceretrato = function() {
                   //paging.previous
                   count++;
                   appendHtmlLinkPopup(ehQuadrada, count, urlEnc, url, urlHi)
-          		    
-                  
                   //se for a primeira pagina entao pode ir pra frente e nao pra traz
                   if (page == 0){
-                	  $("#btnProximo").attr('disabled', false); 
-                	  $("#btnAnterior").attr('disabled', true);
+                	  $("#btnProximo").show(); 
+                	  $("#btnAnterior").hide();
                 		  
                   }else{
                 	  //se uma pagina diferente de zero entao pode ir pra traz
-                	  $("#btnAnterior").attr('disabled', false);
+                	  $("#btnAnterior").show();
                   }
                   
-                  //se o resultado dessa pagina for menor que 12 é porque nao tem proxima pagina.
-                  //TODO isso aqui pode dar problema se a ultima pagina tiver 12. Então é melhor chamar o nextpage pra ver 
+                  //se o resultado dessa pagina for menor que 18 é porque nao tem proxima pagina.
+                  //TODO isso aqui pode dar problema se a ultima pagina tiver 18. Então é melhor chamar o nextpage pra ver 
                   //quantos elementos tem na proxima pagina
-                  if (response.data.length < 12){
-                	  $("#btnProximo").attr('disabled', true);
+                  if (response.data.length < limit && response.data.length > 0){
+                	  $("#btnProximo").hide();
                   }else{
-                	  $("#btnProximo").attr('disabled', false);
+                	  $("#btnProximo").show();
                   }
                   
                   $("#btnAnterior").unbind("click");
@@ -157,6 +158,19 @@ var faceretrato = function() {
             
         });
   
+      },
+      listarAlbuns:function(){
+    	  FB.api("/" + userID + "/albums", function(response) {
+    		  $("#selectAlbuns").html("<option value='0'>clique aqui...</option>");
+    		  var o = response.data;
+    		  for (var i = 0; i < o.length; i ++){
+    			  $("#selectAlbuns").append("<option value='" + o[i].id +"'>" + o[i].name + "</option>");
+    		  }
+    		  
+    	  });
+      },
+      listarPhotoByAlbum:function(idAlbum){
+    	  faceretrato.listarFotos("/" + idAlbum + "/photos?" + accessToken + "&limit=" + limit,0);
       }
   }
 
@@ -198,6 +212,7 @@ function appendHtmlLinkPopup(ehQuadrada, count, urlEnc, url, urlHi){
 
 
 function message(msg){
+	//alert(msg);
 	/*$('.alert').show();
 	$('.alert').append("<br>" + msg);
 	setTimeout(function(){

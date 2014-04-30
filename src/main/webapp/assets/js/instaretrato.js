@@ -64,17 +64,21 @@ var instagram = function() {
 				url: getImagesURL,
 				success: function(data) {
 					$("#instagram").html("");
-					$("#btnProximo").attr('disabled', false);
+					
 					if (pagina == 0){
-						$("#btnAnterior").attr('disabled', true);
+						$("#btnAnterior").hide();
 					}else{
-						$("#btnAnterior").attr('disabled', false);
+						$("#btnAnterior").show();
 						$("#btnAnterior").unbind("click");
 						$("#btnAnterior").click(function(){
 							instagram.getNextPage(urlsPaginacao[pagina], pagina-1);
 						});	
 					}
-
+					if (data.data.length < limit){
+						$("#btnProximo").hide();
+					}else{
+						$("#btnProximo").show();
+					}
 					
 					var next_url = data.pagination.next_url;
 					$("#btnProximo").unbind("click");

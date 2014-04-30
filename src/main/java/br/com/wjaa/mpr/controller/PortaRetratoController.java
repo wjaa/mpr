@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.wjaa.mpr.controller.helper.CarrinhoHelper;
 import br.com.wjaa.mpr.entity.Carrinho;
+import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.entity.PortaRetrato.PortaRetratoType;
 import br.com.wjaa.mpr.service.AdminService;
@@ -48,14 +49,16 @@ public class PortaRetratoController {
     @RequestMapping(value = "/listarPr", method = RequestMethod.GET)
 	protected ModelAndView listPr(@RequestParam("listPr") String listPr) {
     	ModelAndView mav = new ModelAndView("portaretrato");
-    	Integer numParcela = adminService.getConfig().getNumParcela();
+    	Configuration config = adminService.getConfig();
+    	Integer numParcela = config.getNumParcela();
     	boolean mostraParcela = true;
         if (numParcela == null || numParcela == 0){
         	mostraParcela = false;
         }else{
         	mav.addObject("numParcela", numParcela);
         }
-        
+        mav.addObject("ligaDesconto", config.getLigaDesconto());
+        mav.addObject("desconto", config.getPorcentDesconto());
         mav.addObject("mostraParcela", mostraParcela);
 		mav.addObject("prs",portaRetratoService.listPrByType(PortaRetratoType.getPortaRetratoTypeByName(listPr)));
 		mav.addObject("listPr", listPr);
@@ -84,14 +87,16 @@ public class PortaRetratoController {
 		
 		CarrinhoHelper.alterarPortaRetrato(carrinho, pr, this.pedidoService);
 		
-		Integer numParcela = adminService.getConfig().getNumParcela();
+		Configuration config = adminService.getConfig();
+    	Integer numParcela = config.getNumParcela();
     	boolean mostraParcela = true;
         if (numParcela == null || numParcela == 0){
         	mostraParcela = false;
         }else{
         	mav.addObject("numParcela", adminService.getConfig().getNumParcela());
         }
-        
+        mav.addObject("ligaDesconto", config.getLigaDesconto());
+        mav.addObject("desconto", config.getPorcentDesconto());
         mav.addObject("mostraParcela", mostraParcela);
 		
 		return mav;

@@ -8,27 +8,20 @@
 <body>
 <wjaa:menu/>
 <div class="container">
-    <wjaa:logo/>
-	<div class="jumbotron">
-		<h1>Ops!!!</h1>
-  			
-  		<div class="panel panel-danger">
-	  		<div class="panel-heading">
-	        	<h3 class="panel-title">Um erro aconteceu!</h3>
-	      	</div>	
-			<div class="panel-body"">
-				<c:if test="${erro != null}">
-				   &nbsp;&nbsp;${erro}<br>
-				</c:if>
-		      	&nbsp;&nbsp;Tente novamente mais tarde!
-		    </div>
-      </div>
-	</div>  
-</div>  
-</body>
-<wjaa:rodape/>
+   	 <wjaa:logo/>
+      <!-- Jumbotron -->
+      <div class="jumbotron page-header" style="margin: 0px;">
+   
+   			<c:if test="${msgInfo != null }">
+	    		<div class="alert" style="margin-top: 30px;">${msgInfo}</div>
+	    	</c:if>
+	
+	  </div>	
+</div>       
 <wjaa:botton/>
 <c:if test="${requestScope.ligaGoogleAnalytics}">
 	<wjaa:googleAnalytics/>
 </c:if>
-</html>	
+<wjaa:rodape/>
+</body>
+</html>

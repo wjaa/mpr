@@ -58,6 +58,7 @@ public class AdminController {
     	}
     	mav = new ModelAndView("admin");
 		mav.addObject("prs", this.adminService.getAllPortaRetrato());
+		mav.addObject("clientes", this.adminService.getAllClientes());
 		mav.addObject("config", this.adminService.getConfig());
 		request.getSession().setAttribute("token", token);
 		//TODO fazer apenas a minha maquina e da feeh se autenticar aqui.
@@ -173,6 +174,7 @@ public class AdminController {
 			 mav.addObject("pedidos", pedidos);
 			 mav.addObject("form", form);
 		 }catch(Exception ex){
+			 
 			 mav.addObject("error", "Erro ao listar os pedidos: '" + ex.getMessage() + "'");
 		 }
 		 return mav;
@@ -218,11 +220,23 @@ public class AdminController {
 						 portaRetrato.getThumb().getBytes());
 			 }	
 			 
-			 if (portaRetrato.hasThumbZoom()){
+			 if (portaRetrato.hasThumbZoom1()){
 				 String thumbZoomName = portaRetrato.getPrCode() + "_TZ.png";
 				 //gravando o thumb zoom
 				 FileUtils.writeByteArrayToFile(new File(folder.getPath() + File.separator + thumbZoomName), 
-						 portaRetrato.getThumbZoom().getBytes());
+						 portaRetrato.getThumbZoom1().getBytes());
+			 }
+			 if (portaRetrato.hasThumbZoom2()){
+				 String thumbZoomName = portaRetrato.getPrCode() + "_TZ2.png";
+				 //gravando o thumb zoom
+				 FileUtils.writeByteArrayToFile(new File(folder.getPath() + File.separator + thumbZoomName), 
+						 portaRetrato.getThumbZoom2().getBytes());
+			 }	
+			 if (portaRetrato.hasThumbZoom3()){
+				 String thumbZoomName = portaRetrato.getPrCode() + "_TZ3.png";
+				 //gravando o thumb zoom
+				 FileUtils.writeByteArrayToFile(new File(folder.getPath() + File.separator + thumbZoomName), 
+						 portaRetrato.getThumbZoom3().getBytes());
 			 }	
 
 		 }

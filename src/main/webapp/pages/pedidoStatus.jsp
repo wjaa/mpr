@@ -62,6 +62,9 @@ title="MeuPortaRetrato.com - Status do seu pedido."/>
 </div>
 <wjaa:rodape/>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 </body>
 <script>
 	$("#inBusca").keypress(function(e) {

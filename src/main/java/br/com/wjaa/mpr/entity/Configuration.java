@@ -23,6 +23,9 @@ public class Configuration implements Serializable{
 	private String pathImgPr;
 	private String pathUpload;
 	private Integer numParcela;
+	private Boolean ligaGoogleAnalytics;
+	private Boolean ligaDesconto;
+	private Double porcentDesconto;
 	
 	
 	@Column(name = "PATH_IMG_PR", length = 100)
@@ -58,5 +61,29 @@ public class Configuration implements Serializable{
 	public void setNumParcela(Integer numParcela) {
 		this.numParcela = numParcela;
 	}
+	
+	@Column(name = "LIGA_GOOGLE_ANALYTICS")
+	public Boolean getLigaGoogleAnalytics() {
+		return ligaGoogleAnalytics == null ? false: this.ligaGoogleAnalytics;
+	}
+	public void setLigaGoogleAnalytics(Boolean ligaGoogleAnalytics) {
+		this.ligaGoogleAnalytics = ligaGoogleAnalytics;
+	}
+	@Column(name = "LIGA_DESCONTO")
+	public Boolean getLigaDesconto() {
+		return ligaDesconto == null ? false : this.ligaDesconto;
+	}
+	public void setLigaDesconto(Boolean ligaDesconto) {
+		this.ligaDesconto = ligaDesconto;
+	}
+	@Column(name = "PORCENT_DESCONTO")
+	public Double getPorcentDesconto() {
+		return porcentDesconto;
+	}
+	public void setPorcentDesconto(Double porcentDesconto) {
+		this.porcentDesconto = porcentDesconto;
+	}
+	
+	
 	
 }

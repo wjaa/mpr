@@ -20,7 +20,7 @@
 		        <i class="glyphicon glyphicon-plus"></i>
 		        <span>Adicionar Foto...</span>
 		        <!-- The file input field used as target for the file upload widget -->
-		        <input id="fileupload" type="file" name="files[]" multiple>
+		        <input id="fileupload" type="file" name="files" multiple>
 			    </span>
 			    <br>
 			    <!-- The container for the uploaded files -->
@@ -63,6 +63,9 @@
 <wjaa:rodape/>
 </body>
 <wjaa:botton/> 
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <wjaa:upload_js/>
 <wjaa:prEscolhido_js/>
 </html>

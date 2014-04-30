@@ -23,6 +23,7 @@
  			 <li><a href="#tabPr" data-toggle="tab">Porta Retratos</a></li>
   			<li><a href="#tabConfig" data-toggle="tab">Configurações</a></li>
   			<li><a href="#tabPedidos" data-toggle="tab">Pedidos</a></li>
+  			<li><a href="#tabClientes" data-toggle="tab">Clientes</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -35,30 +36,27 @@
   					<input type="hidden" id="idPr" name="id" />
 				  <div class="form-group">
 				    <label for="inputPrCode" class="col-sm-2 control-label">prCode:</label>
-				    <div class="col-sm-3">
+				    <div class="col-sm-2">
 				      <input type="text" class="form-control" id="prCode" name="prCode" placeholder="prCode" required autofocus/>
 				    </div>
 				    <label for="inputPreco" class="col-sm-2 control-label">Preço:</label>
-				    <div class="col-sm-3">
+				    <div class="col-sm-2">
 				      <input type="text" class="form-control" id="preco" name="precoStr" placeholder="Preço" required autofocus>
+				    </div>
+				    <label for="inputNome" class="col-sm-2 control-label">Nome:</label>
+				    <div class="col-sm-2">
+				      <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required autofocus>
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label for="inputNome" class="col-sm-2 control-label">Nome:</label>
-				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required autofocus>
-				    </div>
+				    
 				    <label for="inputDescricao" class="col-sm-2 control-label">Descrição:</label>
-				    <div class="col-sm-3">
+				    <div class="col-sm-2">
 				      <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" required autofocus>
 				    </div>
-				  </div>
-				  
-				  
-				  <div class="form-group">
-						<label for="inputTipo" class="col-sm-2 control-label">Tipo:</label>
-				    	<div class="col-sm-3">
+				    <label for="inputTipo" class="col-sm-2 control-label">Tipo:</label>
+				    	<div class="col-sm-2">
 				  		<select class="form-control" required autofocus name="tipo" id="tipo">
 				  			<option>...</option>
 				  			<option value="N" >NORMAL</option>
@@ -68,9 +66,14 @@
 						</div>
 						
 						<label for="inputQuantidade" class="col-sm-2 control-label">Quantidade:</label>
-				    	<div class="col-sm-3">
+				    	<div class="col-sm-2">
 				      		<input type="text" class="form-control" id="qtde" name="qtde" placeholder="Quantidade" required autofocus>
 				    	</div>
+				  </div>
+				  
+				  
+				  <div class="form-group">
+						
 						
 					</div>
 					<div class="form-group">
@@ -92,11 +95,25 @@
 				  </div>
 				  <div class="form-group">
 				  		<label for="inputThumbZoom" class="col-sm-2 control-label"> 
-				    	<img id="imgThumbZoom" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFIklEQVR4Xu3X+SutbRTG8bUzFGXIUEiISJSSDKXEP49QykwZyvCDss0yO6279q7NOWUZOms9ffcv73uO23OuruuT+5HL5/NvwocGPtlADjCfbIpjqQHAAMHUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDmQFzfX0tGxsbov8dHh6WxsbGYhFvb2+yuLgoV1dXxa8dHR3JwcGBPD09pbMDAwNSXl7+z/J++/mm1f7j4UyAubm5kaWlJamrq5Ozs7MPYPb39+Xw8FAeHx/T16qqqmR2dlba29uloaFB1tbWpLOzU3p6ev46xW8//z/ub/6nMwHm/v5eXl5e5Pb2VlZWVkrAFMbu7e2Vzc3N9LW7uzvZ3t6WycnJhEex6fe3trbKzs6OjI6OSk1NjSwsLEgul5OhoSF5fX399vPHx8fNA3n7hkyAKZR6enpaAqZwFTU1NaWfJApDwZyfn6fraHp6Ol1Dq6ur6e+mpqZkeXlZFKB+z/HxsYyNjUl1dXX6J37i+d4AWPNkGoxeRTqyjn55efkBzMzMjJSVlZWA0Wtrfn4+XV/6XtPW1lbs9D2YrzzfOpC385kGMzc3l64fvVb0o9eK/r9ePScnJyVXkn5NYem1pleR/rmrq6vkveY9mK883xsAa55MgNH3j4eHB8nn87K1tSWDg4PpBVg/ei3pR99l9OrRnxqF9xN96a2vr5f19XXp7u6Wjo6O9NtURUWFtLS0pN+6RkZGpLa29keerwCjfzIBRn8z0neP9x99J6msrEx/fXFxUbyS9Ndo/Qmzt7cnz8/P0tzcLP39/bK7u5veWyYmJtLLsD5TofX19SVs332+Xn/RP5kAE32ESPkBE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBH+ACGI5qaapVofAAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+				    	<img id="imgThumbZoom1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFIklEQVR4Xu3X+SutbRTG8bUzFGXIUEiISJSSDKXEP49QykwZyvCDss0yO6279q7NOWUZOms9ffcv73uO23OuruuT+5HL5/NvwocGPtlADjCfbIpjqQHAAMHUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDmQFzfX0tGxsbov8dHh6WxsbGYhFvb2+yuLgoV1dXxa8dHR3JwcGBPD09pbMDAwNSXl7+z/J++/mm1f7j4UyAubm5kaWlJamrq5Ozs7MPYPb39+Xw8FAeHx/T16qqqmR2dlba29uloaFB1tbWpLOzU3p6ev46xW8//z/ub/6nMwHm/v5eXl5e5Pb2VlZWVkrAFMbu7e2Vzc3N9LW7uzvZ3t6WycnJhEex6fe3trbKzs6OjI6OSk1NjSwsLEgul5OhoSF5fX399vPHx8fNA3n7hkyAKZR6enpaAqZwFTU1NaWfJApDwZyfn6fraHp6Ol1Dq6ur6e+mpqZkeXlZFKB+z/HxsYyNjUl1dXX6J37i+d4AWPNkGoxeRTqyjn55efkBzMzMjJSVlZWA0Wtrfn4+XV/6XtPW1lbs9D2YrzzfOpC385kGMzc3l64fvVb0o9eK/r9ePScnJyVXkn5NYem1pleR/rmrq6vkveY9mK883xsAa55MgNH3j4eHB8nn87K1tSWDg4PpBVg/ei3pR99l9OrRnxqF9xN96a2vr5f19XXp7u6Wjo6O9NtURUWFtLS0pN+6RkZGpLa29keerwCjfzIBRn8z0neP9x99J6msrEx/fXFxUbyS9Ndo/Qmzt7cnz8/P0tzcLP39/bK7u5veWyYmJtLLsD5TofX19SVs332+Xn/RP5kAE32ESPkBE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBH+ACGI5qaapVofAAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
 				    	<h5>Imagem Zoom</h5>
 				    	</label>
-				    	<div class="col-sm-3">
-				    	  <input type="file" class="form-control" id="thumbZoom" name="thumbZoom" placeholder="ThumbZoom" autofocus>
+				    	<div class="col-sm-2">
+				    	  <input type="file" class="form-control" id="thumbZoom1" name="thumbZoom1" placeholder="ThumbZoom1" autofocus>
+				    	</div>
+				    	<label for="inputThumbZoom2" class="col-sm-2 control-label"> 
+				    	<img id="imgThumbZoom2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFIklEQVR4Xu3X+SutbRTG8bUzFGXIUEiISJSSDKXEP49QykwZyvCDss0yO6279q7NOWUZOms9ffcv73uO23OuruuT+5HL5/NvwocGPtlADjCfbIpjqQHAAMHUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDmQFzfX0tGxsbov8dHh6WxsbGYhFvb2+yuLgoV1dXxa8dHR3JwcGBPD09pbMDAwNSXl7+z/J++/mm1f7j4UyAubm5kaWlJamrq5Ozs7MPYPb39+Xw8FAeHx/T16qqqmR2dlba29uloaFB1tbWpLOzU3p6ev46xW8//z/ub/6nMwHm/v5eXl5e5Pb2VlZWVkrAFMbu7e2Vzc3N9LW7uzvZ3t6WycnJhEex6fe3trbKzs6OjI6OSk1NjSwsLEgul5OhoSF5fX399vPHx8fNA3n7hkyAKZR6enpaAqZwFTU1NaWfJApDwZyfn6fraHp6Ol1Dq6ur6e+mpqZkeXlZFKB+z/HxsYyNjUl1dXX6J37i+d4AWPNkGoxeRTqyjn55efkBzMzMjJSVlZWA0Wtrfn4+XV/6XtPW1lbs9D2YrzzfOpC385kGMzc3l64fvVb0o9eK/r9ePScnJyVXkn5NYem1pleR/rmrq6vkveY9mK883xsAa55MgNH3j4eHB8nn87K1tSWDg4PpBVg/ei3pR99l9OrRnxqF9xN96a2vr5f19XXp7u6Wjo6O9NtURUWFtLS0pN+6RkZGpLa29keerwCjfzIBRn8z0neP9x99J6msrEx/fXFxUbyS9Ndo/Qmzt7cnz8/P0tzcLP39/bK7u5veWyYmJtLLsD5TofX19SVs332+Xn/RP5kAE32ESPkBE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBH+ACGI5qaapVofAAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+				    	<h5>Imagem Zoom 2</h5>
+				    	</label>
+				    	<div class="col-sm-2">
+				    	  <input type="file" class="form-control" id="thumbZoom2" name="thumbZoom2" placeholder="ThumbZoom2" autofocus>
+				    	</div>
+				    	<label for="inputThumbZoom3" class="col-sm-2 control-label"> 
+				    	<img id="imgThumbZoom3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFIklEQVR4Xu3X+SutbRTG8bUzFGXIUEiISJSSDKXEP49QykwZyvCDss0yO6279q7NOWUZOms9ffcv73uO23OuruuT+5HL5/NvwocGPtlADjCfbIpjqQHAAMHUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDgDHVxWHAYMDUAGBMdXEYMBgwNQAYU10cBgwGTA0AxlQXhwGDAVMDmQFzfX0tGxsbov8dHh6WxsbGYhFvb2+yuLgoV1dXxa8dHR3JwcGBPD09pbMDAwNSXl7+z/J++/mm1f7j4UyAubm5kaWlJamrq5Ozs7MPYPb39+Xw8FAeHx/T16qqqmR2dlba29uloaFB1tbWpLOzU3p6ev46xW8//z/ub/6nMwHm/v5eXl5e5Pb2VlZWVkrAFMbu7e2Vzc3N9LW7uzvZ3t6WycnJhEex6fe3trbKzs6OjI6OSk1NjSwsLEgul5OhoSF5fX399vPHx8fNA3n7hkyAKZR6enpaAqZwFTU1NaWfJApDwZyfn6fraHp6Ol1Dq6ur6e+mpqZkeXlZFKB+z/HxsYyNjUl1dXX6J37i+d4AWPNkGoxeRTqyjn55efkBzMzMjJSVlZWA0Wtrfn4+XV/6XtPW1lbs9D2YrzzfOpC385kGMzc3l64fvVb0o9eK/r9ePScnJyVXkn5NYem1pleR/rmrq6vkveY9mK883xsAa55MgNH3j4eHB8nn87K1tSWDg4PpBVg/ei3pR99l9OrRnxqF9xN96a2vr5f19XXp7u6Wjo6O9NtURUWFtLS0pN+6RkZGpLa29keerwCjfzIBRn8z0neP9x99J6msrEx/fXFxUbyS9Ndo/Qmzt7cnz8/P0tzcLP39/bK7u5veWyYmJtLLsD5TofX19SVs332+Xn/RP5kAE32ESPkBE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBEAE2ktB1kB42CESBH+ACGI5qaapVofAAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+				    	<h5>Imagem Zoom 3</h5>
+				    	</label>
+				    	<div class="col-sm-2">
+				    	  <input type="file" class="form-control" id="thumbZoom3" name="thumbZoom3" placeholder="ThumbZoom3" autofocus>
 				    	</div>
 				    </div>
 	
@@ -151,23 +168,43 @@
 				<input type="hidden" name="id" value="${requestScope.config.id}"/>
 				<div class="form-group">
 				   <label for="inputPathImg" class="col-sm-2 control-label">Caminho das Imagens:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 				    	<input type="text" name="pathImgPr" class="form-control" id="pathImgPr" placeholder="pathImgPr" value="${requestScope.config.pathImgPr}"/>
 					</div>
 					<label for="inputPathUpload" class="col-sm-2 control-label">Caminho dos Uploads:</label>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 				    	<input type="text" name="pathUpload" class="form-control" id="pathUpload" placeholder="pathUpload" value="${requestScope.config.pathUpload}">
+					</div>
+					<label for="inputNumParcela" class="col-sm-2 control-label">Número de parcelas:</label>
+					<div class="col-sm-2">
+				    	<input type="text" name="numParcela" class="form-control" id="numParcela" placeholder="Numero de Parcelas" value="${requestScope.config.numParcela}">
 					</div>
 					
 				</div>
 				<div class="form-group">
-					<label for="inputNumParcela" class="col-sm-2 control-label">Número de parcelas:</label>
-					<div class="col-sm-3">
-				    	<input type="text" name="numParcela" class="form-control" id="numParcela" placeholder="Numero de Parcelas" value="${requestScope.config.numParcela}">
+					
+					<label for="googleAnalytics" class="col-sm-2 control-label">Liga Google Analytics:</label>
+					<div class="col-sm-2">
+				    	<select class="form-control" required autofocus name="ligaGoogleAnalytics" id="googleAnalytics">
+				  			<option value="false">NÃO</option>
+				  			<option value="true"<c:if test="${requestScope.config.ligaGoogleAnalytics}"> selected="selected" </c:if> >SIM</option>
+						</select>
 					</div>
-				</div>	  
+					<label for="ligaPreview" class="col-sm-2 control-label">Liga Desconto:</label>
+					<div class="col-sm-2">
+				    	<select class="form-control" required autofocus name="ligaDesconto" id="ligaDesconto">
+				  			<option value="false">NÃO</option>
+				  			<option value="true"<c:if test="${requestScope.config.ligaDesconto}"> selected="selected" </c:if> >SIM</option>
+						</select>
+					</div>
+					<label for="inputNumParcela" class="col-sm-2 control-label">% Desconto:</label>
+					<div class="col-sm-2">
+				    	<input type="text" name="porcentDesconto" class="form-control" id="porcentDesconto" placeholder="% Desconto" value="${requestScope.config.porcentDesconto}">
+					</div>
+				</div>
+				  
 				<div class="form-group">
-				   <div class="col-sm-offset-2 col-sm-2">
+				   <div class="col-sm-offset-3 col-sm-3">
 				   		<button type="submit" class="btn btn-lg btn-primary btn-block">Gravar</button>
 				   </div>
 				</div>	 
@@ -213,6 +250,7 @@
 				  			<option value="E">ENVIADO</option>
 				  			<option value="L">CANCELADO</option>
 				  			<option value="N">CONCLUIDO</option>
+				  			<option value="X">EXPIRADO</option>
 						</select>
 						</div>
 						
@@ -227,6 +265,32 @@
 				 </form> 	 
   	 			<div id="tabListaPedidos">
   	 			</div>
+			</div>
+			
+			<!-- ############## TAB DE CLIENTES ####################### -->
+			<div class="tab-pane active" id="tabClientes">
+				<table class="table table-hover">
+ 					<thead>
+			         	<tr>
+			           <th>#Código</th>
+			           <th>Nome</th>
+			           <th>Email</th>
+			           <th>Data Cadastro</th>
+			         </tr>
+			       	</thead>
+						<tbody>	
+			     		<c:forEach var="c" items="${requestScope.clientes}">
+			     	
+				          <tr>
+				            <td>${c.id}</td>
+				            <td>${c.nome}</td>
+				            <td>${c.email}</td>
+				            <td>${c.dataCadastroStr}</td>
+				          </tr>
+				           
+			          </c:forEach>
+			        </tbody>
+		        </table>  
 			</div>
 		    
 		    <!-- ############## FIM DAS TABS ####################### -->
@@ -273,6 +337,7 @@
 				  			<option value="E">ENVIADO</option>
 				  			<option value="L">CANCELADO</option>
 				  			<option value="N">CONCLUIDO</option>
+				  			<option value="X">EXPIRADO</option>
 						</select>
 	
 		          </div>
@@ -358,9 +423,11 @@
 	  $("#extensao").val(pr.extImg);
 	  $("#tipo").val(pr.tipo); 
 	  $("#qtde").attr('value',pr.qtde);
-	  $("#imgPreview").attr('src',"/static/img/" + pr.prCode + "_P.png?dummy=" + new Date().getTime());
-	  $("#imgThumb").attr('src',"/static/img/" + pr.prCode + "_T.png?dummy=" + new Date().getTime());
-	  $("#imgThumbZoom").attr('src',"/static/img/" + pr.prCode + "_TZ.png?dummy=" + new Date().getTime());
+	  $("#imgPreview").attr('src',"http://www.meuportaretrato.com/static/img/" + pr.prCode + "_P.png?dummy=" + new Date().getTime());
+	  $("#imgThumb").attr('src',"http://www.meuportaretrato.com/static/img/" + pr.prCode + "_T.png?dummy=" + new Date().getTime());
+	  $("#imgThumbZoom1").attr('src',"http://www.meuportaretrato.com/static/img/" + pr.prCode + "_TZ.png?dummy=" + new Date().getTime());
+	  $("#imgThumbZoom2").attr('src',"http://www.meuportaretrato.com/static/img/" + pr.prCode + "_TZ2.png?dummy=" + new Date().getTime());
+	  $("#imgThumbZoom3").attr('src',"http://www.meuportaretrato.com/static/img/" + pr.prCode + "_TZ3.png?dummy=" + new Date().getTime());
 	  
 	  $("#btnNovo").show();
 	  $("#btnDel").show();

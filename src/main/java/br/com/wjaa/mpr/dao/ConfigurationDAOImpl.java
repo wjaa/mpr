@@ -23,6 +23,9 @@ public class ConfigurationDAOImpl extends GenericDaoImpl<Configuration, Integer>
 				config.setPathImgPr(c.getPathImgPr());
 				config.setPathUpload(c.getPathUpload());
 				config.setNumParcela(c.getNumParcela());
+				config.setLigaGoogleAnalytics(c.getLigaGoogleAnalytics());
+				config.setLigaDesconto(c.getLigaDesconto());
+				config.setPorcentDesconto(c.getPorcentDesconto());
 			}
 		}
 		return super.save(config);

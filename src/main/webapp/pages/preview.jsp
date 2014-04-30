@@ -8,28 +8,15 @@
 <wjaa:header/>
 <head>
  <style>
-	div#base {
-		background-image: url("${sessionScope.carrinho.imgUrl}");
-		background-repeat: no-repeat;
-    <c:choose>
-       <c:when test="${sessionScope.carrinho.portaRetrato.tipo == 'I'}">
-            background-position:115px 92px;
-       		background-size: 220px 220px;
-			width: 300px;
-       </c:when>
-       <c:otherwise>
-       background-position:110px 89px;
-			background-size: 229px 310px;
-			width: 300px;
-			/*transform:rotate(7deg);*/
-			/*-ms-transform:rotate(7deg); /* IE 9 */
-			/*-webkit-transform:rotate(7deg); /* Opera, Chrome, and Safari */
-       </c:otherwise>
-    </c:choose>
-    	vertical-align: middle; 
-		text-align: center;
+	div#portaRetratoPaisagem {
+		-transform:rotate(90deg);
+		-ms-transform:rotate(90deg); /* IE 9 */
+		-webkit-transform:rotate(90deg); /* Opera, Chrome, and Safari */
+	    -moz-transform: rotate(90deg);
+      	-o-transform: rotate(90deg);
+    
 	}
-			</style>
+</style>
 	
 </head>
 <body>
@@ -41,74 +28,104 @@
        	<small>A imagem abaixo é apenas uma previa de como ficará o seu porta retrato. A qualidade do produto final é superior a imagem ilustrativa.</small></h4>
  	 </div> 
        
-					<div id="base" style="float: left; width: 450px; margin-top: 10px">
-						<div  style="margin-bottom: 10px;">
-			      			<span id="btnTrocarPr" type="submit" class="btn btn-warning" style="padding:0px 5px;"><h4>Trocar porta retrato</h4></span>&nbsp;&nbsp;&nbsp;
-			      			<span id="btnTrocarFoto" type="submit" class="btn btn-warning" style="padding:0px 5px;"><h4>Trocar foto</h4></span>
-			    		</div>
+					<div  style="float: left; width: 450px; margin-top: 10px">
+							<div class="btn-group" style="margin-bottom: 10px;margin-left: 95px;">
+					  			<button id="btnTrocarPr" type="button" class="btn btn-default">Trocar porta retrato</button>
+  								<button id="btnTrocarFoto" type="button" class="btn btn-default">Trocar foto</button>
+							</div>
 						<c:choose>
 					       <c:when test="${sessionScope.carrinho.portaRetrato.tipo == 'I'}">
-					       		<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="300px" height="300px"/>
+					       		<div id="imagem" style='position:relative; top:18px; left:110px; margin-left: 40px; margin-top: 10px;'>
+									<img alt="preview" src="${sessionScope.carrinho.imgUrl}" width="150px" height="150px"/>
+								</div>
+								<div id="portaRetratoPaisagem" style='position:absolute; top:165px; left:90px; margin-left: 40px; margin-top: 10px;'>
+									<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="200px" height="200px"/>
+								</div>	
+					       		<c:set var="styleAltura" value="margin-top: 50px;"></c:set>
 					       </c:when>
 					       <c:otherwise>
-								<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="300px" height="378px"/>
+					       		<c:set var="isPaisagem" value="false"/>
+					       		<c:if test="${sessionScope.carrinho.paisagem}">
+					       			<c:set var="isPaisagem" value="true"/>
+					       		</c:if>
+					            <c:choose>
+						            <c:when test="${isPaisagem}">
+										<div id="imagem" style='position:relative; top:35px; left:78px; margin-left: 40px; margin-top: 10px;'>
+											<img alt="preview" src="${sessionScope.carrinho.imgUrl}" width="210px" height="135px"/>
+										</div>
+										<div id="portaRetratoPaisagem" style='position:absolute; top:135px; left:110px; margin-left: 30px; margin-top: 20px;'>
+											<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="175px" height="260px"/>
+										</div>
+										<c:set var="styleAltura" value="margin-top: 90px;"></c:set>
+									</c:when>
+									<c:otherwise>
+										<div id="imagem" style='position:relative; top:20px; left:90px; margin-left: 70px;'>
+											<img alt="preview" src="${sessionScope.carrinho.imgUrl}" width="130px" height="182px"/>
+										</div>
+										<div id="portaRetrato" style='position:absolute; top:175px; left:80px; margin-left: 80px; margin-left: 70px;'>
+											<img alt="preview" src="/static/img/${sessionScope.carrinho.portaRetrato.prCode}_P.png" width="160px" height="220px"/>
+										</div>
+										<c:set var="styleAltura" value="margin-top: 50px;"></c:set>
+									</c:otherwise>
+								</c:choose>
 					       </c:otherwise>
 					    </c:choose>
-					    <div class="caption">
-			      			<h4>${sessionScope.carrinho.portaRetrato.nome}</h4>
-			     			<h3><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span>${sessionScope.carrinho.portaRetrato.precoStr} <span style="font-size: small;">à vista</span></span></h3>
+					    <div class="caption" style="${styleAltura}">
+			      			<h6>Foto + ${sessionScope.carrinho.portaRetrato.nome}</h6>
+			     			<h4 style="margin-top: 20px"><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.pedido.valor}</f:formatNumber> <span style="font-size: small;">à vista</span></span></h4>
 	     				 	<c:if test="${mostraParcela}">
-	     				 		<h6 style="margin-top: 18px"><span class="info"><span style="font-size: small;">Ou em ${numParcela}x R$</span>
-	     				 			<span style="font-size: 20px"><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.portaRetrato.preco / numParcela}</f:formatNumber></span> <br>sem juros.
+	     				 		<h6 style="margin-top: 10px"><span class="info"><span style="font-size: small;">Ou em ${numParcela}x R$</span>
+	     				 			<span style="font-size: 16px"><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.portaRetrato.preco / numParcela}</f:formatNumber></span> <br>sem juros.
 	     				 		</span></h6>
 	     				 	</c:if>
-	     				 	<h4><span style="font-weight:bold; color: #f49e09">+ frete</span></h4>
+	     				 	
+			    		</div>
+				    	<div class="caption" >
+			    			<form action="pagar" method="post">	
+							   	<button id="btnFinalizar" type="submit" class="btn btn-primary"><h3>Finalizar Pedido</h3></button>
+						    </form>
 			    		</div>
 			    		
 			    		
 						
 					</div>
 			
-					<div class="col-sm-6 col-md-6" style="margin-top: 5px">
+					<div class="col-sm-6 col-md-6" style="margin-top: 10px">
 							<ul class="list-group">
 							<li class="list-group-item active">
 							   Informações importantes:
 							</li>
+								<li class="list-group-item">
+				   				  <span class="badge">1</span>
+				   				<b>O pagseguro calculará o preço do frete com base no seu endereço de entrega.</b>
+
+				   				</li>
 								  <li class="list-group-item">
-				   				<span class="badge">1</span>
-				   				Levando em consideração a entrega de nossos fornecedores,  tempo de confecção e tratamento de imagem e impressão,  a entrega pode demorar até 10 dias úteis.  
+				   				<span class="badge">2</span>
+				   				Levando em consideração a entrega de nossos fornecedores,  tempo de confecção e tratamento de imagem e impressão,  a entrega pode demorar até <b>5 dias</b> úteis.  
 				   				</li>
 				   				
 				   				
 				   				  <li class="list-group-item">
-				   				  <span class="badge">2</span>
+				   				  <span class="badge">3</span>
 				   				Trabalhamos com entrega via correio, com isso será cobrado a taxa de postagem, após o envio do produto geraremos um código de rastreio e enviaremos para seu email.
 				   				</li>
 				   				
 				   				  <li class="list-group-item">
-				   				  <span class="badge">3</span>
+				   				  <span class="badge">4</span>
 				   				Não armazenamos nenhuma informação de nossos clientes, seus dados são armazenados apenas no pagseguro onde temos total segurança e confiabilidade em seus serviços.
 				   				
 				   				</li>
 				   				<li class="list-group-item">
-				   				  <span class="badge">4</span>
+				   				  <span class="badge">5</span>
 				   				Após a confirmação do pagamento, você receberá um email com o código do pedido, onde  poderá visualizar o status de seu pedido em nosso site.
 
 				   				</li>
-				   				<li class="list-group-item">
-				   				  <span class="badge">5</span>
-				   				O pagseguro calculará o preço do frete com base no seu endereço de entrega.
-
-				   				</li>
+				   				
 				   				
 				   			</ul>	
 		    		
 					</div>
-					<div class="col-sm-3">
-		    			<form action="pagar" method="post">	
-						   	<button id="btnFinalizar" type="submit" class="btn btn-primary"><h2>Finalizar Pedido</h2></button>
-					    </form>
-		    		</div>
 		    		
 		    		<div class="modal fade" id="chooseModal">
 				      <div class="modal-dialog" style='width:390px;'>
@@ -149,10 +166,10 @@
  <wjaa:rodape/>
 </body>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <script>
-$("#btnFinalizar").on('click', function () {
-	window.location.href = 'pagar';	
-});	
 
 $("#btnTrocarPr").click(function(){
 	<c:if test="${sessionScope.carrinho.portaRetrato.tipo == 'I'}">

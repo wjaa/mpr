@@ -7,12 +7,13 @@ import java.util.Date;
 import br.com.uol.pagseguro.domain.Transaction;
 import br.com.uol.pagseguro.domain.TransactionSearchResult;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
+import br.com.wjaa.mpr.entity.Cupom;
 import br.com.wjaa.mpr.entity.Pedido;
 
 
 public interface PagSeguroWS {
 
-	URL criarPagamento(Pedido pedido) throws PagSeguroServiceException;
+	URL criarPagamento(Pedido pedido,Cupom cupom) throws PagSeguroServiceException;
 	
 	Transaction notificacao(String notificationCode) throws PagSeguroServiceException;
 	

@@ -35,6 +35,7 @@ import br.com.uol.pagseguro.domain.TransactionSummary;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.uol.pagseguro.service.NotificationService;
 import br.com.uol.pagseguro.service.TransactionSearchService;
+import br.com.wjaa.mpr.entity.Cupom;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 
@@ -48,7 +49,7 @@ public class PagSeguroWSImpl implements PagSeguroWS{
      * Class with a main method to illustrate the usage of the domain class PaymentRequest
      * @throws PagSeguroServiceException 
      */
-    public URL criarPagamento(Pedido pedido) throws PagSeguroServiceException {
+    public URL criarPagamento(Pedido pedido, Cupom cupom) throws PagSeguroServiceException {
 
         // Instantiate a new payment request
         PaymentRequest paymentRequest = new PaymentRequest();
@@ -57,7 +58,7 @@ public class PagSeguroWSImpl implements PagSeguroWS{
         paymentRequest.setCurrency(Currency.BRL);
 
         PortaRetrato pr = pedido.getPortaRetrato();
-        BigDecimal preco = createBigDecimal(pr.getPreco());
+        BigDecimal preco = createBigDecimal( (pedido.getValor() - this.getDesconto(pedido.getValor(), cupom)));
         // Add an item for this payment request
         paymentRequest.addItem(pedido.getId().toString(), 
         		pr.getNome(), new Integer(1), preco, new Long(1000),
@@ -97,7 +98,15 @@ public class PagSeguroWSImpl implements PagSeguroWS{
     }
     
     
-    public Transaction notificacao(String notificationCode) throws PagSeguroServiceException {
+    private Double getDesconto(Double preco , Cupom cupom) {
+		if (cupom != null){
+			return preco * cupom.getPorcentagem() / 100;
+		}
+		return 0.0;
+	}
+
+
+	public Transaction notificacao(String notificationCode) throws PagSeguroServiceException {
 
         // Substitute the code below with a notification code for your
         // transaction.

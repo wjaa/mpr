@@ -26,7 +26,7 @@ public class CarrinhoHelper {
 		}
 		Carrinho carrinho  = (Carrinho) request.getSession().getAttribute("carrinho");
 		Pedido pedido;
-		if (carrinho == null){
+		if (carrinho == null || carrinho.getPedido() == null){
 			carrinho = new Carrinho();
 			request.getSession().setAttribute("carrinho", carrinho);
 			pedido = pedidoService.iniciarPedido(fileUploadPath.getPath(), fileName);

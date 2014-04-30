@@ -2,6 +2,7 @@ package br.com.wjaa.mpr.service;
 
 import java.util.List;
 
+import br.com.wjaa.mpr.entity.Cliente;
 import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
@@ -32,4 +33,6 @@ public interface AdminService {
 	String getToken();
 
 	void alterarStatusPedido(Integer idPedido, String status);
+
+	List<Cliente> getAllClientes();
 }

@@ -48,4 +48,7 @@ title="MeuPortaRetrato.com - Temos os melhores porta retratos para instagram."/>
 </body>
 <wjaa:rodape/>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 </html>	

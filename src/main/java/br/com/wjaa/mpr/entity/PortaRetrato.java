@@ -59,7 +59,11 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	
 	private MultipartFile preview;
 	
-	private MultipartFile thumbZoom;
+	private MultipartFile thumbZoom1;
+	
+	private MultipartFile thumbZoom2;
+	
+	private MultipartFile thumbZoom3;
 	
 	public enum PortaRetratoType{
 		
@@ -249,17 +253,33 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 	}
 	
 	@Transient
-	public MultipartFile getThumbZoom() {
-		return thumbZoom;
+	public MultipartFile getThumbZoom1() {
+		return thumbZoom1;
 	}
-	public void setThumbZoom(MultipartFile thumbZoom) {
-		this.thumbZoom = thumbZoom;
+	public void setThumbZoom1(MultipartFile thumbZoom1) {
+		this.thumbZoom1 = thumbZoom1;
+	}
+	
+	@Transient
+	public MultipartFile getThumbZoom2() {
+		return thumbZoom2;
+	}
+	public void setThumbZoom2(MultipartFile thumbZoom2) {
+		this.thumbZoom2 = thumbZoom2;
+	}
+	
+	@Transient
+	public MultipartFile getThumbZoom3() {
+		return thumbZoom3;
+	}
+	public void setThumbZoom3(MultipartFile thumbZoom3) {
+		this.thumbZoom3 = thumbZoom3;
 	}
 	
 	
 	
 	public boolean hasImageUploaded(){
-		return this.thumb != null || this.preview != null || this.thumbZoom != null;
+		return this.thumb != null || this.preview != null || this.thumbZoom1 != null;
 	}
 	public boolean hasThumb() throws IOException {
 		return getThumb() != null && getThumb().getInputStream().available() > 0;
@@ -269,8 +289,15 @@ public class PortaRetrato implements Comparable<PortaRetrato>, Serializable {
 		return getPreview() != null && getPreview().getInputStream().available() > 0;
 	}
 	
-	public boolean hasThumbZoom() throws IOException {
-		return getThumbZoom() != null && getThumbZoom().getInputStream().available() > 0;
+	public boolean hasThumbZoom1() throws IOException {
+		return getThumbZoom1() != null && getThumbZoom1().getInputStream().available() > 0;
+	}
+	
+	public boolean hasThumbZoom2() throws IOException {
+		return getThumbZoom2() != null && getThumbZoom2().getInputStream().available() > 0;
+	}
+	public boolean hasThumbZoom3() throws IOException {
+		return getThumbZoom3() != null && getThumbZoom3().getInputStream().available() > 0;
 	}
 	
 	

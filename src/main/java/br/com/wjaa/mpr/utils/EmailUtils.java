@@ -1,20 +1,12 @@
 package br.com.wjaa.mpr.utils;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
-import br.com.uol.pagseguro.domain.Item;
-import br.com.uol.pagseguro.domain.Sender;
-import br.com.uol.pagseguro.domain.Shipping;
 import br.com.uol.pagseguro.domain.Transaction;
-import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.wjaa.mpr.entity.Pedido;
-import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.vo.EmailParamVO;
 import br.com.wjaa.mpr.vo.EmailServerConfigVO;
@@ -28,9 +20,13 @@ public class EmailUtils {
 	
 	private static final Log LOG = LogFactory.getLog(EmailFactory.class);
 	
-	private static EmailServerConfigVO sc = new EmailServerConfigVO();
+	private static EmailServerConfigVO scPedido = new EmailServerConfigVO();
+	private static EmailServerConfigVO scNotificacao = new EmailServerConfigVO();
 	static{
-		sc = JsonUtils.fromJSON("{smtp:'smtp.meuportaretrato.com',port:587,user:'pedido@meuportaretrato.com',pass:'mawati99',ssl:false}"
+		scPedido = JsonUtils.fromJSON("{smtp:'smtp.meuportaretrato.com',port:587,user:'pedido@meuportaretrato.com',pass:'mawati99',ssl:false}"
+				, EmailServerConfigVO.class);
+		
+		scNotificacao = JsonUtils.fromJSON("{smtp:'smtp.meuportaretrato.com',port:587,user:'notificacao@meuportaretrato.com',pass:'mawati99',ssl:false}"
 				, EmailServerConfigVO.class);
 	}
 	
@@ -43,7 +39,7 @@ public class EmailUtils {
 	public static void sendEmailPagamento(Pedido p, String email, Transaction t) throws EmailServiceException {
 		try{
 			EmailParamVO param = EmailFactory.getEmailPagamento(p,email, t);
-			send(param);		
+			send(param, scPedido);		
 		}catch(Exception ex){
 			LOG.error("Erro ao enviar email para=" + email, ex);
 			throw new EmailServiceException(p, ex);
@@ -53,7 +49,7 @@ public class EmailUtils {
 	public static void sendEmailCancelamento(Pedido p, String email, Transaction t) throws EmailServiceException {
 		try{
 			EmailParamVO param = EmailFactory.getEmailCancelamento(p,email, t);
-			send(param);
+			send(param, scPedido);
 		}catch(Exception ex){
 			LOG.error("Erro ao enviar email para=" + email, ex);
 			throw new EmailServiceException(p, ex);
@@ -61,7 +57,7 @@ public class EmailUtils {
 	}
 	
 	
-	public static void send(EmailParamVO p) throws EmailException{
+	public static void send(EmailParamVO p, EmailServerConfigVO sc) throws EmailException{
 		HtmlEmail mail = new HtmlEmail();
 		mail.addTo(p.getEmail());
 		mail.setHostName(sc.getSmtp());
@@ -76,7 +72,7 @@ public class EmailUtils {
 		mail.send();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws EmailServiceException {
 		/*Pedido p = new Pedido();
 		p.setId(25);
 		PortaRetrato por = new PortaRetrato();
@@ -97,7 +93,7 @@ public class EmailUtils {
 			
 		}*/
 		
-		Pedido p = new Pedido();
+		/*Pedido p = new Pedido();
 		p.setId(25);
 		PortaRetrato por = new PortaRetrato();
 		por.setNome("Porta retrato liso azul marinho");
@@ -111,17 +107,30 @@ public class EmailUtils {
 			
 		} catch (EmailServiceException e) {
 			
-		}
+		}*/
+		
+		EmailUtils.sendEmailNotificacaoCadastro("feehpinazo@gmail.com", "HHKKdf456");
 	}
 
 	public static void sendEmailNotificacao(Pedido p, String email,
 			Transaction t) throws EmailServiceException {
 		try{
 			EmailParamVO param = EmailFactory.getEmailNotificacao(p,email, t);
-			send(param);
+			send(param, scNotificacao);
 		}catch(Exception ex){
 			LOG.error("Erro ao enviar email para=" + email, ex);
 			throw new EmailServiceException(p, ex);
+		}
+		
+	}
+	
+	public static void sendEmailNotificacaoCadastro(String email,String codigo) throws EmailServiceException {
+		try{
+			EmailParamVO param = EmailFactory.getEmailNotificacaoCadastro(email, codigo);
+			send(param, scNotificacao);
+		}catch(Exception ex){
+			LOG.error("Erro ao enviar email para=" + email, ex);
+			throw new EmailServiceException(null, ex);
 		}
 		
 	}

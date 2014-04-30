@@ -16,6 +16,7 @@ import br.com.wjaa.mpr.dao.PedidoDAO;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
 import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
+import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.EmailServiceException;
@@ -30,7 +31,11 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 	@Autowired
 	private PortaRetratoService portaRetratoService;
 	
-	@Autowired PagSeguroWS pagSeguroWS;
+	@Autowired 
+	PagSeguroWS pagSeguroWS;
+	
+	@Autowired
+	AdminService adminService;
 	
 	@Autowired
 	public PedidoServiceImpl(PedidoDAO pedidoDAO) {
@@ -82,6 +87,14 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 		pedido.setIdPortaRetrato(idPr);
 		PortaRetrato pr = this.portaRetratoService.get(idPr);
 		pedido.setPathImage(path + File.separator + pedido.getId() + "_" + pr.getPrCode() + ext);
+		//verificando se existe desconto
+		Configuration config = adminService.getConfig();
+		if ( config.getLigaDesconto() ){
+			pedido.setValor(pr.getPreco() - (pr.getPreco() * config.getPorcentDesconto() / 100));
+		}else{
+			pedido.setValor(pr.getPreco());
+		}
+		
 		pedido = this.pedidoDAO.saveOrUpdate(pedido);
 		return pedido;
 	}

@@ -101,7 +101,7 @@ function startPage(){
             if (file.url) {
                 var link = $('<a>')
                     .prop('href', file.url);
-                $("#files span").text("Veja como ficou sua foto.");
+                //$("#files span").text("Veja como ficou sua foto.");
                 $(data.context.children()[index])
                     .wrap(link);
                 
@@ -119,7 +119,7 @@ function startPage(){
         });
     }).on('fileuploadfail', function (e, data) {
         $.each(data.files, function (index, file) {
-            var error = $('<span class="text-danger"/>').text('File upload failed.');
+            var error = $('<span class="text-danger"/>').text('Erro ao enviar o arquivo.');
             $(data.context.children()[index])
                 .append('<br>')
                 .append(error);

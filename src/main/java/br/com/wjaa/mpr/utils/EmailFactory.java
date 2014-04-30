@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.Transaction;
@@ -24,20 +22,25 @@ import br.com.wjaa.mpr.vo.EmailParamVO;
 public class EmailFactory {
 
 	private static final Log LOG = LogFactory.getLog(EmailFactory.class);
-	private static final String NOME_EMAIL = "PEDIDO - MeuPortaRetrato.com";
-	private static final String DE_EMAIL = "pedido@meuportaretrato.com";
+	private static final String NOME_EMAIL_PEDIDO = "PEDIDO - MeuPortaRetrato.com";
+	private static final String NOME_EMAIL_NOTIFICACAO = "Notificação - MeuPortaRetrato.com";
+	private static final String DE_EMAIL_PEDIDO = "pedido@meuportaretrato.com";
+	private static final String DE_EMAIL_NOTIFICACAO = "notificacao@meuportaretrato.com";
 	private static StringBuilder TEMPLATE_EMAIL_CANCELAMENTO = new StringBuilder();
 	private static StringBuilder TEMPLATE_EMAIL_PAGAMENTO = new StringBuilder();
+	private static StringBuilder TEMPLATE_EMAIL_CADASTRO = new StringBuilder();
 	private static final BASE64Encoder base64 = new BASE64Encoder();
 	
 	
 	static{
 		InputStream inCan = EmailFactory.class.getClassLoader().getResourceAsStream("email_cancelamento.html");
 		InputStream inPag = EmailFactory.class.getClassLoader().getResourceAsStream("email_pagamento.html");
+		InputStream inNotifCadastro = EmailFactory.class.getClassLoader().getResourceAsStream("email_cadastro.html");
 		
 		try {
 			List<String> linesCan = IOUtils.readLines(inCan);
 			List<String> linesPag = IOUtils.readLines(inPag);
+			List<String> linesNotifCadastro = IOUtils.readLines(inNotifCadastro);
 			
 			for (String l : linesCan) {
 				TEMPLATE_EMAIL_CANCELAMENTO.append(l);
@@ -45,6 +48,9 @@ public class EmailFactory {
 			
 			for (String l : linesPag) {
 				TEMPLATE_EMAIL_PAGAMENTO.append(l);
+			}
+			for (String l : linesNotifCadastro){
+				TEMPLATE_EMAIL_CADASTRO.append(l);
 			}
 			
 		} catch (IOException e) {
@@ -89,8 +95,8 @@ public class EmailFactory {
 		emailParam.setBody(emailCancelamento);
 		emailParam.setEmail(email);
 		emailParam.setTitle("Pedido Cancelado");
-		emailParam.setName(NOME_EMAIL);
-		emailParam.setFrom(DE_EMAIL);
+		emailParam.setName(NOME_EMAIL_PEDIDO);
+		emailParam.setFrom(DE_EMAIL_PEDIDO);
 		
 		LOG.info("Parametros para email de cancelamento montados com sucesso");
 		return emailParam;
@@ -139,8 +145,8 @@ public class EmailFactory {
 		emailParam.setBody(emailCancelamento);
 		emailParam.setEmail(email);
 		emailParam.setTitle("Pedido Aprovado");
-		emailParam.setName(NOME_EMAIL);
-		emailParam.setFrom(DE_EMAIL);
+		emailParam.setName(NOME_EMAIL_PEDIDO);
+		emailParam.setFrom(DE_EMAIL_PEDIDO);
 		LOG.info("Parametro de email de pagamento montando com sucesso");
 		return emailParam;
 	}
@@ -156,8 +162,8 @@ public class EmailFactory {
 		emailParam.setBody(sb.toString());
 		emailParam.setEmail(email);
 		emailParam.setTitle("Pedido com status alterado!");
-		emailParam.setName(NOME_EMAIL);
-		emailParam.setFrom(DE_EMAIL);
+		emailParam.setName(NOME_EMAIL_PEDIDO);
+		emailParam.setFrom(DE_EMAIL_PEDIDO);
 		LOG.info("Parametro de email de notificacao montando com sucesso");
 		return emailParam;
 	}
@@ -185,5 +191,19 @@ public class EmailFactory {
 		
 		
 		
+	}
+
+	public static EmailParamVO getEmailNotificacaoCadastro(String email,
+			String codigo) {
+		EmailParamVO emailParam = new EmailParamVO();
+		String emailCadastro = TEMPLATE_EMAIL_CADASTRO.toString();
+		emailCadastro = StringUtils.replace(emailCadastro, "{0}", codigo);
+		emailParam.setBody(emailCadastro);
+		emailParam.setEmail(email);
+		emailParam.setTitle("Cupom de desconto");
+		emailParam.setName(NOME_EMAIL_NOTIFICACAO);
+		emailParam.setFrom(DE_EMAIL_NOTIFICACAO);
+		LOG.info("Parametro de email de notificacao montando com sucesso");
+		return emailParam;
 	}
 }

@@ -25,6 +25,9 @@
        
 </div>       
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <wjaa:rodape/>
 </body>
 </html>

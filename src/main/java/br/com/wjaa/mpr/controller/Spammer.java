@@ -31,7 +31,7 @@ public class Spammer {
 		
 		p.setBody(sb.toString());
 		try {
-			EmailUtils.send(p);
+			EmailUtils.send(p,null);
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

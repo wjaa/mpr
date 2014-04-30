@@ -40,6 +40,8 @@ public class Pedido implements Serializable{
 	private String codigoTransacao;
 	private String emailEnviado ;
 	private String emailCliente;
+	private Integer idCliente;
+	private Double valor;
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	public enum PedidoStatus{
@@ -50,6 +52,7 @@ public class Pedido implements Serializable{
 		CONFECCIONANDO("C","Confeccionando"),
 		ENVIADO("E","Enviado"),
 		CANCELADO("L","Cancelado"),
+		EXPIRADO("X","Expirado"),
 		CONCLUIDO("N","Concluído");
 		
 		private String sigla;
@@ -228,5 +231,20 @@ public class Pedido implements Serializable{
 	}
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
+	}
+	
+	@Column(name = "ID_CLIENTE")
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+	@Column(name = "VALOR")
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 }

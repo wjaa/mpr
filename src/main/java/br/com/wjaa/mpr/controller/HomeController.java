@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
        
-
+	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	protected void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");  

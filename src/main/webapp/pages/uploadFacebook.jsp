@@ -15,12 +15,23 @@
    	 	
 	   	 	<div style="float: left; width: 450px" >
 	       		<h4><span class="label label-primary">1° passo.</span>&nbsp;&nbsp;Procure uma foto no <span class="label" style="background-color: #0000A0">Facebook.</span><br><br>
-	       		<small>Faça login na sua conta do facebook clicando no botão abaixo, ou caso já esteja logado e queria trocar de usuário, clique no botão 'Sair da conta'. </small></h4>
+	       		<small>Faça login na sua conta do facebook clicando no botão abaixo, ou caso já esteja logado e queria trocar de usuário, clique no botão 'Sair da conta'.</small></h4>
 			 	<div class="row">
 				 	<div class="col-lg-10">
 					 	<div class="input-group">
-				     		<img src="assets/img/btnfacebook.png" id="logarFace" class="btn"/>
-							<button id="sairFace" class="btn btn-danger" >Sair da conta.</button>
+				     		
+				     		<div class="input-group">
+  								<span class="input-group-addon">Escolha um album:</span>
+				     			<select id="selectAlbuns" class="form-control" onchange="faceretrato.listarPhotoByAlbum(this.value);">
+							  		<option value="0">...</option>
+								</select>
+							</div>
+							<div class="input-group" style="margin-top: 20px;">
+				     			<img src="assets/img/btnfacebook.png" id="logarFace" class="btn"/>
+								<button id="sairFace" class="btn btn-danger" >Sair da conta.</button>
+							</div>
+							
+							
 					  	</div>
 				  	 </div>
 			  	 </div>
@@ -62,8 +73,8 @@
 		  
 			 </div>	
 			 <div style="text-align: center;">
-			 	<button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
-		     	<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
+			 	<button id="btnAnterior" type="button" class="btn btn-success">Página anterior</button>
+		     	<button id="btnProximo" type="button" class="btn btn-success" >Próximo página</button>
 			 </div>
 		
 			<form action="uploadUrl" method="POST">
@@ -115,11 +126,14 @@
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <script src="assets/js/faceretrato.js"></script>
 <wjaa:prEscolhido_js/>
 
 <script>
-	$("#btnAnterior").attr('disabled', true);	
-	$("#btnProximo").attr('disabled', true);
+	$("#btnAnterior").hide();	
+	$("#btnProximo").hide();
 </script>
 </html>

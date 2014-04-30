@@ -15,6 +15,7 @@ import br.com.wjaa.mpr.entity.PedidoBuscaForm;
 public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements PedidoDAO {
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+	private static final SimpleDateFormat sdfConvert = new SimpleDateFormat("yyyy-mm-dd");
 	
 	public PedidoDAOImpl() {
 		super(Pedido.class);
@@ -25,22 +26,30 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 	public List<Pedido> listPedidosByForm(PedidoBuscaForm form) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Pedido p where 1 = 1");
-		
+		boolean semParam = true;
 		if (StringUtils.isNotBlank(form.getDataInicio()) && 
 				StringUtils.isNotBlank(form.getDataFim())){
-			sql.append(" and p.dataPedido between (:dataInicio) and (:dataFim) ");
+			sql.append(" and p.dataPedido between :dataInicio and :dataFim ");
+			semParam = false;
 		}
 		
 		if (StringUtils.isNotBlank(form.getStatus())){
 			sql.append(" and p.status = :status");
+			semParam = false;
 		}
 		
 		if (StringUtils.isNotBlank(form.getEmail())){
 			sql.append(" and p.email = :email");
+			semParam = false;
 		}
 		
 		if (form.getIdPedido() != null){
 			sql.append(" and p.id = :idPedido");
+			semParam = false;
+		}
+		
+		if (semParam){
+			sql.append(" and p.status not in ('N','L','X')");
 		}
 		
 		sql.append(" order by p.id ");
@@ -49,12 +58,15 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		if (StringUtils.isNotBlank(form.getDataInicio()) && 
 				StringUtils.isNotBlank(form.getDataFim())){
 
+			
 			try {
-				q.setDate("dataInicio", sdf.parse(form.getDataInicio()));
-				q.setDate("dataFim", sdf.parse(form.getDataFim()));
+				q.setString("dataInicio", sdfConvert.format(sdf.parse(form.getDataInicio())));
+				q.setString("dataFim", sdfConvert.format(sdf.parse(form.getDataFim())));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
+		
 		}
 		
 		if (StringUtils.isNotBlank(form.getStatus())){

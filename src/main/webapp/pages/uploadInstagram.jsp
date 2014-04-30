@@ -58,8 +58,8 @@
 	    
 	    </div>	
 	    <div style="text-align: center;">
-	    <button id="btnAnterior" type="button" class="btn btn-success">Anterior</button>
-        	<button id="btnProximo" type="button" class="btn btn-success" >Proximo</button>
+	    <button id="btnAnterior" type="button" class="btn btn-success">Pagina anterior</button>
+        	<button id="btnProximo" type="button" class="btn btn-success" >Próxima página</button>
 	    </div>
 	    
 	    <div class="modal fade" id="previewModal">
@@ -67,7 +67,7 @@
 	        <div class="modal-content">
 	          <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	            <h4 class="modal-title">Essa foto que deseja imprimir?</h4>
+	            <h4 class="modal-title">Deseja enquadrar essa foto?</h4>
 	          </div>
 	          <div class="modal-body">
 	            <img id="previewImg"/>
@@ -94,13 +94,16 @@
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <script src="assets/js/instaretrato.js"></script>
 <wjaa:prEscolhido_js/>
 <script>
 
-	$("#btnAnterior").attr('disabled', true);	
-	$("#btnProximo").attr('disabled', true);
-
+	$("#btnAnterior").hide();	
+	$("#btnProximo").hide();
+	$("#inBusca").focus();
    function buscar(){
    		instagram.init($("#inBusca").val());
    }

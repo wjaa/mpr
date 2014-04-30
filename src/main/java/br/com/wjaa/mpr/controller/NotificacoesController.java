@@ -18,9 +18,11 @@ import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.Transaction;
 import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
+import br.com.wjaa.mpr.entity.Cliente;
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
 import br.com.wjaa.mpr.exception.EmailServiceException;
+import br.com.wjaa.mpr.service.ClienteService;
 import br.com.wjaa.mpr.service.PedidoService;
 import br.com.wjaa.mpr.utils.EmailUtils;
 import br.com.wjaa.pagseguro.ws.PagSeguroWS;
@@ -35,6 +37,10 @@ public class NotificacoesController {
 	
 	@Autowired
 	private PagSeguroWS pagSeguroWS;
+	
+	@Autowired
+	private ClienteService clienteService;
+	
 	
 	@RequestMapping(value = "/retornoPagamento", method = RequestMethod.GET )
 	public ModelAndView retornoPagamento(@RequestParam String idTransaction, HttpServletRequest request){
@@ -83,9 +89,15 @@ public class NotificacoesController {
 						p.setEmailCliente(t.getSender().getEmail());
 						p.setCodigoTransacao(t.getCode());
 						//enviando o email para o cliente com os dados do email
-						EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
-						EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
-						EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+						try{
+							EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
+							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
+							p.setIdCliente(c.getId());
+						}catch(Exception ex){
+							ex.printStackTrace();
+						}
 						pedidoService.save(p);
 					}
 				}else if ( TransactionStatus.PAID.equals(t.getStatus()) ){
@@ -101,6 +113,8 @@ public class NotificacoesController {
 							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
 							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
 							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
+							p.setIdCliente(c.getId());
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);
@@ -120,6 +134,8 @@ public class NotificacoesController {
 						try {
 							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
 							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
+							p.setIdCliente(c.getId());
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);

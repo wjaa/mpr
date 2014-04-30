@@ -92,6 +92,9 @@
 <wjaa:rodape/>
 </body>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 <script src="assets/js/flickrretrato.js"></script>
 <wjaa:prEscolhido_js/>
 </html>

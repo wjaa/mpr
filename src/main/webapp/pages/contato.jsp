@@ -34,4 +34,7 @@ title="MeuPortaRetrato.com - Porta retratos para instagram"/>
 </body>
 <wjaa:rodape/>
 <wjaa:botton/>
+<c:if test="${requestScope.ligaGoogleAnalytics}">
+	<wjaa:googleAnalytics/>
+</c:if>
 </html>	

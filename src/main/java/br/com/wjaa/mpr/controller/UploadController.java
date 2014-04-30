@@ -5,12 +5,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -21,12 +21,18 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.imgscalr.Scalr;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.context.ContextLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.wjaa.mpr.controller.helper.CarrinhoHelper;
 import br.com.wjaa.mpr.entity.Pedido;
@@ -36,30 +42,28 @@ import br.com.wjaa.mpr.service.PedidoService;
 /**
  * Servlet implementation class UploadController
  */
+@Controller
 public class UploadController extends HttpServlet {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4338622235712629552L;
 	
-	private File fileUploadPath;
 	private static final Log LOG = LogFactory.getLog(UploadController.class);
+	
+	@Autowired
 	private PedidoService pedidoService;
 	
+	@Autowired
+	private AdminService adminService;
 	
-    @Override
-    public void init(ServletConfig config) {
-    	AdminService adminService = (AdminService) ContextLoader.getCurrentWebApplicationContext().getBean("adminService");
-    	pedidoService = (PedidoService) ContextLoader.getCurrentWebApplicationContext().getBean("pedidoService");
-        fileUploadPath = new File(adminService.getConfig().getPathUpload());
-    }
-        
     /**
         * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
         * 
         */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @RequestMapping(value = "/uploadFoto", method = RequestMethod.GET)
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	File fileUploadPath = new File(adminService.getConfig().getPathUpload());
         if (request.getParameter("getfile") != null 
                 && !request.getParameter("getfile").isEmpty()) {
             File file = new File(fileUploadPath,
@@ -129,44 +133,37 @@ public class UploadController extends HttpServlet {
         * 
         */
     @SuppressWarnings("unchecked")
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    @RequestMapping(value = "/uploadFoto", method = RequestMethod.POST)
+    public void doPost(HttpServletRequest request, HttpServletResponse response, @ModelAttribute(value = "files") MultipartFile files) throws ServletException, IOException {
+    	File fileUploadPath = new File(adminService.getConfig().getPathUpload());
     	LOG.info("Iniciando o upload...");
         if (!ServletFileUpload.isMultipartContent(request)) {
         	LOG.error("request nao é multipart");
             throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
         }
         Boolean isAlterarFoto = new Boolean(request.getParameter("isAlterarFoto"));
-        ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
         PrintWriter writer = response.getWriter();
         response.setContentType("application/json");
         JSONArray json = new JSONArray();
         try {
-            List<FileItem> items = uploadHandler.parseRequest(request);
-            for (FileItem item : items) {
-                if (!item.isFormField()) {
-                		Pedido pedido = CarrinhoHelper.createUpdatePedido(fileUploadPath, item.getName(), request, pedidoService);
-                		File file = new File(pedido.getPathImage());
-                        item.write(file);
-                        JSONObject jsono = new JSONObject();
-                        jsono.put("name", file.getName());
-                        jsono.put("size", item.getSize());
-                        //String param = java.net.URLEncoder.encode("uploadFoto?getfile=" + file.getName(), "ISO-8859-1");
-                        if (!isAlterarFoto){
-                        	jsono.put("url","listarPr?listPr=NORMAL");
-                        }else{
-                        	jsono.put("url","preview");
-                        }
-                        jsono.put("thumbnail_url", "uploadFoto?getthumb=" + item.getName());
-                        jsono.put("delete_url", "uploadFoto?delfile=" + item.getName());
-                        jsono.put("delete_type", "GET");
-                        json.put(jsono);
-                        LOG.info("Upload concluido com sucesso.");
-                }
+    		Pedido pedido = CarrinhoHelper.createUpdatePedido(fileUploadPath, files.getOriginalFilename(), request, pedidoService);
+    		File file = new File(pedido.getPathImage());
+            IOUtils.write(files.getBytes(), new FileOutputStream(file));
+            JSONObject jsono = new JSONObject();
+            jsono.put("name", file.getName());
+            jsono.put("size", files.getSize());
+            //String param = java.net.URLEncoder.encode("uploadFoto?getfile=" + file.getName(), "ISO-8859-1");
+            if (!isAlterarFoto){
+            	jsono.put("url","listarPr?listPr=NORMAL");
+            }else{
+            	jsono.put("url","preview");
             }
-        } catch (FileUploadException e) {
-        	LOG.error("Erro no upload",e);
-        	throw new RuntimeException(e);
+            jsono.put("thumbnail_url", "uploadFoto?getthumb=" + file.getName());
+            jsono.put("delete_url", "uploadFoto?delfile=" + file.getName());
+            jsono.put("delete_type", "GET");
+            json.put(jsono);
+            LOG.info("Upload concluido com sucesso.");
         } catch (Exception e) {
         	LOG.error("Erro no upload",e);
                 throw new RuntimeException(e);
