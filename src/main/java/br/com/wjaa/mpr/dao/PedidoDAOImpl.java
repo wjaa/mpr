@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.wjaa.mpr.entity.Pedido;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
+import br.com.wjaa.mpr.entity.PedidoItem;
 
 @Repository
 public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements PedidoDAO {
@@ -112,6 +113,21 @@ public class PedidoDAOImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 		return (Pedido) q.uniqueResult();
 		
 
+	}
+
+	@Override
+	public PedidoItem saveItem(PedidoItem item) {
+		this.getHibernateTemplate().saveOrUpdate(item);
+		this.getHibernateTemplate().flush();
+		return item;
+	}
+
+	@Override
+	public PedidoItem getItemById(Integer id) {
+		Query q = getSession()
+				.createQuery("From PedidoItem pi where pi.id = :id");
+		q.setInteger("id", id);
+		return (PedidoItem) q.uniqueResult();
 	}
 
 }

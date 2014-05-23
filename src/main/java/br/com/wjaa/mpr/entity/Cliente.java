@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 @Entity(name = "Cliente")
 @Table(name = "CLIENTE")
-public class Cliente implements Serializable {
+public class Cliente implements Serializable , Comparable<Cliente>{
 	
 	/**
 	 * 
@@ -64,6 +64,14 @@ public class Cliente implements Serializable {
 	@Transient
 	public String getDataCadastroStr(){
 		return dataCadastro != null ? sdf.format(this.dataCadastro) : null;
+	}
+	@Override
+	public int compareTo(Cliente o) {
+		int comp = -1;
+		if (o.getId() != null && this.getId() != null){
+			comp = this.getId().compareTo(o.getId());
+		}
+		return comp;
 	}
 	
 

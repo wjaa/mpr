@@ -18,6 +18,7 @@ import br.com.wjaa.mpr.entity.Pedido.EmailEnviadoStatus;
 import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.entity.Configuration;
 import br.com.wjaa.mpr.entity.PedidoBuscaForm;
+import br.com.wjaa.mpr.entity.PedidoItem;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.utils.EmailUtils;
@@ -60,42 +61,58 @@ public class PedidoServiceImpl extends GenericServiceImpl<Pedido, Integer> imple
 		Pedido pedido = new Pedido();
 		pedido.setDataPedido(new Date());
 		String extensao = fileName.substring(fileName.lastIndexOf("."));
-		pedido.setPathImage(path + File.separator + new Date().getTime() + extensao);
+		PedidoItem item = pedido.createItem();
+		item.setPathImage(path + File.separator + new Date().getTime() + extensao);
 		pedido.setStatusEnum(PedidoStatus.INICIADO);
 		pedido.setEmailEnviadoEnum(EmailEnviadoStatus.NAO_ENVIADO);
 		return pedido;
 	}
 	
-	public Pedido alterarImagemPedido(Pedido pedido, String path, String fileName){
+	public Pedido alterarImagemItemSelecionado(Pedido pedido, String path, String fileName){
+		PedidoItem item = pedido.getItemSelecionado();
 		String extensao = fileName.substring(fileName.lastIndexOf("."));
-		pedido.setPathImage(path + File.separator + new Date().getTime() + extensao);
+		item.setPathImage(path + File.separator + new Date().getTime() + extensao);
 		return pedido;
 	}
 	
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Pedido alterar(Pedido p, Integer idPr) {
-		if (p.getId() == null){
-			p.setIdPortaRetrato(idPr);
-			p = this.save(p);
+	public Pedido alterarItemSelecionado(Pedido pedido, Integer idPr) {
+		PortaRetrato pr = this.portaRetratoService.get(idPr);
+		PedidoItem item = pedido.getItemSelecionado();
+
+		//eh um pedido novo?
+		if ( pedido.getId() == null ){
+			pedido.limparItens();
+			pedido = this.saveOrUpdate(pedido);
+			pedido.addItem(item);
 		}
-		String path = p.getPathImage();
+		//TODO SE FOR UM NOVO PEDIDO PRECISA SALVAR O PEDIDO PRIMEIRO DEPOIS OS ITENS.
+		//AI SE FOR UM PEDIDO AI SO SALVA O ITEM
+		if (item.getId() == null){
+			item.setIdPortaRetrato(idPr);
+			item.setValor(pr.getPreco());
+			item.setPedido(pedido);
+			item = this.pedidoDAO.saveItem(item);
+		}
+		
+		String path = item.getPathImage();
 		String ext = path.substring(path.lastIndexOf("."));
 		path = path.substring(0,path.lastIndexOf("/"));
-		Pedido pedido = this.get(p.getId());
-		pedido.setIdPortaRetrato(idPr);
-		PortaRetrato pr = this.portaRetratoService.get(idPr);
-		pedido.setPathImage(path + File.separator + pedido.getId() + "_" + pr.getPrCode() + ext);
+		item.setIdPortaRetrato(idPr);
+		
+		item.setPathImage(path + File.separator + item.getId() + "_" + pr.getPrCode() + ext);
 		//verificando se existe desconto
 		Configuration config = adminService.getConfig();
 		if ( config.getLigaDesconto() ){
-			pedido.setValor(pr.getPreco() - (pr.getPreco() * config.getPorcentDesconto() / 100));
+			item.setValor(pr.getPreco() - (pr.getPreco() * config.getPorcentDesconto() / 100));
 		}else{
-			pedido.setValor(pr.getPreco());
+			item.setValor(pr.getPreco());
 		}
+		pedido = this.saveOrUpdate(pedido);
 		
-		pedido = this.pedidoDAO.saveOrUpdate(pedido);
+		pedido.setItemSelecionado(item);
 		return pedido;
 	}
 

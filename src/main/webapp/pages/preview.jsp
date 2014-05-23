@@ -72,7 +72,7 @@
 					    </c:choose>
 					    <div class="caption" style="${styleAltura}">
 			      			<h6>Foto + ${sessionScope.carrinho.portaRetrato.nome}</h6>
-			     			<h4 style="margin-top: 20px"><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.pedido.valor}</f:formatNumber> <span style="font-size: small;">à vista</span></span></h4>
+			     			<h4 style="margin-top: 20px"><span class="label label-success"><span style="font-size: small;">R$&nbsp;</span><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.pedido.itemSelecionado.valor}</f:formatNumber> <span style="font-size: small;">à vista</span></span></h4>
 	     				 	<c:if test="${mostraParcela}">
 	     				 		<h6 style="margin-top: 10px"><span class="info"><span style="font-size: small;">Ou em ${numParcela}x R$</span>
 	     				 			<span style="font-size: 16px"><f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.portaRetrato.preco / numParcela}</f:formatNumber></span> <br>sem juros.
@@ -102,7 +102,7 @@
 				   				</li>
 								  <li class="list-group-item">
 				   				<span class="badge">2</span>
-				   				Levando em consideração a entrega de nossos fornecedores,  tempo de confecção e tratamento de imagem e impressão,  a entrega pode demorar até <b>5 dias</b> úteis.  
+				   				<b>Levando em consideração a entrega de nossos fornecedores,  tempo de confecção e tratamento de imagem e impressão,  a entrega pode demorar até 5 dias úteis.</b>  
 				   				</li>
 				   				
 				   				

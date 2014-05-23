@@ -48,6 +48,15 @@
   			  		<a href="sobre" style="padding:7px 7px;  margin-top: 10px;"><span class="btn btn-primary" style="font-size:12px;">Sobre</span></a>
   			  </li>
   			  
+  				<li>
+    				<a href="pagamento" style="padding:7px 7px;  margin-top: 15px;"><span class="badge pull-right">${sessionScope.carrinho.pedido.totalItens}</span><span style="font-weight: bold;">Carrinho</span></a>
+  				</li>
+  
+  			  <!--  <li class="dropdown">
+  			  	
+  			  		<a href="carrinho" style="padding:7px 7px;  margin-top: 10px;"><span class="btn btn-primary" style="font-size:12px;">Car<span class="badge pull-right">5</span></span></a>
+  			  </li>
+  			  -->
 	     </ul>
 	</nav>
 	

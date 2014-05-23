@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.com.wjaa.mpr.entity.Carrinho;
 import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoItem;
 import br.com.wjaa.mpr.entity.Pedido.PedidoStatus;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.service.PedidoService;
@@ -36,9 +37,9 @@ public class CarrinhoHelper {
 			//se o pedido for iniciado altera apenas a imagem
 			if (pedido.getStatusEnum().equals(PedidoStatus.INICIADO)){
 				if (carrinho.getPortaRetrato() != null){
-					pedido = pedidoService.alterar(pedido, carrinho.getPortaRetrato().getId());
+					pedido = pedidoService.alterarItemSelecionado(pedido, carrinho.getPortaRetrato().getId());
 				}else{
-					pedido = pedidoService.alterarImagemPedido(pedido, fileUploadPath.getPath(), fileName);
+					pedido = pedidoService.alterarImagemItemSelecionado(pedido, fileUploadPath.getPath(), fileName);
 				}
 			}else{
 				//criando um novo pedido, se o status for diferente de iniciado quer dizer que o ultimo pedido foi concluido.
@@ -46,7 +47,8 @@ public class CarrinhoHelper {
 			}
 		}
 		carrinho.setPedido(pedido);
-		carrinho.setImgUrl("uploadFoto?getfile=" + pedido.getImageName());
+		PedidoItem item = pedido.getItemSelecionado();
+		carrinho.setImgUrl("uploadFoto?getfile=" + item.getImageName());
         return pedido;
 	}
 	
@@ -54,9 +56,10 @@ public class CarrinhoHelper {
 	public static void alterarPortaRetrato(Carrinho carrinho, PortaRetrato pr, PedidoService pedidoService){
 		carrinho.setPortaRetrato(pr);
 		Pedido pedido = carrinho.getPedido();
-		File f = new File(pedido.getPathImage());
-		pedido = pedidoService.alterar(pedido, pr.getId());
-		File fDest = new File(pedido.getPathImage());
+		PedidoItem item = pedido.getItemSelecionado();
+		File f = new File(item.getPathImage());
+		pedido = pedidoService.alterarItemSelecionado(pedido, pr.getId());
+		File fDest = new File(item.getPathImage());
 		f.renameTo(fDest);
 		carrinho.setPedido(pedido);
 		carrinho.setImgUrl("uploadFoto?getfile=" + fDest.getName());

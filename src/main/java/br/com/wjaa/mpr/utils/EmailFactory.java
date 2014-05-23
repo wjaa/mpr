@@ -72,6 +72,7 @@ public class EmailFactory {
 			totalGeral = totalGeral.add(shipping);
 		}
 		
+		//TODO AQUI PRECISA ALTERAR O TEMPLATE DO EMAIL
 		emailCancelamento = StringUtils.replaceEach(emailCancelamento, 
 				new String[]{
 				"{NOME_CLIENTE}",
@@ -84,7 +85,8 @@ public class EmailFactory {
 				},
 				new String[]{
 				t.getSender().getName(), 
-				p.getPortaRetrato().getNome(),
+				"nome do porta retrato.",
+				//p.getPortaRetrato().getNome(),
 				"1", 
 				NumberUtils.formatDecimal(item.getAmount()), 
 				NumberUtils.formatDecimal(item.getAmount()),
@@ -115,6 +117,7 @@ public class EmailFactory {
 		}
 		
 		try {
+			//TODO AQUI PRECISA TROCAR O TEMPLATE DO EMAIL
 			emailCancelamento = StringUtils.replaceEach(emailCancelamento, 
 					new String[]{
 					"{NOME_CLIENTE}",
@@ -128,8 +131,9 @@ public class EmailFactory {
 					"{HASH_PEDIDO}"
 					},
 					new String[]{
-					t.getSender().getName(), 
-					p.getPortaRetrato().getNome(),
+					t.getSender().getName(),
+					"NOME DO PORTA RETRATO",
+					//p.getPortaRetrato().getNome(),
 					"1", 
 					NumberUtils.formatDecimal(item.getAmount()), 
 					NumberUtils.formatDecimal(item.getAmount()),
@@ -162,8 +166,8 @@ public class EmailFactory {
 		emailParam.setBody(sb.toString());
 		emailParam.setEmail(email);
 		emailParam.setTitle("Pedido com status alterado!");
-		emailParam.setName(NOME_EMAIL_PEDIDO);
-		emailParam.setFrom(DE_EMAIL_PEDIDO);
+		emailParam.setName(NOME_EMAIL_NOTIFICACAO);
+		emailParam.setFrom(DE_EMAIL_NOTIFICACAO);
 		LOG.info("Parametro de email de notificacao montando com sucesso");
 		return emailParam;
 	}

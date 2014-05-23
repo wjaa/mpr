@@ -1,10 +1,11 @@
 package br.com.wjaa.mpr.entity;
 
-import java.io.File;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.apache.commons.collections.CollectionUtils;
+
+import br.com.wjaa.mpr.utils.DateUtils;
+
 
 /**
  * 
@@ -32,17 +38,15 @@ public class Pedido implements Serializable{
 	
 	
 	private Integer id;
-	private Integer idPortaRetrato;
 	private Date dataPedido;
-	private String pathImage;
 	private String status;
-	private PortaRetrato portaRetrato;
 	private String codigoTransacao;
 	private String emailEnviado ;
 	private String emailCliente;
 	private Integer idCliente;
-	private Double valor;
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private List<PedidoItem> itens;
+	private PedidoItem itemSelecionado;
+	
 	
 	public enum PedidoStatus{
 		
@@ -137,24 +141,6 @@ public class Pedido implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "ID_PORTA_RETRATO")
-	public Integer getIdPortaRetrato() {
-		return idPortaRetrato;
-	}
-	public void setIdPortaRetrato(Integer idPortaRetrato) {
-		this.idPortaRetrato = idPortaRetrato;
-	}
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PORTA_RETRATO", updatable= false , insertable = false)
-	public PortaRetrato getPortaRetrato() {
-		return this.portaRetrato;
-	}
-	
-	public void setPortaRetrato(PortaRetrato portaRetrato) {
-		this.portaRetrato = portaRetrato;
-	}
-	
 	@Column(name = "DATA_PEDIDO")
 	public Date getDataPedido() {
 		return dataPedido;
@@ -165,15 +151,7 @@ public class Pedido implements Serializable{
 	
 	@Transient
 	public String getDataPedidoStr() {
-		return dataPedido != null ? sdf.format(this.dataPedido) : null;
-	}
-	
-	@Column(name = "PATH_IMAGE", length = 100)
-	public String getPathImage() {
-		return pathImage;
-	}
-	public void setPathImage(String pathImage) {
-		this.pathImage = pathImage;
+		return dataPedido != null ? DateUtils.formatddMMyyyyHHmmss(this.dataPedido) : null;
 	}
 	
 	@Column(name = "STATUS", length = 1)
@@ -190,10 +168,7 @@ public class Pedido implements Serializable{
 	public void setStatusEnum(PedidoStatus status) {
 		this.status = status.getSigla();
 	}
-	@Transient
-	public String getImageName(){
-		return new File(this.pathImage).getName();
-	}
+	
 	
 	@Column(name = "CODIGO_TRANSACAO", length = 50)
 	public String getCodigoTransacao() {
@@ -240,11 +215,77 @@ public class Pedido implements Serializable{
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
-	@Column(name = "VALOR")
-	public Double getValor() {
-		return valor;
+	
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public List<PedidoItem> getItens() {
+		return itens;
 	}
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setItens(List<PedidoItem> itens) {
+		this.itens = itens;
 	}
+	
+	@Transient
+	public Double getValorTotal(){
+		double total = 0.0;
+		if (CollectionUtils.isNotEmpty(this.itens)){
+			for (PedidoItem item : this.itens) {
+				total += item.getValor();
+			}
+		}
+		
+		return total;
+	}
+	
+	@Transient
+	public PedidoItem getItemById(Integer idItem) {
+		if (CollectionUtils.isNotEmpty(this.itens)){
+			for (PedidoItem item : this.itens) {
+				if (item.getId().equals(idItem)){
+					return item;
+				}
+			}
+		}
+		return null;
+	}
+	@Transient
+	public PedidoItem getItemSelecionado() {
+		return itemSelecionado;
+	}
+	public void setItemSelecionado(PedidoItem itemSelecionado) {
+		for (PedidoItem item : this.itens) {
+			if (item.getId().equals(itemSelecionado.getId())){
+				this.itemSelecionado = item;
+			}
+		}
+		
+	}
+	
+	public PedidoItem createItem() {
+		if (this.itens == null){
+			this.itens = new ArrayList<PedidoItem>();
+		}
+		PedidoItem item = new PedidoItem();
+		this.itens.add(item);
+		this.itemSelecionado = item;
+		return item;
+	}
+	public void limparItens() {
+		this.itens = new ArrayList<PedidoItem>();
+		
+	}
+	public void addItem(PedidoItem item) {
+		this.itens.add(item);
+		this.itemSelecionado = item;
+		
+	}
+	@Transient
+	public Integer getTotalItens(){
+		if (this.itens != null){
+			return this.itens.size();
+		}
+		return 0;
+	}
+	
+	
+	
 }

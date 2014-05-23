@@ -37,6 +37,7 @@ import br.com.uol.pagseguro.service.NotificationService;
 import br.com.uol.pagseguro.service.TransactionSearchService;
 import br.com.wjaa.mpr.entity.Cupom;
 import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoItem;
 import br.com.wjaa.mpr.entity.PortaRetrato;
 
 @Service
@@ -56,20 +57,21 @@ public class PagSeguroWSImpl implements PagSeguroWS{
 
         // Sets the currency
         paymentRequest.setCurrency(Currency.BRL);
-
-        PortaRetrato pr = pedido.getPortaRetrato();
-        BigDecimal preco = createBigDecimal( (pedido.getValor() - this.getDesconto(pedido.getValor(), cupom)));
-        // Add an item for this payment request
-        paymentRequest.addItem(pedido.getId().toString(), 
-        		pr.getNome(), new Integer(1), preco, new Long(1000),
-                null);
+        for (PedidoItem item : pedido.getItens()){
+        	PortaRetrato pr = item.getPortaRetrato();
+        	BigDecimal preco = createBigDecimal( (item.getValor() - this.getDesconto(item.getValor(), cupom)));
+        	// Add an item for this payment request
+        	paymentRequest.addItem(item.getId().toString(), 
+        			pr.getNome(), new Integer(1), preco, new Long(1000),
+        			null);
+        }
 
         // Add another item for this payment request
         //paymentRequest.addItem("0002", "Notebook Rosa", new Integer(2), new BigDecimal("2560.00"), new Long(750), null);
 
         // Sets a reference code for this payment request, it's useful to
         // identify this payment in future notifications.
-        paymentRequest.setReference(pr.getPrCode());
+        paymentRequest.setReference("#" + pedido.getId());
 
         // Sets shipping information for this payment request
         //paymentRequest.setShippingType(ShippingType.SEDEX);

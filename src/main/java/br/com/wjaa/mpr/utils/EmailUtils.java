@@ -1,12 +1,21 @@
 package br.com.wjaa.mpr.utils;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
+import br.com.uol.pagseguro.domain.Item;
+import br.com.uol.pagseguro.domain.Sender;
+import br.com.uol.pagseguro.domain.Shipping;
 import br.com.uol.pagseguro.domain.Transaction;
+import br.com.uol.pagseguro.domain.TransactionStatus;
 import br.com.wjaa.mpr.entity.Pedido;
+import br.com.wjaa.mpr.entity.PedidoItem;
+import br.com.wjaa.mpr.entity.PortaRetrato;
 import br.com.wjaa.mpr.exception.EmailServiceException;
 import br.com.wjaa.mpr.vo.EmailParamVO;
 import br.com.wjaa.mpr.vo.EmailServerConfigVO;
@@ -73,7 +82,7 @@ public class EmailUtils {
 	}
 	
 	public static void main(String[] args) throws EmailServiceException {
-		/*Pedido p = new Pedido();
+	/*	Pedido p = new Pedido();
 		p.setId(25);
 		PortaRetrato por = new PortaRetrato();
 		por.setNome("Porta retrato liso azul marinho");
@@ -87,29 +96,33 @@ public class EmailUtils {
 		t.getShipping().setCost(new BigDecimal(12.5));
 		t.getSender().setName("Wagner Jeronimo");
 		try {
-			EmailUtils.sendEmailCancelamento(p,"wag182@gmail.com", t);
+			//EmailUtils.sendEmailCancelamento(p,"wag182@gmail.com", t);
 			EmailUtils.sendEmailPagamento(p, "wag182@gmail.com", t);
 		} catch (EmailServiceException e) {
 			
 		}*/
 		
-		/*Pedido p = new Pedido();
-		p.setId(25);
-		PortaRetrato por = new PortaRetrato();
-		por.setNome("Porta retrato liso azul marinho");
-		por.setPreco(25.50);
-		p.setPortaRetrato(por);
-		Transaction t=  new Transaction();
-		t.setCode("fdasfasdfasdfasdfasdfasd");
-		t.setStatus(TransactionStatus.IN_DISPUTE);
+		Pedido p1 = new Pedido();
+		p1.setId(25);
+		PortaRetrato por1 = new PortaRetrato();
+		por1.setNome("Porta retrato liso azul marinho");
+		por1.setPreco(25.50);
+		PedidoItem pi = p1.createItem();
+		PedidoItem pi2 = p1.createItem();
+		pi.setPortaRetrato(por1);
+		pi2.setPortaRetrato(por1);
+		
+		Transaction t1 =  new Transaction();
+		t1.setCode("fdasfasdfasdfasdfasdfasd");
+		t1.setStatus(TransactionStatus.IN_DISPUTE);
 		try {
-			EmailUtils.sendEmailNotificacao(p,"wag182@gmail.com", t);
+			EmailUtils.sendEmailNotificacao(p1,"feehpinazo@gmail.com", t1);
 			
 		} catch (EmailServiceException e) {
-			
-		}*/
+			e.printStackTrace();
+		}
 		
-		EmailUtils.sendEmailNotificacaoCadastro("feehpinazo@gmail.com", "HHKKdf456");
+		//EmailUtils.sendEmailNotificacaoCadastro("feehpinazo@gmail.com", "HHKKdf456");
 	}
 
 	public static void sendEmailNotificacao(Pedido p, String email,

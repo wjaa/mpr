@@ -148,7 +148,7 @@ public class UploadController extends HttpServlet {
         JSONArray json = new JSONArray();
         try {
     		Pedido pedido = CarrinhoHelper.createUpdatePedido(fileUploadPath, files.getOriginalFilename(), request, pedidoService);
-    		File file = new File(pedido.getPathImage());
+    		File file = new File(pedido.getItemSelecionado().getPathImage());
             IOUtils.write(files.getBytes(), new FileOutputStream(file));
             JSONObject jsono = new JSONObject();
             jsono.put("name", file.getName());

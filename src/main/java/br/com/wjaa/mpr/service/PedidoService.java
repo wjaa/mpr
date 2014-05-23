@@ -12,11 +12,11 @@ public interface PedidoService extends GenericService<Pedido, Integer> {
 	
 	Pedido saveOrUpdate(Pedido pedido);
 
-	Pedido alterar(Pedido p, Integer idPr);
+	Pedido alterarItemSelecionado(Pedido pedido, Integer idPr) ;
 
 	Pedido iniciarPedido(String path, String fileName); 
 	
-	Pedido alterarImagemPedido(Pedido pedido, String path, String fileName);
+	Pedido alterarImagemItemSelecionado(Pedido pedido, String path, String fileName);
 	
 	Pedido alterarStatus(Integer id, PedidoStatus status);
 

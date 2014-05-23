@@ -26,6 +26,7 @@ public class Carrinho implements Serializable {
 	private Cupom cupom;
 	
 	
+	
 	public String getImgPath() {
 		return imgPath;
 	}
@@ -52,11 +53,14 @@ public class Carrinho implements Serializable {
 	}
 	
 	public Boolean getPaisagem(){
+		PedidoItem item = pedido.getItemSelecionado();
 		try {
-			BufferedImage bi = ImageIO.read(new File(pedido.getPathImage()));
-			if (bi != null){   
-				return bi.getWidth() >  bi.getHeight();  
-			}  
+			if (item != null){
+				BufferedImage bi = ImageIO.read(new File(item.getPathImage()));
+				if (bi != null){   
+					return bi.getWidth() >  bi.getHeight();  
+				}  
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}   
@@ -67,14 +71,14 @@ public class Carrinho implements Serializable {
 	
 	public Double getValor(){
 		if (this.cupom != null ){
-			return this.pedido.getValor() - this.getDesconto(); 
+			return this.pedido.getValorTotal() - this.getDesconto(); 
 		}
-		return this.pedido.getValor();
+		return this.pedido.getValorTotal();
 	}
 	
 	public Double getDesconto(){
 		if (this.cupom != null ){
-			return this.pedido.getValor() * this.cupom.getPorcentagem() / 100; 
+			return this.pedido.getValorTotal() * this.cupom.getPorcentagem() / 100; 
 		}
 		return 0.0;
 	}

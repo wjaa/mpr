@@ -35,11 +35,13 @@
 		  	</tr>
 		  	</thead>
 		  	<tbody>
+		  		<c:forEach var="item" items="${sessionScope.carrinho.pedido.itens}">
 		  		<tr>
 		  			<td>#${sessionScope.carrinho.pedido.id}</td>
-		  			<td>FOTO + ${sessionScope.carrinho.portaRetrato.nome}</td>
-		  			<td>R$ <f:formatNumber pattern="#,##0.00">${sessionScope.carrinho.pedido.valor}</f:formatNumber></td>
+		  			<td>FOTO + ${item.portaRetrato.nome}</td>
+		  			<td>R$ <f:formatNumber pattern="#,##0.00">${item.valor}</f:formatNumber></td>
 		  		</tr>
+		  		</c:forEach>
 		  		<tr >
 		  			<td colspan="2" align="right">
 			  			<form action="adicionarCupom" method="post">

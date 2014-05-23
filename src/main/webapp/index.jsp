@@ -102,8 +102,8 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 	          </div>
 	          <div class="modal-body">
 	          
-	          	<center><h4><span class="textBody">Todo o site com <font size="7em">20%</font> de desconto.</span></h4>
-	             <h4>Cadastre seu email e ganhe um cupom com <font size="7em"> + 10%</font> de desconto.</h4></center>
+	          	<center>
+	             <h4><span class="textBody">Cadastre seu email e ganhe um cupom com <font size="7em" color="blue"> 15%</font> de desconto.</span></h4></center>
 	             	<form id="formEmail" onsubmit="return false;">
 	             	<h4><span id="msgEmail" class="label label-danger" style="display: none;">Email inválido!</span></h4>
 	             	<div class="input-group input-group-lg" style="">
@@ -118,7 +118,7 @@ title="MeuPortaRetrato.com - Monte um porta retrato para suas fotos do instagram
 					<div style="text-align: center; ">
 	             		<h4><img src="assets/img/favicon.png" height="50px" style="margin:5px"/>Você receberá o cupom em seu email. <br></h4>
 	             		<br>
-	             		<h5>Promoção válida até o dia 05/05/2014.</h5>
+	             		<h5>Promoção por tempo limitado, garanta já o seu.</h5>
 	             		<h6>A equipe meuportaretrato.com agradece.</h6>
 	             	</div>
 	          </div>

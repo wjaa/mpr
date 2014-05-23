@@ -39,7 +39,8 @@ public class PagamentoController {
 		
 		Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
 		try {
-			URL url = pagSeguroWS.criarPagamento(carrinho.getPedido(), carrinho.getCupom());
+			Pedido pedido = pedidoService.get(carrinho.getPedido().getId());
+			URL url = pagSeguroWS.criarPagamento(pedido, carrinho.getCupom());
 			mav.addObject("redirect", url.toString());
 			
 		} catch (PagSeguroServiceException e) {

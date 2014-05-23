@@ -90,15 +90,20 @@ public class NotificacoesController {
 						p.setCodigoTransacao(t.getCode());
 						//enviando o email para o cliente com os dados do email
 						try{
-							EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
-							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
-							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
 							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
 							p.setIdCliente(c.getId());
+							EmailUtils.sendEmailCancelamento(p, t.getSender().getEmail(), t);
 						}catch(Exception ex){
 							ex.printStackTrace();
 						}
 						pedidoService.save(p);
+						
+						try{
+							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+						}catch(EmailServiceException e){
+							LOG.error("Erro ao enviar um email de notificacao", e);
+						}
 					}
 				}else if ( TransactionStatus.PAID.equals(t.getStatus()) ){
 					for (Object o : t.getItems() ){
@@ -110,16 +115,22 @@ public class NotificacoesController {
 						p.setEmailCliente(t.getSender().getEmail());
 						//enviando o email para o cliente com os dados do email
 						try {
-							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
-							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
-							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
 							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
 							p.setIdCliente(c.getId());
+							EmailUtils.sendEmailPagamento(p, t.getSender().getEmail(), t);
 						} catch (EmailServiceException e) {
 							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
 							LOG.error("Erro ao enviar email", e);
 						}
 						pedidoService.save(p);
+						
+						try{
+							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
+							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
+						}catch(EmailServiceException e){
+							LOG.error("Erro ao enviar um email de notificacao", e);
+						}
+						
 					}
 				}else{
 					LOG.info("retorno do pagseguro Transaction[" + t.getCode() + "] " + t.getStatus());
@@ -131,16 +142,15 @@ public class NotificacoesController {
 						p.setCodigoTransacao(t.getCode());
 						p.setEmailCliente(t.getSender().getEmail());
 						//enviando o email para o cliente com os dados do email
-						try {
+						Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
+						p.setIdCliente(c.getId());
+						pedidoService.save(p);
+						try{
 							EmailUtils.sendEmailNotificacao(p, "feehpinazo@gmail.com", t);
 							EmailUtils.sendEmailNotificacao(p, "wag182@gmail.com", t);
-							Cliente c = this.clienteService.criarClienteByEmail(t.getSender().getEmail());
-							p.setIdCliente(c.getId());
-						} catch (EmailServiceException e) {
-							p.setEmailEnviadoEnum(EmailEnviadoStatus.ERRO);
-							LOG.error("Erro ao enviar email", e);
+						}catch(EmailServiceException e){
+							LOG.error("Erro ao enviar um email de notificacao", e);
 						}
-						pedidoService.save(p);
 					}
 					
 				}

@@ -56,7 +56,7 @@ public class UploadUrlController {
 			String fileName = wget.getFile();
 			Pedido pedido = CarrinhoHelper.createUpdatePedido(this.fileUploadPath, fileName, request, this.pedidoService);
     		
-            File file = new File(pedido.getPathImage());
+            File file = new File(pedido.getItemSelecionado().getPathImage());
 			//... e de escrita.  
 			FileOutputStream fos = new FileOutputStream(file);  
 			

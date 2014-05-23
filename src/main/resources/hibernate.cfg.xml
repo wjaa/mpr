@@ -12,6 +12,7 @@
 		 <mapping class="br.com.wjaa.mpr.entity.PortaRetrato" />
 		 <mapping class="br.com.wjaa.mpr.entity.Configuration" />
 		 <mapping class="br.com.wjaa.mpr.entity.Pedido" />
+		 <mapping class="br.com.wjaa.mpr.entity.PedidoItem" />
 		 <mapping class="br.com.wjaa.mpr.entity.Cliente" />
 		 <mapping class="br.com.wjaa.mpr.entity.Cupom" />
 	</session-factory>
